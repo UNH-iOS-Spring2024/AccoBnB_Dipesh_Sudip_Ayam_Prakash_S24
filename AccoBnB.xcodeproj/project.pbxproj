@@ -15,6 +15,7 @@
 		13BA6B602B8965D800D816E9 /* CustomButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B5F2B8965D800D816E9 /* CustomButtonView.swift */; };
 		13BA6B622B89682C00D816E9 /* BorderlessIconButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B612B89682C00D816E9 /* BorderlessIconButtonView.swift */; };
 		13BA6B642B8968E800D816E9 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B632B8968E800D816E9 /* RegisterView.swift */; };
+		13BA6B662B89693B00D816E9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B652B89693B00D816E9 /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		13BA6B5F2B8965D800D816E9 /* CustomButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonView.swift; sourceTree = "<group>"; };
 		13BA6B612B89682C00D816E9 /* BorderlessIconButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderlessIconButtonView.swift; sourceTree = "<group>"; };
 		13BA6B632B8968E800D816E9 /* RegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		13BA6B652B89693B00D816E9 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 		13BA6B5B2B89659B00D816E9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				13BA6B652B89693B00D816E9 /* LoginView.swift */,
 				13BA6B632B8968E800D816E9 /* RegisterView.swift */,
 			);
 			path = Views;
@@ -166,6 +169,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13BA6B4F2B8963F900D816E9 /* ContentView.swift in Sources */,
+				13BA6B662B89693B00D816E9 /* LoginView.swift in Sources */,
 				13BA6B622B89682C00D816E9 /* BorderlessIconButtonView.swift in Sources */,
 				13BA6B4D2B8963F900D816E9 /* AccoBnBApp.swift in Sources */,
 				13BA6B642B8968E800D816E9 /* RegisterView.swift in Sources */,
