@@ -1,6 +1,6 @@
 //
 //  ProfileView.swift
-//  TestAccoBNB
+//  AccoBNB
 //
 //  Created by Dipesh Shrestha on 2/23/24.
 //
