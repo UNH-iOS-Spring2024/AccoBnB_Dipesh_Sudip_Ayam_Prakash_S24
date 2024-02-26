@@ -18,25 +18,26 @@ struct ResetPasswordView: View {
     var descPart3 = AttributedString("to reset your password.")
     
     var body: some View {
-        Text("Reser Password")
-            .bold()
-            .font(.title)
-            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-            .padding(.horizontal, 30)
-            .padding(.top, 10)
-            .padding(.bottom, 30)
-        
-        Text(descPart1+descPart2+descPart3)
-            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-            .padding(.horizontal, 30)
-        
-        CustomTextFieldView(textFieldString: email , isSecureField: false)
-            .padding(.top, 50)
-        
-        CustomButtonView(buttonText: "Reset")
-            .padding(.top, 20)
-        
-        Spacer()
+        VStack{
+            Text("Reset Password")
+                .bold()
+                .font(.title)
+                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+                .padding(.top, 10)
+                .padding(.bottom, 30)
+            
+            Text(descPart1+descPart2+descPart3)
+                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+            
+            CustomTextFieldView(textFieldString: email , isSecureField: false)
+                .padding(.top, 50)
+            
+            CustomButtonView(buttonText: "Reset")
+                .padding(.top, 20)
+            
+            Spacer()
+        }
+        .padding(.horizontal, 10)
     }
 }
 

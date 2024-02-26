@@ -15,7 +15,6 @@ struct MyProfileView: View {
                 .font(.title)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 20)
-                .padding(.horizontal, 30)
                 .padding(.bottom, 40)
             
             HStack{
@@ -39,7 +38,6 @@ struct MyProfileView: View {
                     .font(.system(size: 30))
                     .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
             }
-            .padding(.horizontal, 30)
             .padding(.vertical,10)
             
             Divider()
@@ -64,6 +62,7 @@ struct MyProfileView: View {
             
             Spacer()
         }
+            .padding(.horizontal, 10)
     }
 }
 

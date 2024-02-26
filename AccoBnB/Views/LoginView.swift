@@ -18,7 +18,6 @@ struct LoginView: View {
                 .font(.title)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 10)
-                .padding(.horizontal, 30)
                 .padding(.bottom, 70)
             
             CustomButtonView(buttonText: "Login in with Google")
@@ -44,6 +43,7 @@ struct LoginView: View {
             }
             .padding(.top, 25)
         }
+            .padding(.horizontal, 10)
             
         Spacer()
     }

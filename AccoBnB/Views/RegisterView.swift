@@ -20,7 +20,6 @@ struct RegisterView: View {
                 .font(.title)
                 .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
                 .padding(.top, 10)
-                .padding(.horizontal, 30)
                 .padding(.bottom, 70)
             
             CustomButtonView(buttonText: "Register with Google")
@@ -52,6 +51,7 @@ struct RegisterView: View {
             
             Spacer()
         }
+            .padding(.horizontal, 10)
         Spacer()
     }
 }

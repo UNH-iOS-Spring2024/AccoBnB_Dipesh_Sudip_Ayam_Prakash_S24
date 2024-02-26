@@ -20,7 +20,6 @@ struct CustomButtonView: View {
         }
         .buttonStyle(.borderedProminent)
         .tint(Color("primaryColor"))
-        .padding(.horizontal, 30)
     }
 }
 
