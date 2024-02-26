@@ -24,6 +24,7 @@
 		13BA6B762B8C210100D816E9 /* BookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B752B8C210100D816E9 /* BookingView.swift */; };
 		13BA6B782B8C211600D816E9 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B772B8C211600D816E9 /* NotificationView.swift */; };
 		13BA6B7C2B8C238800D816E9 /* MenuNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B7B2B8C238800D816E9 /* MenuNavigationView.swift */; };
+		E123E8112B8C001400FEBDBA /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123E8102B8C001400FEBDBA /* SplashScreenView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		13BA6B752B8C210100D816E9 /* BookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingView.swift; sourceTree = "<group>"; };
 		13BA6B772B8C211600D816E9 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		13BA6B7B2B8C238800D816E9 /* MenuNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuNavigationView.swift; sourceTree = "<group>"; };
+		E123E8102B8C001400FEBDBA /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 		13BA6B5B2B89659B00D816E9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E123E8102B8C001400FEBDBA /* SplashScreenView.swift */,
 				13BA6B692B8969A100D816E9 /* MyProfileView.swift */,
 				13BA6B672B89697100D816E9 /* ResetPasswordView.swift */,
 				13BA6B652B89693B00D816E9 /* LoginView.swift */,
@@ -207,6 +210,7 @@
 				13BA6B722B8A62A100D816E9 /* ListingCardView.swift in Sources */,
 				13BA6B5D2B8965B500D816E9 /* CustomTextFieldView.swift in Sources */,
 				13BA6B602B8965D800D816E9 /* CustomButtonView.swift in Sources */,
+				E123E8112B8C001400FEBDBA /* SplashScreenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
