@@ -24,6 +24,7 @@
 		13BA6B762B8C210100D816E9 /* BookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B752B8C210100D816E9 /* BookingView.swift */; };
 		13BA6B782B8C211600D816E9 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B772B8C211600D816E9 /* NotificationView.swift */; };
 		13BA6B7C2B8C238800D816E9 /* MenuNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B7B2B8C238800D816E9 /* MenuNavigationView.swift */; };
+		13BA6B7F2B8EC59A00D816E9 /* UserStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B7E2B8EC59A00D816E9 /* UserStateViewModel.swift */; };
 		E123E8112B8C001400FEBDBA /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123E8102B8C001400FEBDBA /* SplashScreenView.swift */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,7 @@
 		13BA6B752B8C210100D816E9 /* BookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingView.swift; sourceTree = "<group>"; };
 		13BA6B772B8C211600D816E9 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		13BA6B7B2B8C238800D816E9 /* MenuNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuNavigationView.swift; sourceTree = "<group>"; };
+		13BA6B7E2B8EC59A00D816E9 /* UserStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStateViewModel.swift; sourceTree = "<group>"; };
 		E123E8102B8C001400FEBDBA /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,6 +81,7 @@
 		13BA6B4B2B8963F900D816E9 /* AccoBnB */ = {
 			isa = PBXGroup;
 			children = (
+				13BA6B7D2B8EC55F00D816E9 /* ViewModels */,
 				13BA6B5B2B89659B00D816E9 /* Views */,
 				13BA6B5A2B89659100D816E9 /* Components */,
 				13BA6B4C2B8963F900D816E9 /* AccoBnBApp.swift */,
@@ -123,6 +126,14 @@
 				13BA6B772B8C211600D816E9 /* NotificationView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		13BA6B7D2B8EC55F00D816E9 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				13BA6B7E2B8EC59A00D816E9 /* UserStateViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,6 +221,7 @@
 				13BA6B722B8A62A100D816E9 /* ListingCardView.swift in Sources */,
 				13BA6B5D2B8965B500D816E9 /* CustomTextFieldView.swift in Sources */,
 				13BA6B602B8965D800D816E9 /* CustomButtonView.swift in Sources */,
+				13BA6B7F2B8EC59A00D816E9 /* UserStateViewModel.swift in Sources */,
 				E123E8112B8C001400FEBDBA /* SplashScreenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
