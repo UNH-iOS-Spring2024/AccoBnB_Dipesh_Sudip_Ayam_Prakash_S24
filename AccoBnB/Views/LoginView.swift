@@ -10,7 +10,8 @@ import SwiftUI
 struct LoginView: View {
     @State var email: String
     @State var password: String
-    
+    @EnvironmentObject var userStateVM: UserStateViewModel
+
     var body: some View {
         VStack {
             Text("Login")
@@ -18,7 +19,6 @@ struct LoginView: View {
                 .font(.title)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 10)
-                .padding(.horizontal, 30)
                 .padding(.bottom, 70)
             
             CustomButtonView(buttonText: "Login in with Google")
@@ -31,7 +31,9 @@ struct LoginView: View {
             
             CustomTextFieldView(textFieldString: password, isSecureField: true)
             
-            CustomButtonView(buttonText: "Login")
+            CustomButtonView(buttonText: "Login"){
+                userStateVM.isLoggedIn = true
+            }
                 .padding(.top, 25)
             
             VStack{
@@ -44,6 +46,7 @@ struct LoginView: View {
             }
             .padding(.top, 25)
         }
+            .padding(.horizontal, 10)
             
         Spacer()
     }

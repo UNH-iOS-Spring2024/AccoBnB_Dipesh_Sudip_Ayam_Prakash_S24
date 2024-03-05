@@ -24,6 +24,7 @@
 		13BA6B762B8C210100D816E9 /* BookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B752B8C210100D816E9 /* BookingView.swift */; };
 		13BA6B782B8C211600D816E9 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B772B8C211600D816E9 /* NotificationView.swift */; };
 		13BA6B7C2B8C238800D816E9 /* MenuNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B7B2B8C238800D816E9 /* MenuNavigationView.swift */; };
+		13BA6B7F2B8EC59A00D816E9 /* UserStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B7E2B8EC59A00D816E9 /* UserStateViewModel.swift */; };
 		E123E8112B8C001400FEBDBA /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123E8102B8C001400FEBDBA /* SplashScreenView.swift */; };
 		E123E8152B8C655400FEBDBA /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123E8142B8C655400FEBDBA /* Listing.swift */; };
 		E123E8172B8CFDB300FEBDBA /* Booking.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123E8162B8CFDB300FEBDBA /* Booking.swift */; };
@@ -52,6 +53,7 @@
 		13BA6B752B8C210100D816E9 /* BookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingView.swift; sourceTree = "<group>"; };
 		13BA6B772B8C211600D816E9 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		13BA6B7B2B8C238800D816E9 /* MenuNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuNavigationView.swift; sourceTree = "<group>"; };
+		13BA6B7E2B8EC59A00D816E9 /* UserStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStateViewModel.swift; sourceTree = "<group>"; };
 		E123E8102B8C001400FEBDBA /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		E123E8142B8C655400FEBDBA /* Listing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listing.swift; sourceTree = "<group>"; };
 		E123E8162B8CFDB300FEBDBA /* Booking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Booking.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 		13BA6B4B2B8963F900D816E9 /* AccoBnB */ = {
 			isa = PBXGroup;
 			children = (
+				13BA6B7D2B8EC55F00D816E9 /* ViewModels */,
 				E123E8122B8C651200FEBDBA /* Data */,
 				13BA6B5B2B89659B00D816E9 /* Views */,
 				13BA6B5A2B89659100D816E9 /* Components */,
@@ -138,6 +141,12 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		13BA6B7D2B8EC55F00D816E9 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				13BA6B7E2B8EC59A00D816E9 /* UserStateViewModel.swift */,
+			);
+			path = ViewModels;
 		E123E8122B8C651200FEBDBA /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +258,7 @@
 				E123E8212B8CFF0800FEBDBA /* Favourite.swift in Sources */,
 				13BA6B5D2B8965B500D816E9 /* CustomTextFieldView.swift in Sources */,
 				13BA6B602B8965D800D816E9 /* CustomButtonView.swift in Sources */,
+				13BA6B7F2B8EC59A00D816E9 /* UserStateViewModel.swift in Sources */,
 				E123E8112B8C001400FEBDBA /* SplashScreenView.swift in Sources */,
 				E123E81D2B8CFE7E00FEBDBA /* User.swift in Sources */,
 			);
