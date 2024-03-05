@@ -9,11 +9,9 @@ import SwiftUI
 
 @main
 struct AccoBnBApp: App {
-    @StateObject var userStateViewModel = UserStateViewModel()
     var body: some Scene {
         WindowGroup {
             SplashScreenView()
         }
-        .environmentObject(userStateViewModel)
     }
 }

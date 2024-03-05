@@ -25,6 +25,7 @@ struct BorderlessIconButtonView: View {
         }
         .buttonStyle(.borderless)
         .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 30)
         .padding(.vertical, 5)
     }
 }
