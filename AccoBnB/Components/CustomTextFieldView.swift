@@ -18,12 +18,14 @@ struct CustomTextFieldView: View {
                 .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
                 .background(Color.black.opacity(0.06))
                 .cornerRadius(8)
+                .padding(.horizontal,30)
         }else{
             TextField("Full Name", text: $textFieldString)
                 .padding(12)
                 .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
                 .background(Color.black.opacity(0.06))
                 .cornerRadius(8)
+                .padding(.horizontal,30)
         }
     }
 }
