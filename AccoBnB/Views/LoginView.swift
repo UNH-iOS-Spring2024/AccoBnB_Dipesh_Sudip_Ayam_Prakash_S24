@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State var email: String
-    @State var password: String
     @EnvironmentObject var userStateVM: UserStateViewModel
+    @State var email: String = "test@test.com"
+    @State var password: String = "test"
     
     var body: some View {
         VStack {
@@ -53,5 +53,6 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView(email: "test@test.com", password: "test")
+//    LoginView(email: "test@test.com", password: "test")
+    LoginView()
 }
