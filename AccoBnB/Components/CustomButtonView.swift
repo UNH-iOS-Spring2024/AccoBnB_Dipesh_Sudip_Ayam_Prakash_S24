@@ -9,14 +9,9 @@ import SwiftUI
 
 struct CustomButtonView: View {
     @State var buttonText: String
-    // Making this parameter optional using "?"
-    var onBtnClick: (() -> Void)?
     var body: some View {
         Button{
-            if((onBtnClick) != nil){
-                // Unwrapping an optional value
-                onBtnClick!()
-            }
+            
         }label: {
             Text(buttonText)
                 .padding(.vertical,4)
@@ -25,6 +20,7 @@ struct CustomButtonView: View {
         }
         .buttonStyle(.borderedProminent)
         .tint(Color("primaryColor"))
+        .padding(.horizontal, 30)
     }
 }
 
