@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MyProfileView: View {
-    @EnvironmentObject var userStateVM: UserStateViewModel
     var body: some View {
         VStack {
             Text("My Profile")
