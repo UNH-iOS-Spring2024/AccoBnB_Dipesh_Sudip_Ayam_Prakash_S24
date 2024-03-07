@@ -10,7 +10,11 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack {
-            MenuNavigationView()
+            if userStateVM.isLoggedIn == true{
+                MenuNavigationView()
+            }else{
+                LoginView(email: "", password: "")
+            }
         }
         .padding()
     }

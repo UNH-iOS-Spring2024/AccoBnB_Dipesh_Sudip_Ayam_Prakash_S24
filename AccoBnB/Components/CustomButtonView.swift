@@ -9,9 +9,12 @@ import SwiftUI
 
 struct CustomButtonView: View {
     @State var buttonText: String
+    var btnClickAction: (()->Void)?
     var body: some View {
         Button{
-            
+            if (btnClickAction) != nil{
+                btnClickAction!()
+            }
         }label: {
             Text(buttonText)
                 .padding(.vertical,4)

@@ -59,9 +59,9 @@ struct MyProfileView: View {
             }
             .padding(.vertical, 20)
             
-            
-            CustomButtonView(buttonText: "Log Out")
-            
+            CustomButtonView(buttonText: "Log Out"){
+                userStateVM.isLoggedIn = false
+            }
             Spacer()
         }
     }
