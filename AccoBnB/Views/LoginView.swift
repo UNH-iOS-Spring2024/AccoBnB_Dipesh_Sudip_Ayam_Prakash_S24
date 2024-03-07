@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct LoginView: View {
-    @EnvironmentObject var userStateVM: UserStateViewModel
     @State var email: String = "test@test.com"
     @State var password: String = "test"
-    @EnvironmentObject var userStateVM: UserStateViewModel
     
     var body: some View {
         VStack {
