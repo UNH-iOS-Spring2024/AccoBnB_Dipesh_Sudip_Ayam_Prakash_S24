@@ -75,7 +75,7 @@ struct Listing: Codable {
     var rating: Float = 0.0
     var reviews: [Review] = []
     var histories: [ListingHistory] = []
-    var isPublished: Bool? = false
+    var isPublished: Bool = false
     var createdAt: Date? = nil
     var updatedAt: Date? = nil
 }

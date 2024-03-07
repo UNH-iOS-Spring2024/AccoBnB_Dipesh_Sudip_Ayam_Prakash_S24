@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct LoginView: View {
-    @State var email: String = "test@test.com"
-    @State var password: String = "test"
+    @State var email: String
+    @State var password: String
     
     var body: some View {
         VStack {
@@ -50,6 +50,5 @@ struct LoginView: View {
 }
 
 #Preview {
-//    LoginView(email: "test@test.com", password: "test")
-    LoginView()
+    LoginView(email: "test@test.com", password: "test")
 }
