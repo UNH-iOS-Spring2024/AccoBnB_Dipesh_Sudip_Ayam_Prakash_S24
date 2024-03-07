@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MyProfileView: View {
+    @EnvironmentObject var userStateVM: UserStateViewModel
     var body: some View {
         VStack {
             Text("My Profile")
@@ -60,7 +61,9 @@ struct MyProfileView: View {
             .padding(.vertical, 20)
             
             
-            CustomButtonView(buttonText: "Log Out")
+            CustomButtonView(buttonText: "Log Out"){
+                userStateVM.isLoggedIn = false
+            }
             
             Spacer()
         }
