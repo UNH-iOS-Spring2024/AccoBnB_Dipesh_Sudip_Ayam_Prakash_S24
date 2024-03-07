@@ -33,9 +33,7 @@ struct LoginView: View {
             
             CustomTextFieldView(textFieldString: password, isSecureField: true)
             
-            CustomButtonView(buttonText: "Login"){
-                userStateVM.isLoggedIn = true
-            }
+            CustomButtonView(buttonText: "Login")
                 .padding(.top, 25)
             
             VStack{
