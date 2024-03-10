@@ -8,63 +8,88 @@
 import SwiftUI
 
 struct ListingCardView: View {
-    @State var listingLocation: String // may be change to Location data class type later
-    @State var listingTitle: String
-    @State var listingType: String
-    @State var listingPrice: Float
-    @State var listingRating: Float // may be change to Rating data class type later
-    
-    
+    @State var listingDetail: Listing
+
     var body: some View {
-        VStack(alignment: .leading){
-            //Image of listing
-            Image("mt-everest")
-                .resizable()
-                .frame(width: .infinity, height: 200)
-                .aspectRatio(contentMode: .fit)
-            
-            VStack(alignment: .leading){
+        VStack(alignment: .leading) {
+            VStack(alignment: .center) {
+                // Load image from URL using AsyncImage
+                if let url = URL(string: listingDetail.bannerImage) {
+                    AsyncImage(url: url) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(height: 200)
+                        case .failure:
+                            Image("mt-everest")
+                                .resizable()
+                                .frame(height: 200)
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundColor(.gray)
+                        @unknown default:
+                            EmptyView()
+                        }
+                    }
+                    .padding(.bottom, 8)
+                } else {
+                    // Use a placeholder if the URL is invalid
+                    Image("mt-everest")
+                        .resizable()
+                        .frame(height: 200)
+                        .aspectRatio(contentMode: .fit)
+                        .padding(.bottom, 8)
+                        .foregroundColor(.gray)
+                }
+            }
+
+            VStack(alignment: .leading) {
                 // Full Location
-                HStack{
+                HStack {
                     Image(systemName: "mappin.and.ellipse")
                         .foregroundColor(Color("primaryColor"))
-                    Text(listingLocation)
+                    Text("\(listingDetail.address?.addressLine1 ?? "Unknown"), \(listingDetail.address?.city ?? "Unknown"), \(listingDetail.address?.zipCode ?? "Unknown")")
                         .foregroundColor(Color.gray)
                 }
                 .font(.system(size: 14))
-                
+
                 // Listing Title
-                Text(listingTitle)
+                Text(listingDetail.title)
                     .bold()
                     .font(.headline)
-                    .padding(.vertical,2)
-                
+                    .padding(.vertical, 2)
+
                 // Listing Type: Temporary, Permanent & price in HStack{}
-                HStack{
-                    HStack{
+                HStack {
+                    HStack {
                         Image(systemName: "circle.fill")
                             .foregroundColor(Color("primaryColor"))
                             .font(.system(size: 12))
-                        Text(listingType)
+                        Text(listingDetail.type.rawValue)
                     }
                     Spacer()
-                    Text("$"+String(listingPrice))
+                    Text("$" + (listingDetail.type == .rental ? String(listingDetail.monthlyPrice) + "/month" : String(listingDetail.dailyPrice) + "/day"))
                 }
                 .font(.system(size: 14))
                 .foregroundColor(Color.gray)
-                
+
                 // Listing Rating
-                ConciseRatingView(ratingValue: listingRating)
-                    .padding(.bottom,5)
+                ConciseRatingView(ratingValue: listingDetail.rating)
+                    .padding(.bottom, 5)
             }
             .padding(6)
-            
         }
         .background(Color("secondaryColor"))
         .cornerRadius(8)
     }
 }
 
+
+
 #Preview {
-    ListingCardView(listingLocation: "75 Admiral St, West Haven, CT, 06516", listingTitle: "1 Bed/ 1 Bath", listingType: "Temporary", listingPrice: 0, listingRating: 4.9)
+    let newListing = Listing.defaultListing
+    return ListingCardView(listingDetail: newListing)
 }

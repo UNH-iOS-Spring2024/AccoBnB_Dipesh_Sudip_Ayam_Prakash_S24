@@ -18,8 +18,9 @@ struct ListingView: View {
                     .padding()
             } else {
                 List(viewModel.listings, id: \.id) { listing in
-                    Text(listing.title)
+                    ListingCardView(listingDetail: listing)
                 }
+                
             }
         }
         .onAppear {
