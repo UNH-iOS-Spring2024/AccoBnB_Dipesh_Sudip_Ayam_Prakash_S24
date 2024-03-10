@@ -10,7 +10,7 @@ import Firebase
 
 @main
 struct AccoBnBApp: App {
-    @StateObject var userStateVM = UserStateViewModel()
+    //@StateObject var userStateVM = UserStateViewModel()
     init(){
         let providerFactory = AppCheckDebugProviderFactory()
         AppCheck.setAppCheckProviderFactory(providerFactory)
@@ -20,6 +20,5 @@ struct AccoBnBApp: App {
         WindowGroup {
             SplashScreenView()
         }
-        .environmentObject(userStateVM)
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @EnvironmentObject var userStateVM: UserStateViewModel
+    //@EnvironmentObject var userStateVM: UserStateViewModel
     @State var email: String = "test@test.com"
     @State var password: String = "test"
     
@@ -32,9 +32,9 @@ struct LoginView: View {
             
             CustomTextFieldView(textFieldString: password, isSecureField: true)
             
-            CustomButtonView(buttonText: "Login"){
-                userStateVM.isLoggedIn = true
-            }
+//            CustomButtonView(buttonText: "Login"){
+//                userStateVM.isLoggedIn = true
+//            }
                 .padding(.top, 25)
             
             VStack{
