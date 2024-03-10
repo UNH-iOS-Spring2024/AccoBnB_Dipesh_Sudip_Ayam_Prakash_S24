@@ -79,4 +79,35 @@ struct Listing: Codable {
     var createdAt: Date? = nil
     var updatedAt: Date? = nil
 }
+// Extension for defining defaultListing
+extension Listing {
+    static let defaultListing: Listing = {
+        let defaultAddress = Address(city: "New York", country: "United States", zipCode: "10001", addressLine1: "123 Main Street", addressLine2: "Apt 4B")
+        let defaultGeoLocation = GeoLocation(lat: "40.7128", long: "-74.0060")
+        
+        return Listing(
+            id: "1d8zkLVCHMoI8YyHgftu",
+            hostId: "O0K3oA3xHKYXJBS57SIIc4DDP6I2",
+            title: "68 Edwards St",
+            description: "This is home",
+            address: defaultAddress,
+            geoLocation: defaultGeoLocation,
+            status: .draft,
+            monthlyPrice: 410.0,
+            dailyPrice: 0.0,
+            type: .rental,
+            availableRooms: 1,
+            guestCount: 0,
+            bannerImage: "https://firebasestorage.googleapis.com/v0/b/accobnb-891d3.appspot.com/o/listings%2F96fc0e26-0d63-4548-ad1b-376e9e3082ee?alt=media&token=e11bb2b4-97b6-4889-87b2-a95c7d537254",
+            imageGallery: [],
+            views: 0,
+            amenities: [],
+            rating: 0.0,
+            reviews: [],
+            histories: [],
+            isPublished: false
+        )
+    }()
+}
+
 
