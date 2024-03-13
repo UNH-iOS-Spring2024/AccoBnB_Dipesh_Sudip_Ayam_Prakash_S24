@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1336F28E2BA1DE1B003AA20D /* ReviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336F28D2BA1DE1B003AA20D /* ReviewCardView.swift */; };
 		13BA6B4D2B8963F900D816E9 /* AccoBnBApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B4C2B8963F900D816E9 /* AccoBnBApp.swift */; };
 		13BA6B4F2B8963F900D816E9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B4E2B8963F900D816E9 /* ContentView.swift */; };
 		13BA6B512B8963FA00D816E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13BA6B502B8963FA00D816E9 /* Assets.xcassets */; };
@@ -67,6 +68,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1336F28D2BA1DE1B003AA20D /* ReviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCardView.swift; sourceTree = "<group>"; };
 		13BA6B492B8963F900D816E9 /* AccoBnB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AccoBnB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13BA6B4C2B8963F900D816E9 /* AccoBnBApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccoBnBApp.swift; sourceTree = "<group>"; };
 		13BA6B4E2B8963F900D816E9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				13BA6B612B89682C00D816E9 /* BorderlessIconButtonView.swift */,
 				13BA6B7B2B8C238800D816E9 /* MenuNavigationView.swift */,
 				E1E5BE042BA1457A004BD586 /* ListingDetailView.swift */,
+				1336F28D2BA1DE1B003AA20D /* ReviewCardView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				13BA6B4F2B8963F900D816E9 /* ContentView.swift in Sources */,
 				E1E5BE052BA1457A004BD586 /* ListingDetailView.swift in Sources */,
 				13BA6B822B99B84C00D816E9 /* UserStateViewModel.swift in Sources */,
+				1336F28E2BA1DE1B003AA20D /* ReviewCardView.swift in Sources */,
 				13BA6B6A2B8969A100D816E9 /* MyProfileView.swift in Sources */,
 				13BA6B662B89693B00D816E9 /* LoginView.swift in Sources */,
 				E123E81B2B8CFE3300FEBDBA /* Review.swift in Sources */,

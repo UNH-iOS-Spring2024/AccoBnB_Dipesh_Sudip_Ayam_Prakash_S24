@@ -40,8 +40,16 @@ struct ListingDetailView: View {
                 }
                 
                 Section("Reviews"){
-                    //TODO: Need to add this functionality.
-                    Text("TODO: Need to add this functionality.")
+                    ScrollView(.horizontal){
+                        HStack {
+                            ForEach(listingDetail.reviews){review in
+                                ReviewCardView(ratingValue: review.rating, date: String(review.date.prefix(10))+","+String(review.date.suffix(5)), reviewerName: "Anonymous", comment: review.comment)
+                                    .frame(width: 280)
+                                    .containerRelativeFrame(.horizontal)
+                            }
+                        }
+                    }
+                    .scrollTargetBehavior(.paging)
                 }
                 
                 Section("Location"){
