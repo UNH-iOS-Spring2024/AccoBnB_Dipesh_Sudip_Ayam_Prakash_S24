@@ -11,21 +11,32 @@ struct ListingView: View {
     @ObservedObject private var viewModel = ListingViewModel()
     
     var body: some View {
-        VStack {
-            if viewModel.isLoading {
-                ProgressView("Loading...")
-                    .progressViewStyle(CircularProgressViewStyle())
-                    .padding()
-            } else {
-                List(viewModel.listings, id: \.id) { listing in
-                    ListingCardView(listingDetail: listing)
+        NavigationSplitView{
+            VStack {
+                if viewModel.isLoading {
+                    ProgressView("Loading...")
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .padding()
+                } else {
+                    List{
+                        ForEach(viewModel.listings, id: \.id){ listing in
+                            NavigationLink{
+                                ListingDetailView(listingDetail: listing)
+                            } label:{
+                                ListingCardView(listingDetail: listing)
+                            }
+                        }
+                    }
+                    
                 }
-                
             }
+            .onAppear {
+                viewModel.getAllListings()
+            }
+        } detail: {
+            Text("Show me")
         }
-        .onAppear {
-            viewModel.getAllListings()
-        }
+        
     }
 }
 
