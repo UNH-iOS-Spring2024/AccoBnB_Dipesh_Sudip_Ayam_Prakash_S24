@@ -76,8 +76,8 @@ struct Listing: Codable {
     var reviews: [Review] = []
     var histories: [ListingHistory] = []
     var isPublished: Bool? = false
-    var createdAt: Date? = nil
-    var updatedAt: Date? = nil
+    var createdAt: Int64? = nil
+    var updatedAt: Int64? = nil
 }
 // Extension for defining defaultListing
 extension Listing {
@@ -98,12 +98,12 @@ extension Listing {
             type: .rental,
             availableRooms: 1,
             guestCount: 0,
-            bannerImage: "https://firebasestorage.googleapis.com/v0/b/accobnb-891d3.appspot.com/o/listings%2F96fc0e26-0d63-4548-ad1b-376e9e3082ee?alt=media&token=e11bb2b4-97b6-4889-87b2-a95c7d537254",
+            bannerImage: "https://firebasestorage.googleapis.com/v0/b/accobnb-891d3.appspot.com/o/listings%2F257059ba-64a3-4774-8114-45ceb182bd2a?alt=media&token=6b745036-db1c-4fb1-aa9c-7e3092255720",
             imageGallery: [],
             views: 0,
             amenities: [],
             rating: 0.0,
-            reviews: [],
+            reviews: [AccoBnB.Review(id: "B7sjWb8WgvRkcBvGjn0g", reviewerId: "lVaKNAatVObr6hDVD2R6JpycInf1", listingId: "TKYRfDrqM2Vwg1UKsyZ7", rating: 4.0, comment: "Wow! I had an amazing stay.", date: "Tue Dec 12 21:01:49 EST 2023"), AccoBnB.Review(id: "Cxhu6vt0Oe11PuSrimHU", reviewerId: "lVaKNAatVObr6hDVD2R6JpycInf1", listingId: "TKYRfDrqM2Vwg1UKsyZ7", rating: 4.0, comment: "It was good.", date: "Tue Dec 12 20:59:53 EST 2023"), AccoBnB.Review(id: "LBVoa7koqkLK5btQ8jd1", reviewerId: "lVaKNAatVObr6hDVD2R6JpycInf1", listingId: "TKYRfDrqM2Vwg1UKsyZ7", rating: 4.0, comment: "This is a place i would like to visit again if time permits.sdjflkjsdlkfjlsdjfljlsdjfjlsjlkfjsdkljfkjsdljlfksjlkjflkjsdljflsjlksjfljdlksjflkjalskdjflkjsdlkfjlksjldfk", date: "Tue Dec 12 20:55:43 EST 2023"), AccoBnB.Review(id: "Lhu2l6pxvzAMAWlKwdGv", reviewerId: "lVaKNAatVObr6hDVD2R6JpycInf1", listingId: "TKYRfDrqM2Vwg1UKsyZ7", rating: 5.0, comment: "This is brilliant flat", date: "Tue Dec 12 20:56:47 EST 2023")],
             histories: [],
             isPublished: false
         )

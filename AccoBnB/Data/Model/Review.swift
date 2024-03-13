@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Review: Codable {
+struct Review: Codable, Identifiable {
     var id: String = ""
     var reviewerId: String = ""
     var listingId: String = ""
