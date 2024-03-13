@@ -98,7 +98,7 @@ extension Listing {
             type: .rental,
             availableRooms: 1,
             guestCount: 0,
-            bannerImage: "https://firebasestorage.googleapis.com/v0/b/accobnb-891d3.appspot.com/o/listings%2F96fc0e26-0d63-4548-ad1b-376e9e3082ee?alt=media&token=e11bb2b4-97b6-4889-87b2-a95c7d537254",
+            bannerImage: "https://firebasestorage.googleapis.com/v0/b/accobnb-891d3.appspot.com/o/listings%2F257059ba-64a3-4774-8114-45ceb182bd2a?alt=media&token=6b745036-db1c-4fb1-aa9c-7e3092255720",
             imageGallery: [],
             views: 0,
             amenities: [],

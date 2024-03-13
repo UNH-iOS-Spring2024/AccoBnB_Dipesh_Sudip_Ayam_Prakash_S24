@@ -25,6 +25,7 @@ struct ListingView: View {
                             } label:{
                                 ListingCardView(listingDetail: listing)
                             }
+                            .navigationTitle("Listings")
                         }
                     }
                     
