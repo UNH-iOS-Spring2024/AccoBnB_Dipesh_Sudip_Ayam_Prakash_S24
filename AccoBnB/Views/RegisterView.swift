@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct RegisterView: View {
-    @State var fullName: String
+    @State var firstName: String
+    @State var lastName: String
     @State var email: String
     @State var password: String
     @State var confirmPassword: String
@@ -29,13 +30,14 @@ struct RegisterView: View {
                 .padding(.vertical, 30)
                 .foregroundColor(Color.gray)
             
-            CustomTextFieldView(textFieldString: fullName, isSecureField: false)
+            CustomTextFieldView(textHintString: "First Name",textFieldString: firstName, isSecureField: false)
+            CustomTextFieldView(textHintString: "Last Name",textFieldString: lastName, isSecureField: false)
             
-            CustomTextFieldView(textFieldString: email, isSecureField: false)
+            CustomTextFieldView(textHintString: "Email", textFieldString: email, isSecureField: false)
             
-            CustomTextFieldView(textFieldString: password, isSecureField: true)
+            CustomTextFieldView(textHintString: "Password", textFieldString: password, isSecureField: true)
             
-            CustomTextFieldView(textFieldString: confirmPassword, isSecureField: true)
+            CustomTextFieldView(textHintString: "Confirm Password",textFieldString: confirmPassword, isSecureField: true)
             
             CustomButtonView(buttonText: "Register")
                 .padding(.top, 25)
@@ -57,5 +59,5 @@ struct RegisterView: View {
 }
 
 #Preview {
-    RegisterView(fullName: "Dipesh", email: "Shrestha", password: "00000000000", confirmPassword: "dipesh@gmail.com")
+    RegisterView(firstName: "Dipesh", lastName: "Shrestha", email: "Shrestha", password: "00000000000", confirmPassword: "dipesh@gmail.com")
 }
