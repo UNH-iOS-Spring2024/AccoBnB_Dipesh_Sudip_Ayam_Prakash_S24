@@ -40,7 +40,7 @@ struct MyProfileView: View {
                 Divider()
                 
                 VStack {
-                    BorderlessIconButtonView(buttonName: "Edit User Detailsssss", iconName: "person.crop.circle.badge.exclamationmark")
+                    BorderlessIconButtonView(buttonName: "Edit User Details", iconName: "person.crop.circle.badge.exclamationmark")
                     BorderlessIconButtonView(buttonName: "My Favorites", iconName: "heart.circle")
                     BorderlessIconButtonView(buttonName: "My Bookings", iconName: "list.bullet.circle")
                     BorderlessIconButtonView(buttonName: "Settings", iconName: "gearshape")
