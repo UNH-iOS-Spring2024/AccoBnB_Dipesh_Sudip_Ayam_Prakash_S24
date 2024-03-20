@@ -197,6 +197,7 @@
 				1336F28D2BA1DE1B003AA20D /* ReviewCardView.swift */,
 				D02908472BAA5266001EA8B1 /* SearchBarView.swift */,
 				E12B64232BAA4ED40045303F /* BookingRequestView.swift */,
+				D02908472BAA5266001EA8B1 /* SearchBarView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
