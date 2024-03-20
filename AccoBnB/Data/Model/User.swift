@@ -7,8 +7,6 @@
 
 import Foundation
 
-import Foundation
-
 struct User: Codable {
     var id: String = ""
     var firstName: String = ""
@@ -17,7 +15,7 @@ struct User: Codable {
     var profileImage: String = ""
     var email: String = ""
     var role: UserRole = .guest
-    var fcmToken: String = ""
+    var fcmToken: String? = "" //made it optional till we add authentication logic
     var address: Address? = nil
     var preference: UserPreference? = nil
     var favourites: [Favourite] = [] // discuss and add if we are adding add to favorite feature to the app
