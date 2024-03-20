@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CustomButtonView: View {
     @State var buttonText: String
+    @State var color: String = "primaryColor"
     var btnClickAction: (()->Void)?
     var body: some View {
         Button{
@@ -22,7 +23,7 @@ struct CustomButtonView: View {
                 .frame(maxWidth: .infinity)
         }
         .buttonStyle(.borderedProminent)
-        .tint(Color("primaryColor"))
+        .tint(Color(color))
         .padding(.horizontal, 30)
     }
 }

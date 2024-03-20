@@ -64,6 +64,7 @@
 		E123E81B2B8CFE3300FEBDBA /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123E81A2B8CFE3300FEBDBA /* Review.swift */; };
 		E123E81D2B8CFE7E00FEBDBA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123E81C2B8CFE7E00FEBDBA /* User.swift */; };
 		E123E8212B8CFF0800FEBDBA /* Favourite.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123E8202B8CFF0800FEBDBA /* Favourite.swift */; };
+		E12B64242BAA4ED50045303F /* BookingRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12B64232BAA4ED40045303F /* BookingRequestView.swift */; };
 		E1E5BE052BA1457A004BD586 /* ListingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E5BE042BA1457A004BD586 /* ListingDetailView.swift */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +100,7 @@
 		E123E81A2B8CFE3300FEBDBA /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		E123E81C2B8CFE7E00FEBDBA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E123E8202B8CFF0800FEBDBA /* Favourite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favourite.swift; sourceTree = "<group>"; };
+		E12B64232BAA4ED40045303F /* BookingRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingRequestView.swift; sourceTree = "<group>"; };
 		E1E5BE042BA1457A004BD586 /* ListingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -191,6 +193,7 @@
 				13BA6B7B2B8C238800D816E9 /* MenuNavigationView.swift */,
 				E1E5BE042BA1457A004BD586 /* ListingDetailView.swift */,
 				1336F28D2BA1DE1B003AA20D /* ReviewCardView.swift */,
+				E12B64232BAA4ED40045303F /* BookingRequestView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				13BA6B602B8965D800D816E9 /* CustomButtonView.swift in Sources */,
 				E123E8112B8C001400FEBDBA /* SplashScreenView.swift in Sources */,
 				E123E81D2B8CFE7E00FEBDBA /* User.swift in Sources */,
+				E12B64242BAA4ED50045303F /* BookingRequestView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,7 +526,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"AccoBnB/Preview Content\"";
-				DEVELOPMENT_TEAM = 7DC57NA9YT;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -551,7 +555,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"AccoBnB/Preview Content\"";
-				DEVELOPMENT_TEAM = 7DC57NA9YT;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
