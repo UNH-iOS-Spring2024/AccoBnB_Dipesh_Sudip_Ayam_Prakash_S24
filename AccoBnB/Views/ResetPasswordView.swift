@@ -18,7 +18,7 @@ struct ResetPasswordView: View {
     var descPart3 = AttributedString("to reset your password.")
     
     var body: some View {
-        Text("Reser Password")
+        Text("Reset Password")
             .bold()
             .font(.title)
             .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
