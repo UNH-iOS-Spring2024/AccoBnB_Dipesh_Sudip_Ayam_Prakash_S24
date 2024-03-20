@@ -198,6 +198,7 @@
 				D02908472BAA5266001EA8B1 /* SearchBarView.swift */,
 				E12B64232BAA4ED40045303F /* BookingRequestView.swift */,
 				D02908472BAA5266001EA8B1 /* SearchBarView.swift */,
+				E12B64232BAA4ED40045303F /* BookingRequestView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
