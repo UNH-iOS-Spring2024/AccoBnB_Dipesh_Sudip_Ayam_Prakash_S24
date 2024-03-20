@@ -33,3 +33,27 @@ enum UserRole: String, Codable {
     case guest = "GUEST"
     case host = "HOST"
 }
+
+
+// extension for defining default user
+extension User {
+    static let defaultUser: User = {
+        let defaultAddress = Address(city: "New York", country: "United States", zipCode: "10001", addressLine1: "123 Main Street", addressLine2: "Apt 4B")
+        let defaultPreference = UserPreference(darkMode: false, budget: 1000.0)
+        
+        return User(
+            id: "aQVsN0AiruQAatC2GAbJncspdCg2",
+            firstName: "Guest",
+            lastName: "User",
+            phone: "1234567890",
+            profileImage: "https://example.com/default_profile_image.png",
+            email: "john@example.com",
+            role: .guest,
+            fcmToken: "",
+            address: defaultAddress,
+            preference: defaultPreference,
+            favourites: []
+        )
+    }()
+}
+

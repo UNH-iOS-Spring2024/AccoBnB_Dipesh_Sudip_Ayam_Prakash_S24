@@ -12,6 +12,8 @@ struct ListingDetailView: View {
     @State var listingDetail: Listing
     //Declaring region for map view ,can't initialize lat and long here as self is available in only init() method
     @State var region: MKCoordinateRegion
+    // Use a binding to control the presentation of BookingRequestView
+    @State var isBookingRequestViewPresented: Bool = false
     
     // using init method to initialize the region variable with the passed parameter.
     init(listingDetail: Listing) {
@@ -28,40 +30,54 @@ struct ListingDetailView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading){
-            List {
-                // ".listRowInsets()" will remove the default padding from List{}
-                ListingCardView(listingDetail: listingDetail)
-                    .listRowInsets(EdgeInsets())
-                
-                Section("Description"){
-                    Text(listingDetail.description)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                
-                Section("Reviews"){
-                    ScrollView(.horizontal){
-                        HStack {
-                            ForEach(listingDetail.reviews){review in
-                                ReviewCardView(ratingValue: review.rating, date: String(review.date.prefix(10))+","+String(review.date.suffix(5)), reviewerName: "Anonymous", comment: review.comment)
-                                    .frame(width: 280)
-                                    .containerRelativeFrame(.horizontal)
+        ZStack{
+            VStack(alignment: .leading){
+                List {
+                    // ".listRowInsets()" will remove the default padding from List{}
+                    ListingCardView(listingDetail: listingDetail)
+                        .listRowInsets(EdgeInsets())
+                    
+                    Section("Description"){
+                        Text(listingDetail.description)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    
+                    Section("Reviews"){
+                        ScrollView(.horizontal){
+                            HStack {
+                                ForEach(listingDetail.reviews){review in
+                                    ReviewCardView(ratingValue: review.rating, date: String(review.date.prefix(10))+","+String(review.date.suffix(5)), reviewerName: "Anonymous", comment: review.comment)
+                                        .frame(width: 280)
+                                        .containerRelativeFrame(.horizontal)
+                                }
                             }
                         }
+                        .scrollTargetBehavior(.paging)
                     }
-                    .scrollTargetBehavior(.paging)
+                    
+                    Section("Location"){
+                        // interaction mode is used to restrict user interactions
+                        Map(coordinateRegion: $region, interactionModes: [.pan, .zoom])
+                            .listRowInsets(EdgeInsets())
+                            .frame(width: 400, height: 200)
+                    }
                 }
-                
-                Section("Location"){
-                    // interaction mode is used to restrict user interactions
-                    Map(coordinateRegion: $region, interactionModes: [.pan, .zoom])
-                        .listRowInsets(EdgeInsets())
-                        .frame(width: 400, height: 200)
+                CustomButtonView(buttonText: "Book Now") {
+                    isBookingRequestViewPresented = true // Set the binding variable to true to present BookingRequestView
                 }
             }
             
-            CustomButtonView(buttonText: "Book Now"){
-                print("Book Now button clicked.")
+            if isBookingRequestViewPresented {
+                Color.black.opacity(0.5)
+                    .onTapGesture {
+                    isBookingRequestViewPresented = false // Close BookingRequestView on tap outside
+                }
+                VStack {
+                    Spacer()
+                    BookingRequestView(isPresented: $isBookingRequestViewPresented)
+                        .background(Color.white)
+                        .cornerRadius(10)
+                }
             }
         }
     }
@@ -69,5 +85,6 @@ struct ListingDetailView: View {
 
 #Preview {
     let newListing = Listing.defaultListing
-    return ListingDetailView(listingDetail: newListing)
+       return ListingDetailView(listingDetail: newListing)
+
 }
