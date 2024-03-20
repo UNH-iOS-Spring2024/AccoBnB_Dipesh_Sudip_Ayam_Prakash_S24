@@ -30,7 +30,7 @@ struct ResetPasswordView: View {
             .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
             .padding(.horizontal, 30)
         
-        CustomTextFieldView(textFieldString: email , isSecureField: false)
+        CustomTextFieldView(textHintString: "Email Address", textFieldString: email , isSecureField: false)
             .padding(.top, 50)
         
         CustomButtonView(buttonText: "Reset")

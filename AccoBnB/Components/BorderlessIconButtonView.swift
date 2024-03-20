@@ -10,10 +10,13 @@ import SwiftUI
 struct BorderlessIconButtonView: View {
     @State var buttonName: String
     @State var iconName: String
+    @State var btnClickAction: (() -> Void)?
     
     var body: some View {
         Button{
-            //TODO: action
+            if btnClickAction != nil{
+                btnClickAction!()
+            }
         }label: {
             Image(systemName: iconName)
                 .resizable()

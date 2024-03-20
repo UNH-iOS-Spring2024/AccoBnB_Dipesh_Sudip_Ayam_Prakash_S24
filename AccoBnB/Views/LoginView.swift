@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct LoginView: View {
-    //@EnvironmentObject var userStateVM: UserStateViewModel
-    @State var email: String = "test@test.com"
-    @State var password: String = "test"
+    @EnvironmentObject var userStateVM: UserStateViewModel
+    @State var email: String = ""
+    @State var password: String = ""
     
     var body: some View {
         VStack {
@@ -28,13 +28,13 @@ struct LoginView: View {
                 .foregroundColor(Color.gray)
                 .padding(.vertical, 30)
             
-            CustomTextFieldView(textFieldString: email, isSecureField: false)
+            CustomTextFieldView(textHintString:"Email Address", textFieldString: email, isSecureField: false)
             
-            CustomTextFieldView(textFieldString: password, isSecureField: true)
+            CustomTextFieldView(textHintString:"Password", textFieldString: password, isSecureField: true)
             
-//            CustomButtonView(buttonText: "Login"){
-//                userStateVM.isLoggedIn = true
-//            }
+            CustomButtonView(buttonText: "Login"){
+                userStateVM.isLoggedIn = true
+            }
                 .padding(.top, 25)
             
             VStack{
