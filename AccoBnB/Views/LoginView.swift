@@ -28,9 +28,9 @@ struct LoginView: View {
                 .foregroundColor(Color.gray)
                 .padding(.vertical, 30)
             
-            CustomTextFieldView(textHintString:"Email Address", textFieldString: email, isSecureField: false)
+            CustomTextFieldView(placeholder:"Email Address", text: $email, isSecureField: false)
             
-            CustomTextFieldView(textHintString:"Password", textFieldString: password, isSecureField: true)
+            CustomTextFieldView(placeholder:"Password", text: $password, isSecureField: true)
             
             CustomButtonView(buttonText: "Login"){
                 userStateVM.isLoggedIn = true

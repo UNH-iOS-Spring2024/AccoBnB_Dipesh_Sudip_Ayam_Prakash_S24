@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct CustomTextFieldView: View {
-    @State var textHintString: String
-    @State var textFieldString: String
-    @State var isSecureField: Bool
-    @State var isDisabled: Bool? = false
+    var placeholder: String
+    @Binding var text: String
+    var isSecureField: Bool
+    var isDisabled: Bool? = false
+    
     var body: some View {
         
         if(isSecureField){
-            SecureField(textHintString, text: $textFieldString)
+            SecureField(placeholder, text: $text)
                 .padding(12)
                 .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
                 .background(Color.black.opacity(0.06))
@@ -23,7 +24,7 @@ struct CustomTextFieldView: View {
                 .padding(.horizontal,30)
                 .disabled(isDisabled!)
         }else{
-            TextField(textHintString, text: $textFieldString)
+            TextField(placeholder, text: $text)
                 .padding(12)
                 .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
                 .background(Color.black.opacity(0.06))
@@ -35,5 +36,5 @@ struct CustomTextFieldView: View {
 }
 
 #Preview {
-    CustomTextFieldView(textHintString: "Hint",textFieldString: "", isSecureField: false)
+    CustomTextFieldView(placeholder: "Hint", text: .constant(""), isSecureField: false)
 }

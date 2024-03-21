@@ -30,14 +30,14 @@ struct RegisterView: View {
                 .padding(.vertical, 30)
                 .foregroundColor(Color.gray)
             
-            CustomTextFieldView(textHintString: "First Name",textFieldString: firstName, isSecureField: false)
-            CustomTextFieldView(textHintString: "Last Name",textFieldString: lastName, isSecureField: false)
+            CustomTextFieldView(placeholder: "First Name",text: $firstName, isSecureField: false)
+            CustomTextFieldView(placeholder: "Last Name",text: $lastName, isSecureField: false)
             
-            CustomTextFieldView(textHintString: "Email", textFieldString: email, isSecureField: false)
+            CustomTextFieldView(placeholder: "Email", text: $email, isSecureField: false)
             
-            CustomTextFieldView(textHintString: "Password", textFieldString: password, isSecureField: true)
+            CustomTextFieldView(placeholder: "Password", text: $password, isSecureField: true)
             
-            CustomTextFieldView(textHintString: "Confirm Password",textFieldString: confirmPassword, isSecureField: true)
+            CustomTextFieldView(placeholder: "Confirm Password",text: $confirmPassword, isSecureField: true)
             
             CustomButtonView(buttonText: "Register")
                 .padding(.top, 25)
