@@ -14,6 +14,8 @@ struct ListingDetailView: View {
     @State var region: MKCoordinateRegion
     // Use a binding to control the presentation of BookingRequestView
     @State var isBookingRequestViewPresented: Bool = false
+    @EnvironmentObject var bookingViewModel: BookingViewModel
+    @State var isAlreadyBooked : Bool = false
     
     // using init method to initialize the region variable with the passed parameter.
     init(listingDetail: Listing) {
@@ -62,22 +64,40 @@ struct ListingDetailView: View {
                             .frame(width: 400, height: 200)
                     }
                 }
+                .onAppear{
+                    isAlreadyBooked  = self.bookingViewModel.bookings.contains {
+                        $0.listingId == listingDetail.id
+                    }
+                    
+                }
                 CustomButtonView(buttonText: "Book Now") {
                     isBookingRequestViewPresented = true // Set the binding variable to true to present BookingRequestView
                 }
+                .disabled(isAlreadyBooked)
             }
             
             if isBookingRequestViewPresented {
                 Color.black.opacity(0.5)
                     .onTapGesture {
-                    isBookingRequestViewPresented = false // Close BookingRequestView on tap outside
-                }
+                        isBookingRequestViewPresented = false // Close BookingRequestView on tap outside
+                    }
                 VStack {
                     Spacer()
-                    BookingRequestView(isPresented: $isBookingRequestViewPresented)
-                        .background(Color.white)
-                        .cornerRadius(10)
+                    BookingRequestView(isPresented: $isBookingRequestViewPresented) { bookingNote in
+                        bookingViewModel.createBooking(userId: User.defaultUser.id, listingId: listingDetail.id, bookingNote: bookingNote) { result in
+                            switch result {
+                            case .success(let createdBooking):
+                                isBookingRequestViewPresented = false
+                                isAlreadyBooked = true
+                            case .failure(let error):
+                                print("Failed to create booking: \(error)")
+                            }
+                        }
+                    }
+                    .background(Color.white)
+                    .cornerRadius(10)
                 }
+                
             }
         }
     }
@@ -85,6 +105,6 @@ struct ListingDetailView: View {
 
 #Preview {
     let newListing = Listing.defaultListing
-       return ListingDetailView(listingDetail: newListing)
-
+    return ListingDetailView(listingDetail: newListing)
+    
 }
