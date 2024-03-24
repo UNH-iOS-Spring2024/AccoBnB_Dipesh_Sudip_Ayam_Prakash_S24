@@ -9,6 +9,7 @@ import SwiftUI
 
 struct BookingRequestView: View {
     @Binding var isPresented: Bool
+    var onConfirm: ((String) -> Void)? // Closure to handle confirm action
     
     @State private var bookingNote = ""
     
@@ -36,9 +37,14 @@ struct BookingRequestView: View {
                 .cornerRadius(8)
                 Spacer()
                 CustomButtonView(buttonText: "Confirm"){
-                    print("confirm clicked.")
+                    if !bookingNote.isEmpty {
+                        // Call the confirm action closure
+                        onConfirm?(bookingNote)
+                        isPresented = false // Dismiss the BookingRequestView
+                    }
                 }
                 .cornerRadius(8)
+                .disabled(bookingNote.isEmpty)
             }
             .padding(.horizontal)
         }
