@@ -33,7 +33,7 @@ class AuthViewModel: ObservableObject{
         }
     }
     
-    func signUp(withEmail email: String, password: String, firstName: String, lastName: String) async throws{
+    func signUp(withEmail email: String, password: String, firstName: String, lastName: String, role: UserRole) async throws{
         do {
             // Creating a user using firebase auth functionality
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
@@ -42,7 +42,7 @@ class AuthViewModel: ObservableObject{
                 self.userSession = result.user
             }
             // Creating our User model with the result from firebase auth
-            let user = User(id: result.user.uid, firstName: firstName, lastName: lastName, email: email)
+            let user = User(id: result.user.uid, firstName: firstName, lastName: lastName, email: email, role: role)
             // Encoding the user to store user information in "users" collection
             let encodedUser = try Firestore.Encoder().encode(user)
             //storing the user additional information in Firestore cloud under "users" collection.

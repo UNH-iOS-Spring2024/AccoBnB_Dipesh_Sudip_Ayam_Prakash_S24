@@ -13,8 +13,10 @@ struct RegisterView: View {
     @State var email: String
     @State var password: String
     @State var confirmPassword: String
+    @State var isHost: Bool = false
     
     @EnvironmentObject var authViewModel: AuthViewModel
+    @Environment(\.dismiss) var dismiss // used to back stack to parent screen
     
     var body: some View {
         NavigationSplitView{
@@ -42,16 +44,23 @@ struct RegisterView: View {
                 
                 CustomTextFieldView(placeholder: "Confirm Password",text: $confirmPassword, isSecureField: true)
                 
+                Toggle("Are you an Host?", isOn: $isHost)
+                    .padding(.horizontal, 30)
+                    .foregroundColor(Color.gray)
+                
                 CustomButtonView(buttonText: "Register"){
+                    var userRole = UserRole.guest
+                    if isHost == true {
+                        userRole = UserRole.host
+                    }
                     Task{
-                        try await authViewModel.signUp(withEmail: email.lowercased(), password: password, firstName: firstName, lastName: lastName)
+                        try await authViewModel.signUp(withEmail: email.lowercased(), password: password, firstName: firstName, lastName: lastName, role: userRole)
                     }
                 }
                     .padding(.top, 25)
                 
-                NavigationLink{
-                    LoginView()
-                        .navigationBarBackButtonHidden(true)
+                Button {
+                    dismiss()
                 } label: {
                     HStack{
                         Text("Already have an account?")
