@@ -27,9 +27,8 @@ struct EditUserDetailView: View {
                     case .failure:
                         Image("mt-everest")
                             .resizable()
-                            .frame(height: 200)
                             .aspectRatio(contentMode: .fit)
-                            .foregroundColor(.gray)
+                            .frame(height: 200)
                     @unknown default:
                         EmptyView()
                     }
@@ -43,7 +42,9 @@ struct EditUserDetailView: View {
                     .resizable()
                     .frame(height: 200)
                     .aspectRatio(contentMode: .fit)
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color.white)
+                    .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                    .padding(.bottom, 20)
             }
             
             CustomTextFieldView(placeholder: "First Name", text: $userDetail.firstName, isSecureField: false)

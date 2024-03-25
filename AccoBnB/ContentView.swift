@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var userStateVM: UserStateViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
+    
     var body: some View {
         VStack {
-            if userStateVM.isLoggedIn == true{
+            if authViewModel.userSession != nil{
                 MenuNavigationView()
             }else{
-                LoginView(email: "", password: "")
+                LoginView()
             }
         }
         .padding()
