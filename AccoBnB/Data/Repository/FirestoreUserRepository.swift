@@ -52,4 +52,10 @@ class FirestoreUserRepository: UserRepository{
             }
         }
     }
+    
+    func updateUserDetail(userDetail: User) async throws{
+        let userId = authViewModel.userSession!.uid
+        let encodedUpdatedUser = try Firestore.Encoder().encode(userDetail)
+        try await Firestore.firestore().collection(userCollection).document(userId).setData(encodedUpdatedUser)
+    }
 }

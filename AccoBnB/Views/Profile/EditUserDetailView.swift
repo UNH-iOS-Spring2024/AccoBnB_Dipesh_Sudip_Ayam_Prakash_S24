@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct EditUserDetailView: View {
+    @ObservedObject private var userProfileVM = UserProfileViewModel()
+    @Environment(\.dismiss) var dismiss // used to stack back to parent screen
+    
     @State var userDetail: User
     
     var body: some View {
@@ -52,8 +55,13 @@ struct EditUserDetailView: View {
             CustomTextFieldView(placeholder: "Email",text: $userDetail.email, isSecureField: false, isDisabled: true)
                 .foregroundColor(Color.gray)
             CustomTextFieldView(placeholder: "Phone Number", text: $userDetail.phone, isSecureField: false)
+
             CustomButtonView(buttonText: "Update"){
-                print("User Detail Updated")
+                Task{
+                    await userProfileVM.updateUserDetail(userDetail: userDetail)
+                }
+                // This is an Environment object that is declared to stack back to parent
+                dismiss()
             }
             .padding(.top, 8)
         }
