@@ -9,10 +9,6 @@ import Foundation
 import Firebase
 import FirebaseFirestoreSwift
 
-// Using MainActor declaration to publish all the UI changes to the Main Thread. Basically all the asynchronous task run
-// on the background thread and the changes occured through these tasks should be published on the main thread so @MainActor
-// helps us achieve this.
-
 class AuthViewModel: ObservableObject{
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
@@ -22,16 +18,13 @@ class AuthViewModel: ObservableObject{
         // Auth.auth().currentUser is the functionality from firebase to check for a logged in user
         // Initializing userSession with currently logged in user.
             self.userSession = Auth.auth().currentUser
-        
-        // fetching user information
-//        Task{
-//            await fetchUser()
-//        }
     }
     
     func signIn(withEmail email: String, password: String) async throws{
         do{
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
+            // Using "DispatchQueue.main.async" to publish all the UI changes to the Main Thread.
+            // Basically all the asynchronous task run on the background thread and the changes occured through these tasks should be published on the main thread so "DispatchQueue.main.async" helps us achieve this
             DispatchQueue.main.async {
                 self.userSession = result.user
             }
@@ -55,8 +48,6 @@ class AuthViewModel: ObservableObject{
             //storing the user additional information in Firestore cloud under "users" collection.
             try await Firestore.firestore().collection(userCollection).document(user.id).setData(encodedUser)
             
-            // fetching new user information immediately once we create it
-//            await fetchUser()
         } catch {
             print("DEBUG: Failed to create user with error \(error.localizedDescription)")
         }
@@ -72,13 +63,4 @@ class AuthViewModel: ObservableObject{
             print("DEBUG: Failed to logout user with error: \(error.localizedDescription)")
         }
     }
-    
-//    func fetchUser() async{
-//        guard let uid = Auth.auth().currentUser?.uid else { return }
-//        guard let snapshot = await try? Firestore.firestore().collection(userCollection).document(uid).getDocument() else { return }
-//        // decoding (maping) the user data from firebase to our local User model
-//        self.currentUser = try? snapshot.data(as: User.self)
-//        
-//        print("Currently logged in user details: \(self.currentUser)")
-//    }
 }
