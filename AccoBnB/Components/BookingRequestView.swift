@@ -46,7 +46,6 @@ struct BookingRequestView: View {
                 .cornerRadius(8)
                 .disabled(bookingNote.isEmpty)
             }
-            .padding(.horizontal)
         }
         .padding()
         .background(Color.white)

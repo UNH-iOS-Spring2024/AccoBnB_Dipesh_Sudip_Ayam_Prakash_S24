@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct MenuNavigationView: View {
-    @StateObject var bookingViewModel = BookingViewModel(text:"menunavview")
+    @EnvironmentObject var authViewModel: AuthViewModel
+    @StateObject var bookingViewModel: BookingViewModel
     @ObservedObject var listingViewModel = ListingViewModel()
+    
+    init(authViewModel: AuthViewModel) {
+        _bookingViewModel = StateObject(wrappedValue: BookingViewModel(authViewModel: authViewModel))
+    }
     
     var body: some View {
         VStack{
@@ -40,11 +45,12 @@ struct MenuNavigationView: View {
             }
         }
         
-    } 
+    }
 }
 
 struct MenuNavigationView_Previews: PreviewProvider {
     static var previews: some View {
-        MenuNavigationView()
+        let authViewModel = AuthViewModel() // Create an instance of AuthViewModel
+        MenuNavigationView(authViewModel: authViewModel) // Pass authViewModel to MenuNavigationView
     }
 }
