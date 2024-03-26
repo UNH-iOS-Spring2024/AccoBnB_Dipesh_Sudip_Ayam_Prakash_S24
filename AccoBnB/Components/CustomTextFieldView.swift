@@ -23,6 +23,8 @@ struct CustomTextFieldView: View {
                 .cornerRadius(8)
                 .padding(.horizontal,30)
                 .disabled(isDisabled!)
+                .autocorrectionDisabled()
+                .textInputAutocapitalization(TextInputAutocapitalization.never)
         }else{
             TextField(placeholder, text: $text)
                 .padding(12)
@@ -31,6 +33,8 @@ struct CustomTextFieldView: View {
                 .cornerRadius(8)
                 .padding(.horizontal,30)
                 .disabled(isDisabled!)
+                .autocorrectionDisabled()
+                .textInputAutocapitalization(TextInputAutocapitalization.never)
         }
     }
 }

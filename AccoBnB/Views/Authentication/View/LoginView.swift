@@ -23,11 +23,11 @@ struct LoginView: View {
                     .padding(.horizontal, 30)
                     .padding(.bottom, 90)
                 
-                CustomButtonView(buttonText: "Login in with Google")
-                
-                Text("OR")
-                    .foregroundColor(Color.gray)
-                    .padding(.vertical, 30)
+//                CustomButtonView(buttonText: "Login in with Google")
+//                
+//                Text("OR")
+//                    .foregroundColor(Color.gray)
+//                    .padding(.vertical, 30)
                 
                 CustomTextFieldView(placeholder:"Email Address", text: $email, isSecureField: false)
                 

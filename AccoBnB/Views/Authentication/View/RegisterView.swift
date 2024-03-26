@@ -29,11 +29,11 @@ struct RegisterView: View {
                     .padding(.horizontal, 30)
                     .padding(.bottom, 70)
                 
-                CustomButtonView(buttonText: "Register with Google")
-                
-                Text("-- OR --")
-                    .padding(.vertical, 30)
-                    .foregroundColor(Color.gray)
+//                CustomButtonView(buttonText: "Register with Google")
+//                
+//                Text("-- OR --")
+//                    .padding(.vertical, 30)
+//                    .foregroundColor(Color.gray)
                 
                 CustomTextFieldView(placeholder: "First Name",text: $firstName, isSecureField: false)
                 CustomTextFieldView(placeholder: "Last Name",text: $lastName, isSecureField: false)
@@ -44,7 +44,7 @@ struct RegisterView: View {
                 
                 CustomTextFieldView(placeholder: "Confirm Password",text: $confirmPassword, isSecureField: true)
                 
-                Toggle("Are you an Host?", isOn: $isHost)
+                Toggle("Are you a Host?", isOn: $isHost)
                     .padding(.horizontal, 30)
                     .foregroundColor(Color.gray)
                 
