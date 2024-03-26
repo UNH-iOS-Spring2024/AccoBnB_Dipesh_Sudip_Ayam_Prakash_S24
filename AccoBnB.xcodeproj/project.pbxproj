@@ -259,9 +259,6 @@
 				136372212BA859220082518A /* Profile */,
 				E120AD602B97C2590061ECD4 /* Listing */,
 				E123E8102B8C001400FEBDBA /* SplashScreenView.swift */,
-				13BA6B672B89697100D816E9 /* ResetPasswordView.swift */,
-				13BA6B652B89693B00D816E9 /* LoginView.swift */,
-				13BA6B632B8968E800D816E9 /* RegisterView.swift */,
 				13BA6B772B8C211600D816E9 /* NotificationView.swift */,
 			);
 			path = Views;
