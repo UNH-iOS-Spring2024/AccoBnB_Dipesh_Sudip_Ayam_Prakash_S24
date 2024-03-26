@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct MyProfileView: View {
-    @EnvironmentObject var userStateVM: UserStateViewModel
-    @State private var isEditUserDetailViewActive = false
     @ObservedObject private var viewModel = UserProfileViewModel()
+    @EnvironmentObject var authViewModel: AuthViewModel
+    
+    @State private var isEditUserDetailViewActive = false
     
     var body: some View {
         NavigationSplitView{
@@ -67,7 +68,7 @@ struct MyProfileView: View {
                     
                     
                     CustomButtonView(buttonText: "Log Out"){
-                        userStateVM.isLoggedIn = false
+                        authViewModel.signOut()
                     }
                     
                     Spacer()

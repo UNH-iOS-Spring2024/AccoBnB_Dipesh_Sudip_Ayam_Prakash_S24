@@ -15,9 +15,9 @@ struct ListingView: View {
     var body: some View {
         NavigationSplitView {
             VStack {
-                SearchBar(searchText: $searchText)
-                    .padding(.top, 10)
-                    .padding(.horizontal,20)
+//                SearchBar(searchText: $searchText)
+//                    .padding(.top, 10)
+//                    .padding(.horizontal,20)
                 if viewModel.isLoading {
                     ProgressView("Loading...")
                         .progressViewStyle(CircularProgressViewStyle())

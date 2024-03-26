@@ -31,4 +31,12 @@ final class UserProfileViewModel: ObservableObject{
             }
         }
     }
+    
+    func updateUserDetail(userDetail: User) async{
+        do {
+            try await userRepository.updateUserDetail(userDetail: userDetail)
+        } catch {
+            print("DEBUG: Unable to update user detail with error \(error.localizedDescription)")
+        }
+    }
 }

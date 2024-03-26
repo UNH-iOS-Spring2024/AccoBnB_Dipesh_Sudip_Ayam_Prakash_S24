@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct EditUserDetailView: View {
+    @ObservedObject private var userProfileVM = UserProfileViewModel()
+    @Environment(\.dismiss) var dismiss // used to stack back to parent screen
+    
     @State var userDetail: User
     
     var body: some View {
@@ -27,9 +30,8 @@ struct EditUserDetailView: View {
                     case .failure:
                         Image("mt-everest")
                             .resizable()
-                            .frame(height: 200)
                             .aspectRatio(contentMode: .fit)
-                            .foregroundColor(.gray)
+                            .frame(height: 200)
                     @unknown default:
                         EmptyView()
                     }
@@ -43,16 +45,23 @@ struct EditUserDetailView: View {
                     .resizable()
                     .frame(height: 200)
                     .aspectRatio(contentMode: .fit)
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color.white)
+                    .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                    .padding(.bottom, 20)
             }
             
-            CustomTextFieldView(textHintString: "First Name", textFieldString: userDetail.firstName, isSecureField: false)
-            CustomTextFieldView(textHintString: "Last Name" , textFieldString: userDetail.lastName, isSecureField: false)
-            CustomTextFieldView(textHintString: "Email",textFieldString: userDetail.email, isSecureField: false, isDisabled: true)
+            CustomTextFieldView(placeholder: "First Name", text: $userDetail.firstName, isSecureField: false)
+            CustomTextFieldView(placeholder: "Last Name" , text: $userDetail.lastName, isSecureField: false)
+            CustomTextFieldView(placeholder: "Email",text: $userDetail.email, isSecureField: false, isDisabled: true)
                 .foregroundColor(Color.gray)
-            CustomTextFieldView(textHintString: "Phone Number", textFieldString: userDetail.phone, isSecureField: false)
+            CustomTextFieldView(placeholder: "Phone Number", text: $userDetail.phone, isSecureField: false)
+
             CustomButtonView(buttonText: "Update"){
-                print("User Detail Updated")
+                Task{
+                    await userProfileVM.updateUserDetail(userDetail: userDetail)
+                }
+                // This is an Environment object that is declared to stack back to parent
+                dismiss()
             }
             .padding(.top, 8)
         }
