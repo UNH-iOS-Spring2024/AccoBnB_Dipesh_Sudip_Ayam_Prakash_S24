@@ -25,12 +25,14 @@ struct ListingView: View {
                 } else {
                     List {
                         ForEach(listingViewModel.listings, id: \.id) { listing in
-                            NavigationLink(destination: ListingDetailView(listingDetail: listing).environmentObject(bookingViewModel)) {
+                            NavigationLink(destination: ListingDetailView(listingDetail: listing).environmentObject(bookingViewModel).navigationTitle(listing.title)) {
                                 ListingCardView(listingDetail: listing)
                             }
+
                         }
                         .navigationTitle("Listings")
-                    }
+                    }.listStyle(PlainListStyle())
+                    .padding(0)
                 }
             }
             .onAppear {

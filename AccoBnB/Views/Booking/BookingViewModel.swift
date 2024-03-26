@@ -39,6 +39,7 @@ final class BookingViewModel : ObservableObject {
     
     func createBooking(userId: String, listingId: String, bookingNote: String, completion: @escaping (Result<Booking, Error>) -> Void) {
         let booking = Booking(
+            id: bookingRepository.getBookingId(),
             userId: userId,
             listingId: listingId,
             listingInfo: nil,
@@ -54,7 +55,6 @@ final class BookingViewModel : ObservableObject {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let newBooking):
-                    self?.bookings.append(newBooking)
                     completion(.success(newBooking))
                 case .failure(let error):
                     completion(.failure(error))

@@ -11,6 +11,8 @@ protocol BookingRepository {
     // Create a new booking
     func createBooking(booking: Booking, completion: @escaping (Result<Booking, Error>) -> Void)
     
+    func getBookingId() -> String
+        
     // Read a booking by its ID
     func readBookingById(bookingId: String, completion: @escaping (Result<Booking?, Error>) -> Void)
     
