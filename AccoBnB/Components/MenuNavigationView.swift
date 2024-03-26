@@ -8,15 +8,21 @@
 import SwiftUI
 
 struct MenuNavigationView: View {
+    @StateObject var bookingViewModel = BookingViewModel(text:"menunavview")
+    @ObservedObject var listingViewModel = ListingViewModel()
+    
     var body: some View {
         VStack{
             TabView{
                 ListingView()
+                    .environmentObject(listingViewModel)
+                    .environmentObject(bookingViewModel)
                     .tabItem {
                         Image(systemName: "house")
                         Text("Home")
                     }
                 BookingView()
+                    .environmentObject(bookingViewModel)
                     .tabItem {
                         Image(systemName: "apps.iphone.badge.plus")
                         Text("Bookings")
@@ -37,6 +43,8 @@ struct MenuNavigationView: View {
     } 
 }
 
-#Preview {
-    MenuNavigationView()
+struct MenuNavigationView_Previews: PreviewProvider {
+    static var previews: some View {
+        MenuNavigationView()
+    }
 }

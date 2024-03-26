@@ -14,7 +14,7 @@ enum BookingStatus: String, Codable {
 }
 
 struct Booking: Codable {
-    var id: String = ""
+    var id: String? = ""
     var userId: String = ""
     var listingId: String = ""
     var listingInfo: Listing? = nil // New property to store listing info
@@ -23,7 +23,7 @@ struct Booking: Codable {
     var checkOutDate: Date? = nil
     var bookingNote: String = ""
     var totalAmount: Float = 0.0
-    var hasReviewed: Bool = false
+    var hasReviewed: Bool? = false
     var status: BookingStatus = .pending
     var createdAt: Date? = nil
     var updatedAt: Date? = nil

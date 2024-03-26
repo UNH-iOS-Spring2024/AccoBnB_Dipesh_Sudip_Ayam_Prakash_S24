@@ -8,19 +8,16 @@
 import SwiftUI
 
 struct ListingView: View {
-    @ObservedObject private var viewModel = ListingViewModel()
     @State private var searchText = ""
+    @EnvironmentObject var viewModel: ListingViewModel
+    @EnvironmentObject var bookingViewModel: BookingViewModel 
 
     var body: some View {
         NavigationSplitView {
             VStack {
-                
                 SearchBar(searchText: $searchText)
                     .padding(.top, 10)
                     .padding(.horizontal,20)
-                    
-                
-
                 if viewModel.isLoading {
                     ProgressView("Loading...")
                         .progressViewStyle(CircularProgressViewStyle())
@@ -28,7 +25,7 @@ struct ListingView: View {
                 } else {
                     List {
                         ForEach(viewModel.listings, id: \.id) { listing in
-                            NavigationLink(destination: ListingDetailView(listingDetail: listing)) {
+                            NavigationLink(destination: ListingDetailView(listingDetail: listing).environmentObject(bookingViewModel)) {
                                 ListingCardView(listingDetail: listing)
                             }
                         }
@@ -48,6 +45,10 @@ struct ListingView: View {
 
 struct ListingView_Previews: PreviewProvider {
     static var previews: some View {
-        ListingView()
+        let listingViewModel = ListingViewModel()
+        let bookingViewModel = BookingViewModel(text:"listingView")
+        return ListingView()
+            .environmentObject(listingViewModel)
+            .environmentObject(bookingViewModel)
     }
 }

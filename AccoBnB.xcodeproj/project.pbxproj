@@ -27,7 +27,6 @@
 		13BA6B702B8A629800D816E9 /* ConciseRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B6F2B8A629800D816E9 /* ConciseRatingView.swift */; };
 		13BA6B722B8A62A100D816E9 /* ListingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B712B8A62A100D816E9 /* ListingCardView.swift */; };
 		13BA6B742B8C20CA00D816E9 /* ListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B732B8C20CA00D816E9 /* ListingView.swift */; };
-		13BA6B762B8C210100D816E9 /* BookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B752B8C210100D816E9 /* BookingView.swift */; };
 		13BA6B782B8C211600D816E9 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B772B8C211600D816E9 /* NotificationView.swift */; };
 		13BA6B7C2B8C238800D816E9 /* MenuNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B7B2B8C238800D816E9 /* MenuNavigationView.swift */; };
 		D02908482BAA5266001EA8B1 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02908472BAA5266001EA8B1 /* SearchBarView.swift */; };
@@ -70,6 +69,10 @@
 		E123E81D2B8CFE7E00FEBDBA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123E81C2B8CFE7E00FEBDBA /* User.swift */; };
 		E123E8212B8CFF0800FEBDBA /* Favourite.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123E8202B8CFF0800FEBDBA /* Favourite.swift */; };
 		E12B64242BAA4ED50045303F /* BookingRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12B64232BAA4ED40045303F /* BookingRequestView.swift */; };
+		E12B64272BAB6F450045303F /* BookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12B64262BAB6F450045303F /* BookingViewModel.swift */; };
+		E12B64292BAB70090045303F /* BookingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12B64282BAB70090045303F /* BookingRepository.swift */; };
+		E12B642B2BAB707C0045303F /* FirestoreBookingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12B642A2BAB707C0045303F /* FirestoreBookingRepository.swift */; };
+		E12B642D2BAF74A30045303F /* BookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12B642C2BAF74A30045303F /* BookingView.swift */; };
 		E1E5BE052BA1457A004BD586 /* ListingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E5BE042BA1457A004BD586 /* ListingDetailView.swift */; };
 /* End PBXBuildFile section */
 
@@ -95,7 +98,6 @@
 		13BA6B6F2B8A629800D816E9 /* ConciseRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConciseRatingView.swift; sourceTree = "<group>"; };
 		13BA6B712B8A62A100D816E9 /* ListingCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListingCardView.swift; sourceTree = "<group>"; };
 		13BA6B732B8C20CA00D816E9 /* ListingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingView.swift; sourceTree = "<group>"; };
-		13BA6B752B8C210100D816E9 /* BookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingView.swift; sourceTree = "<group>"; };
 		13BA6B772B8C211600D816E9 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		13BA6B7B2B8C238800D816E9 /* MenuNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuNavigationView.swift; sourceTree = "<group>"; };
 		D02908472BAA5266001EA8B1 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
@@ -111,6 +113,10 @@
 		E123E81C2B8CFE7E00FEBDBA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E123E8202B8CFF0800FEBDBA /* Favourite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favourite.swift; sourceTree = "<group>"; };
 		E12B64232BAA4ED40045303F /* BookingRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingRequestView.swift; sourceTree = "<group>"; };
+		E12B64262BAB6F450045303F /* BookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingViewModel.swift; sourceTree = "<group>"; };
+		E12B64282BAB70090045303F /* BookingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingRepository.swift; sourceTree = "<group>"; };
+		E12B642A2BAB707C0045303F /* FirestoreBookingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreBookingRepository.swift; sourceTree = "<group>"; };
+		E12B642C2BAF74A30045303F /* BookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingView.swift; sourceTree = "<group>"; };
 		E1E5BE042BA1457A004BD586 /* ListingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -249,10 +255,13 @@
 			isa = PBXGroup;
 			children = (
 				137AE8FB2BAC33610030B75B /* Authentication */,
+				E12B64252BAB6F2B0045303F /* Booking */,
 				136372212BA859220082518A /* Profile */,
 				E120AD602B97C2590061ECD4 /* Listing */,
 				E123E8102B8C001400FEBDBA /* SplashScreenView.swift */,
-				13BA6B752B8C210100D816E9 /* BookingView.swift */,
+				13BA6B672B89697100D816E9 /* ResetPasswordView.swift */,
+				13BA6B652B89693B00D816E9 /* LoginView.swift */,
+				13BA6B632B8968E800D816E9 /* RegisterView.swift */,
 				13BA6B772B8C211600D816E9 /* NotificationView.swift */,
 			);
 			path = Views;
@@ -282,6 +291,8 @@
 				E120AD662B97C6750061ECD4 /* FirestoreListingRepository.swift */,
 				136372242BA85A6B0082518A /* UserRepository.swift */,
 				136372262BA85B870082518A /* FirestoreUserRepository.swift */,
+				E12B64282BAB70090045303F /* BookingRepository.swift */,
+				E12B642A2BAB707C0045303F /* FirestoreBookingRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -306,6 +317,15 @@
 				E123E8202B8CFF0800FEBDBA /* Favourite.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		E12B64252BAB6F2B0045303F /* Booking */ = {
+			isa = PBXGroup;
+			children = (
+				E12B642C2BAF74A30045303F /* BookingView.swift */,
+				E12B64262BAB6F450045303F /* BookingViewModel.swift */,
+			);
+			path = Booking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -416,6 +436,7 @@
 				E123E8172B8CFDB300FEBDBA /* Booking.swift in Sources */,
 				13BA6B4F2B8963F900D816E9 /* ContentView.swift in Sources */,
 				E1E5BE052BA1457A004BD586 /* ListingDetailView.swift in Sources */,
+				E12B64272BAB6F450045303F /* BookingViewModel.swift in Sources */,
 				1336F28E2BA1DE1B003AA20D /* ReviewCardView.swift in Sources */,
 				13BA6B6A2B8969A100D816E9 /* MyProfileView.swift in Sources */,
 				13BA6B662B89693B00D816E9 /* LoginView.swift in Sources */,
@@ -424,8 +445,8 @@
 				136372272BA85B870082518A /* FirestoreUserRepository.swift in Sources */,
 				13BA6B622B89682C00D816E9 /* BorderlessIconButtonView.swift in Sources */,
 				13BA6B7C2B8C238800D816E9 /* MenuNavigationView.swift in Sources */,
+				E12B642B2BAB707C0045303F /* FirestoreBookingRepository.swift in Sources */,
 				E123E8152B8C655400FEBDBA /* Listing.swift in Sources */,
-				13BA6B762B8C210100D816E9 /* BookingView.swift in Sources */,
 				13BA6B742B8C20CA00D816E9 /* ListingView.swift in Sources */,
 				13BA6B682B89697100D816E9 /* ResetPasswordView.swift in Sources */,
 				136372252BA85A6B0082518A /* UserRepository.swift in Sources */,
@@ -441,9 +462,11 @@
 				13BA6B5D2B8965B500D816E9 /* CustomTextFieldView.swift in Sources */,
 				E120AD652B97C6180061ECD4 /* ListingRepository.swift in Sources */,
 				136372202BA848930082518A /* EditUserDetailView.swift in Sources */,
+				E12B64292BAB70090045303F /* BookingRepository.swift in Sources */,
 				13BA6B602B8965D800D816E9 /* CustomButtonView.swift in Sources */,
 				E123E8112B8C001400FEBDBA /* SplashScreenView.swift in Sources */,
 				E123E81D2B8CFE7E00FEBDBA /* User.swift in Sources */,
+				E12B642D2BAF74A30045303F /* BookingView.swift in Sources */,
 				E12B64242BAA4ED50045303F /* BookingRequestView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
