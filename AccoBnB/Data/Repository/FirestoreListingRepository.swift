@@ -25,7 +25,7 @@ class FirestoreListingRepository: ListingRepository {
                 return
             }
             
-            var listings = [Listing()]
+            var listings: [Listing] = []
             // Using dispatcher group to synchronize all asynchronous tasks. Here it ensures that the completion handler is called only after all asynchronous tasks related to fetching listings and their reviews are completed.
             // If we don't use DispatchGroup() only listings will be returned while reviews will be retrieved later async-.
             let dispatchGroup = DispatchGroup()
