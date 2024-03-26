@@ -16,6 +16,7 @@ struct ListingDetailView: View {
     @State var isBookingRequestViewPresented: Bool = false
     @EnvironmentObject var bookingViewModel: BookingViewModel
     @State var isAlreadyBooked : Bool = false
+    @EnvironmentObject var authViewModel: AuthViewModel
     
     // using init method to initialize the region variable with the passed parameter.
     init(listingDetail: Listing) {
@@ -84,7 +85,7 @@ struct ListingDetailView: View {
                 VStack {
                     Spacer()
                     BookingRequestView(isPresented: $isBookingRequestViewPresented) { bookingNote in
-                        bookingViewModel.createBooking(userId: User.defaultUser.id, listingId: listingDetail.id, bookingNote: bookingNote) { result in
+                        bookingViewModel.createBooking(userId: authViewModel.userSession!.uid, listingId: listingDetail.id, bookingNote: bookingNote) { result in
                             switch result {
                             case .success(let createdBooking):
                                 isBookingRequestViewPresented = false

@@ -11,12 +11,13 @@ final class BookingViewModel : ObservableObject {
     @Published var bookings: [Booking] = []
     @Published var isLoading = false // Track loading state
     private let bookingRepository: BookingRepository
-    var defaultUser: User = User.defaultUser
+    private let authViewModel: AuthViewModel
     
-    init(bookingRepository: BookingRepository = FirestoreBookingRepository(), text: String = "") {
+    init(bookingRepository: BookingRepository = FirestoreBookingRepository(),authViewModel: AuthViewModel, text: String = "") {
         self.bookingRepository = bookingRepository
+        self.authViewModel = authViewModel
         print("BookingViewModel initialized with text: \(text)")
-        getUserBooking(userId: defaultUser.id)
+        getUserBooking(userId: authViewModel.userSession!.uid)
     }
     
     func getUserBooking(userId: String) {

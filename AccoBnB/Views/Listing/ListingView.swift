@@ -9,8 +9,8 @@ import SwiftUI
 
 struct ListingView: View {
     @State private var searchText = ""
-    @EnvironmentObject var viewModel: ListingViewModel
-    @EnvironmentObject var bookingViewModel: BookingViewModel 
+    @EnvironmentObject var listingViewModel: ListingViewModel
+    @EnvironmentObject var bookingViewModel: BookingViewModel
 
     var body: some View {
         NavigationSplitView {
@@ -18,13 +18,13 @@ struct ListingView: View {
 //                SearchBar(searchText: $searchText)
 //                    .padding(.top, 10)
 //                    .padding(.horizontal,20)
-                if viewModel.isLoading {
+                if listingViewModel.isLoading {
                     ProgressView("Loading...")
                         .progressViewStyle(CircularProgressViewStyle())
                         .padding()
                 } else {
                     List {
-                        ForEach(viewModel.listings, id: \.id) { listing in
+                        ForEach(listingViewModel.listings, id: \.id) { listing in
                             NavigationLink(destination: ListingDetailView(listingDetail: listing).environmentObject(bookingViewModel)) {
                                 ListingCardView(listingDetail: listing)
                             }
@@ -34,7 +34,7 @@ struct ListingView: View {
                 }
             }
             .onAppear {
-                viewModel.getAllListings()
+                listingViewModel.getAllListings()
             }
         } detail: {
             Text("Show me")
@@ -46,7 +46,8 @@ struct ListingView: View {
 struct ListingView_Previews: PreviewProvider {
     static var previews: some View {
         let listingViewModel = ListingViewModel()
-        let bookingViewModel = BookingViewModel(text:"listingView")
+        let authViewModel = AuthViewModel() // Create an instance of AuthViewModel
+        let bookingViewModel = BookingViewModel(authViewModel: authViewModel, text:"listingView")
         return ListingView()
             .environmentObject(listingViewModel)
             .environmentObject(bookingViewModel)
