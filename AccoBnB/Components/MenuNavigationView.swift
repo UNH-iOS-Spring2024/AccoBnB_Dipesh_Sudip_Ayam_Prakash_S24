@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct MenuNavigationView: View {
-    @StateObject var bookingViewModel = BookingViewModel(text:"menunavview")
+    @EnvironmentObject var authViewModel: AuthViewModel
+    @StateObject var bookingViewModel: BookingViewModel
     @ObservedObject var listingViewModel = ListingViewModel()
+    
+    init(authViewModel: AuthViewModel) {
+        _bookingViewModel = StateObject(wrappedValue: BookingViewModel(authViewModel: authViewModel))
+    }
     
     var body: some View {
         VStack{
@@ -21,12 +26,21 @@ struct MenuNavigationView: View {
                         Image(systemName: "house")
                         Text("Home")
                     }
-                BookingView()
-                    .environmentObject(bookingViewModel)
-                    .tabItem {
-                        Image(systemName: "apps.iphone.badge.plus")
-                        Text("Bookings")
-                    }
+                if authViewModel.currentUser?.role == UserRole.guest {
+                    BookingView()
+                        .environmentObject(bookingViewModel)
+                        .tabItem {
+                            Image(systemName: "apps.iphone.badge.plus")
+                            Text("Bookings")
+                        }
+                } else {
+                    ManageListingView()
+                        .environmentObject(listingViewModel)
+                        .tabItem {
+                            Image(systemName: "apps.iphone.badge.plus")
+                            Text("Manage Listings")
+                        }
+                }
                 NotificationView()
                     .tabItem {
                         Image(systemName: "bell")
@@ -40,11 +54,12 @@ struct MenuNavigationView: View {
             }
         }
         
-    } 
+    }
 }
 
 struct MenuNavigationView_Previews: PreviewProvider {
     static var previews: some View {
-        MenuNavigationView()
+        let authViewModel = AuthViewModel() // Create an instance of AuthViewModel
+        MenuNavigationView(authViewModel: authViewModel) // Pass authViewModel to MenuNavigationView
     }
 }

@@ -10,14 +10,18 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 class FirestoreBookingRepository: BookingRepository {
-   
+    
     let db = Firestore.firestore()
     private let bookingsCollection = "bookings"
     private let listingsCollection = "listings"
     
+    func getBookingId() -> String {
+        return db.collection(bookingsCollection).document().documentID
+    }
+    
     func createBooking(booking: Booking, completion: @escaping (Result<Booking, Error>) -> Void) {
         do {
-            try db.collection(bookingsCollection).addDocument(from: booking) { error in
+            try db.collection(bookingsCollection).document(booking.id!).setData(Firestore.Encoder().encode(booking)){ error in
                 if let error = error {
                     print("Error while booking: \(error)")
                     completion(.failure(error))
@@ -29,8 +33,8 @@ class FirestoreBookingRepository: BookingRepository {
             completion(.failure(error))
         }
     }
-
-
+    
+    
     
     func readBookingById(bookingId: String, completion: @escaping (Result<Booking?, Error>) -> Void) {
         db.collection(bookingsCollection).document(bookingId).getDocument { snapshot, error in
@@ -79,23 +83,23 @@ class FirestoreBookingRepository: BookingRepository {
         }
     }
     
-//    func getUserBookings(userId: String, completion: @escaping (Result<[Booking], Error>) -> Void) {
-//        print("userid from repo:\(userId)")
-//        db.collection(bookingsCollection).whereField("userId", isEqualTo: userId).getDocuments { snapshot, error in
-//            if let error = error {
-//                completion(.failure(error))
-//            } else if let snapshot = snapshot {
-//                do {
-//                    let bookings = try snapshot.documents.compactMap {
-//                        try $0.data(as: Booking.self)
-//                    }
-//                    completion(.success(bookings))
-//                } catch {
-//                    completion(.failure(error))
-//                }
-//            }
-//        }
-//    }
+    //    func getUserBookings(userId: String, completion: @escaping (Result<[Booking], Error>) -> Void) {
+    //        print("userid from repo:\(userId)")
+    //        db.collection(bookingsCollection).whereField("userId", isEqualTo: userId).getDocuments { snapshot, error in
+    //            if let error = error {
+    //                completion(.failure(error))
+    //            } else if let snapshot = snapshot {
+    //                do {
+    //                    let bookings = try snapshot.documents.compactMap {
+    //                        try $0.data(as: Booking.self)
+    //                    }
+    //                    completion(.success(bookings))
+    //                } catch {
+    //                    completion(.failure(error))
+    //                }
+    //            }
+    //        }
+    //    }
     func getUserBookings(userId: String, completion: @escaping (Result<[Booking], Error>) -> Void) {
         db.collection(bookingsCollection)
             .whereField("userId", isEqualTo: userId)
@@ -126,7 +130,7 @@ class FirestoreBookingRepository: BookingRepository {
                                         print("Error decoding listing data:", error)
                                     }
                                 }
-
+                                
                                 // Add the booking (with or without listing info) to the array
                                 bookings.append(booking)
                                 
@@ -140,10 +144,10 @@ class FirestoreBookingRepository: BookingRepository {
                 }
             }
     }
-
-
-
-
+    
+    
+    
+    
     
     
 }

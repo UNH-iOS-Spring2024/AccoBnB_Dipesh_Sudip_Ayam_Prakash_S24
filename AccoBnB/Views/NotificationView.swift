@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NotificationView: View {
     var body: some View {
-        Text("Notification View")
+        Text("Soon this will be populated with Notifications.")
     }
 }
 

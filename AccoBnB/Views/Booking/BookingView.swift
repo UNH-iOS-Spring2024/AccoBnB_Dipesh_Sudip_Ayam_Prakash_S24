@@ -9,23 +9,35 @@ import SwiftUI
 
 struct BookingView: View {
     @EnvironmentObject var bookingViewModel: BookingViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
+
     
     var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 10) {
-                ForEach(bookingViewModel.bookings, id: \.id) { booking in
-                    ListingCardView(listingDetail: booking.listingInfo ?? Listing.defaultListing)
-                        .padding(.horizontal)
+            ScrollView {
+                VStack(spacing: 10) {
+                    if(bookingViewModel.bookings.isEmpty){
+                        Text("No Bookings Available")
+                    } else {
+                        ForEach(bookingViewModel.bookings, id: \.id) { booking in
+                            ListingCardView(listingDetail: booking.listingInfo ?? Listing.defaultListing)
+                                .padding(.horizontal)
+                        }
+
+                    }
+                }.onAppear{
+                    bookingViewModel.getUserBooking(userId: authViewModel.userSession!.uid)
                 }
             }
-        }
-        .padding(.vertical)
+            .padding(.vertical)
+        
     }
 }
 
 struct BookingView_Previews: PreviewProvider {
     static var previews: some View {
+        let authViewModel = AuthViewModel() // Create an instance of AuthViewModel
+        let bookingViewModel = BookingViewModel(authViewModel: authViewModel) // Create a mock BookingViewModel
         BookingView()
-            .environmentObject(BookingViewModel()) // Provide a mock BookingViewModel for preview
+            .environmentObject(bookingViewModel) // Provide the mock BookingViewModel for preview
     }
 }

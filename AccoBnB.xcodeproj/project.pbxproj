@@ -74,6 +74,8 @@
 		E12B642B2BAB707C0045303F /* FirestoreBookingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12B642A2BAB707C0045303F /* FirestoreBookingRepository.swift */; };
 		E12B642D2BAF74A30045303F /* BookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12B642C2BAF74A30045303F /* BookingView.swift */; };
 		E1E5BE052BA1457A004BD586 /* ListingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E5BE042BA1457A004BD586 /* ListingDetailView.swift */; };
+		E1EFA9602BB7977300E50E64 /* ManageListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EFA95F2BB7977200E50E64 /* ManageListingView.swift */; };
+		E1EFA9622BB79C6400E50E64 /* AddListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EFA9612BB79C6400E50E64 /* AddListingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,6 +120,8 @@
 		E12B642A2BAB707C0045303F /* FirestoreBookingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreBookingRepository.swift; sourceTree = "<group>"; };
 		E12B642C2BAF74A30045303F /* BookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingView.swift; sourceTree = "<group>"; };
 		E1E5BE042BA1457A004BD586 /* ListingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingDetailView.swift; sourceTree = "<group>"; };
+		E1EFA95F2BB7977200E50E64 /* ManageListingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageListingView.swift; sourceTree = "<group>"; };
+		E1EFA9612BB79C6400E50E64 /* AddListingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -277,6 +281,8 @@
 			children = (
 				13BA6B732B8C20CA00D816E9 /* ListingView.swift */,
 				E120AD612B97C2730061ECD4 /* ListingViewModel.swift */,
+				E1EFA95F2BB7977200E50E64 /* ManageListingView.swift */,
+				E1EFA9612BB79C6400E50E64 /* AddListingView.swift */,
 			);
 			path = Listing;
 			sourceTree = "<group>";
@@ -428,6 +434,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1EFA9602BB7977300E50E64 /* ManageListingView.swift in Sources */,
 				13BA6B702B8A629800D816E9 /* ConciseRatingView.swift in Sources */,
 				E120AD622B97C2730061ECD4 /* ListingViewModel.swift in Sources */,
 				E123E8172B8CFDB300FEBDBA /* Booking.swift in Sources */,
@@ -449,6 +456,7 @@
 				136372252BA85A6B0082518A /* UserRepository.swift in Sources */,
 				13BA6B4D2B8963F900D816E9 /* AccoBnBApp.swift in Sources */,
 				136372232BA859600082518A /* UserProfileViewModel.swift in Sources */,
+				E1EFA9622BB79C6400E50E64 /* AddListingView.swift in Sources */,
 				E123E8192B8CFE0100FEBDBA /* Notification.swift in Sources */,
 				D02908482BAA5266001EA8B1 /* SearchBarView.swift in Sources */,
 				13BA6B782B8C211600D816E9 /* NotificationView.swift in Sources */,
