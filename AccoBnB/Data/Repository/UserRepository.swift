@@ -8,6 +8,6 @@
 import Foundation
 
 protocol UserRepository{
-    func getUserDetails(completion: @escaping (Result<User, Error>) -> Void)
+    func getUserDetails(userId: String, completion: @escaping (Result<User, Error>) -> Void)
     func updateUserDetail(userDetail: User) async throws
 }

@@ -9,22 +9,16 @@ import Foundation
 import FirebaseFirestore
 
 class FirestoreUserRepository: UserRepository{
-    private var authViewModel: AuthViewModel
     
     private let db = Firestore.firestore()
     private let userCollection = "users"
     
-    init(authViewModel: AuthViewModel = AuthViewModel()) {
-        self.authViewModel = authViewModel
-    }
-        
-    
-    func getUserDetails(completion: @escaping (Result<User, Error>) -> Void) {
+    func getUserDetails(userId: String, completion: @escaping (Result<User, Error>) -> Void) {
         
         Task{
             do{
-                await db.collection(userCollection).document(authViewModel.userSession!.uid).getDocument(){ (document, error) in
-                    
+                db.collection(userCollection).document(userId).getDocument(){ (document, error) in
+                
                     if let error = error{
                         completion(.failure(error))
                         return
@@ -47,15 +41,13 @@ class FirestoreUserRepository: UserRepository{
                         completion(.failure(error))
                     }
                 }
-            } catch {
-                completion(.failure(error))
             }
         }
     }
     
     func updateUserDetail(userDetail: User) async throws{
-        let userId = authViewModel.userSession!.uid
-        let encodedUpdatedUser = try Firestore.Encoder().encode(userDetail)
-        try await Firestore.firestore().collection(userCollection).document(userId).setData(encodedUpdatedUser)
+        let userId = userDetail.id
+        let encodedUserDetail = try Firestore.Encoder().encode(userDetail)
+        try await Firestore.firestore().collection(userCollection).document(userId).setData(encodedUserDetail)
     }
 }

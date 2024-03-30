@@ -17,7 +17,10 @@ class AuthViewModel: ObservableObject{
     init() {
         // Auth.auth().currentUser is the functionality from firebase to check for a logged in user
         // Initializing userSession with currently logged in user.
-            self.userSession = Auth.auth().currentUser
+        self.userSession = Auth.auth().currentUser
+        Task {
+            await fetchUser()
+        }
     }
     
     func signIn(withEmail email: String, password: String) async throws{
@@ -25,6 +28,8 @@ class AuthViewModel: ObservableObject{
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
             // Using "DispatchQueue.main.async" to publish all the UI changes to the Main Thread.
             // Basically all the asynchronous task run on the background thread and the changes occured through these tasks should be published on the main thread so "DispatchQueue.main.async" helps us achieve this
+            // fetch signedin user to initialize currentUser variable.
+            await fetchUser()
             DispatchQueue.main.async {
                 self.userSession = result.user
             }
@@ -37,17 +42,18 @@ class AuthViewModel: ObservableObject{
         do {
             // Creating a user using firebase auth functionality
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
+            // Creating our User model with the result from firebase auth
+            let user = User(id: result.user.uid, firstName: firstName, lastName: lastName, email: email, role: role)
             // creating a user session
             DispatchQueue.main.async {
                 self.userSession = result.user
             }
-            // Creating our User model with the result from firebase auth
-            let user = User(id: result.user.uid, firstName: firstName, lastName: lastName, email: email, role: role)
             // Encoding the user to store user information in "users" collection
             let encodedUser = try Firestore.Encoder().encode(user)
             //storing the user additional information in Firestore cloud under "users" collection.
             try await Firestore.firestore().collection(userCollection).document(user.id).setData(encodedUser)
-            
+            // fetch signedup user to initialize currentUser variable.
+            await fetchUser()
         } catch {
             print("DEBUG: Failed to create user with error \(error.localizedDescription)")
         }
@@ -61,6 +67,15 @@ class AuthViewModel: ObservableObject{
 
         } catch {
             print("DEBUG: Failed to logout user with error: \(error.localizedDescription)")
+        }
+    }
+    
+    func fetchUser() async {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        // fetching signed in user data from db to store current user.
+        guard let snapshot = try? await Firestore.firestore().collection(userCollection).document(uid).getDocument() else { return }
+        DispatchQueue.main.async {
+            self.currentUser = try? snapshot.data(as: User.self)
         }
     }
 }

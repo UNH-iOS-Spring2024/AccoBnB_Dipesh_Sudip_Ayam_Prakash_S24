@@ -8,28 +8,28 @@
 import SwiftUI
 
 struct MyProfileView: View {
-    @ObservedObject private var viewModel = UserProfileViewModel()
-    @EnvironmentObject var authViewModel: AuthViewModel
+    @ObservedObject private var userProfileVM = UserProfileViewModel()
+    @EnvironmentObject var authVM: AuthViewModel
     
     @State private var isEditUserDetailViewActive = false
     
     var body: some View {
         NavigationSplitView{
             VStack {
-                if viewModel.isLoading {
+                if userProfileVM.isLoading {
                     ProgressView("Loading...")
                         .progressViewStyle(CircularProgressViewStyle())
                         .padding()
                 }else{
                     HStack{
                         VStack{
-                            Text("\(viewModel.userDetail.firstName) \(viewModel.userDetail.lastName)")
+                            Text("\(userProfileVM.userDetail.firstName) å\(userProfileVM.userDetail.lastName)")
                                 .bold()
                                 .font(.headline)
                                 .frame(maxWidth: .infinity,alignment: .leading)
                                 .padding(.bottom,2)
                             
-                            Text(viewModel.userDetail.email )
+                            Text(userProfileVM.userDetail.email )
                                 .font(.system(size: 12))
                                 .tint(Color.gray)
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -48,7 +48,7 @@ struct MyProfileView: View {
                     Divider()
                     
                     VStack{
-                        NavigationLink(destination: EditUserDetailView(userDetail: viewModel.userDetail), isActive: $isEditUserDetailViewActive){
+                        NavigationLink(destination: EditUserDetailView(userDetail: userProfileVM.userDetail), isActive: $isEditUserDetailViewActive){
                             BorderlessIconButtonView(buttonName: "Edit User Details", iconName: "person.crop.circle.badge.exclamationmark"){
                                 isEditUserDetailViewActive = true
                             }
@@ -68,14 +68,14 @@ struct MyProfileView: View {
                     
                     
                     CustomButtonView(buttonText: "Log Out"){
-                        authViewModel.signOut()
+                        authVM.signOut()
                     }
                     
                     Spacer()
                 }
             }
             .onAppear{
-                viewModel.getUserDetails()
+                userProfileVM.getUserDetails(userId: authVM.currentUser!.id)
             }
         }detail: {
             Text("See more")
