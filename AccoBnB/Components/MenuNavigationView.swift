@@ -26,12 +26,21 @@ struct MenuNavigationView: View {
                         Image(systemName: "house")
                         Text("Home")
                     }
-                BookingView()
-                    .environmentObject(bookingViewModel)
-                    .tabItem {
-                        Image(systemName: "apps.iphone.badge.plus")
-                        Text("Bookings")
-                    }
+                if authViewModel.currentUser?.role == UserRole.guest {
+                    BookingView()
+                        .environmentObject(bookingViewModel)
+                        .tabItem {
+                            Image(systemName: "apps.iphone.badge.plus")
+                            Text("Bookings")
+                        }
+                } else {
+                    ManageListingView()
+                        .environmentObject(listingViewModel)
+                        .tabItem {
+                            Image(systemName: "apps.iphone.badge.plus")
+                            Text("Manage Listings")
+                        }
+                }
                 NotificationView()
                     .tabItem {
                         Image(systemName: "bell")
