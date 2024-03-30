@@ -16,9 +16,9 @@ final class UserProfileViewModel: ObservableObject{
         self.userRepository = userRepository
     }
     
-    func getUserDetails(){
+    func getUserDetails(userId: String){
         isLoading = true
-        userRepository.getUserDetails { result in
+        userRepository.getUserDetails(userId: userId) { result in
             self.isLoading = false
             switch(result){
             case .success(let user):
