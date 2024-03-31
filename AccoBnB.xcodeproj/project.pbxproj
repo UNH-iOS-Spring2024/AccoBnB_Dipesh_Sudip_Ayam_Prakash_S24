@@ -29,6 +29,8 @@
 		13BA6B742B8C20CA00D816E9 /* ListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B732B8C20CA00D816E9 /* ListingView.swift */; };
 		13BA6B782B8C211600D816E9 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B772B8C211600D816E9 /* NotificationView.swift */; };
 		13BA6B7C2B8C238800D816E9 /* MenuNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BA6B7B2B8C238800D816E9 /* MenuNavigationView.swift */; };
+		13DCA1522BB88AE200838279 /* BookingSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA1512BB88AE200838279 /* BookingSummary.swift */; };
+		13DCA1542BB9D62E00838279 /* RatingStarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA1532BB9D62E00838279 /* RatingStarView.swift */; };
 		D02908482BAA5266001EA8B1 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02908472BAA5266001EA8B1 /* SearchBarView.swift */; };
 		E120AD282B97C04E0061ECD4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E120AD272B97C04D0061ECD4 /* GoogleService-Info.plist */; };
 		E120AD2B2B97C22A0061ECD4 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = E120AD2A2B97C22A0061ECD4 /* FirebaseAnalytics */; };
@@ -102,6 +104,8 @@
 		13BA6B732B8C20CA00D816E9 /* ListingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingView.swift; sourceTree = "<group>"; };
 		13BA6B772B8C211600D816E9 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		13BA6B7B2B8C238800D816E9 /* MenuNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuNavigationView.swift; sourceTree = "<group>"; };
+		13DCA1512BB88AE200838279 /* BookingSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingSummary.swift; sourceTree = "<group>"; };
+		13DCA1532BB9D62E00838279 /* RatingStarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingStarView.swift; sourceTree = "<group>"; };
 		D02908472BAA5266001EA8B1 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		E120AD272B97C04D0061ECD4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E120AD612B97C2730061ECD4 /* ListingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingViewModel.swift; sourceTree = "<group>"; };
@@ -251,6 +255,7 @@
 				1336F28D2BA1DE1B003AA20D /* ReviewCardView.swift */,
 				E12B64232BAA4ED40045303F /* BookingRequestView.swift */,
 				D02908472BAA5266001EA8B1 /* SearchBarView.swift */,
+				13DCA1532BB9D62E00838279 /* RatingStarView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -327,6 +332,7 @@
 			children = (
 				E12B642C2BAF74A30045303F /* BookingView.swift */,
 				E12B64262BAB6F450045303F /* BookingViewModel.swift */,
+				13DCA1512BB88AE200838279 /* BookingSummary.swift */,
 			);
 			path = Booking;
 			sourceTree = "<group>";
@@ -447,7 +453,9 @@
 				E123E81B2B8CFE3300FEBDBA /* Review.swift in Sources */,
 				137AE8FF2BAC33AD0030B75B /* AuthViewModel.swift in Sources */,
 				136372272BA85B870082518A /* FirestoreUserRepository.swift in Sources */,
+				13DCA1542BB9D62E00838279 /* RatingStarView.swift in Sources */,
 				13BA6B622B89682C00D816E9 /* BorderlessIconButtonView.swift in Sources */,
+				13DCA1522BB88AE200838279 /* BookingSummary.swift in Sources */,
 				13BA6B7C2B8C238800D816E9 /* MenuNavigationView.swift in Sources */,
 				E12B642B2BAB707C0045303F /* FirestoreBookingRepository.swift in Sources */,
 				E123E8152B8C655400FEBDBA /* Listing.swift in Sources */,
