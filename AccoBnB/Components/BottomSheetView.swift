@@ -7,19 +7,29 @@
 
 import SwiftUI
 
-struct BookingRequestView: View {
+struct BottomSheetView: View {
     @Binding var isPresented: Bool
-    var onConfirm: ((String) -> Void)? // Closure to handle confirm action
+    var viewTitle: String
+    var isRatingViewDisabled: Bool = true
+    var onConfirm: ((String, Double?) -> Void)? // Closure to handle confirm action
     
-    @State private var bookingNote = ""
+    @State private var note = ""
+    @State var rating: Double?
     
     var body: some View {
         VStack(spacing: 20) {
-            Text("Booking Request")
+            Text(viewTitle)
                 .font(.title)
                 .fontWeight(.bold)
             
-            TextField("Add your message..", text: $bookingNote)
+            if isRatingViewDisabled {
+                RatingStarView(rating: $rating)
+                    .hidden()
+            } else {
+                RatingStarView(rating: $rating)
+            }
+            
+            TextField("Add your message..", text: $note)
                 .textFieldStyle(PlainTextFieldStyle()) // Remove default styling
                 .padding()
                 .frame(minHeight: 120) // Adjust the height
@@ -37,14 +47,13 @@ struct BookingRequestView: View {
                 .cornerRadius(8)
                 Spacer()
                 CustomButtonView(buttonText: "Confirm"){
-                    if !bookingNote.isEmpty {
-                        // Call the confirm action closure
-                        onConfirm?(bookingNote)
+                    if !note.isEmpty {
+                        onConfirm?(note, rating)
                         isPresented = false // Dismiss the BookingRequestView
                     }
                 }
                 .cornerRadius(8)
-                .disabled(bookingNote.isEmpty)
+                .disabled((!isRatingViewDisabled && rating == nil) || (note.isEmpty))
             }
         }
         .padding()
@@ -55,5 +64,5 @@ struct BookingRequestView: View {
 }
 
 #Preview {
-    BookingRequestView(isPresented: .constant(true))
+    BottomSheetView(isPresented: .constant(true), viewTitle: "View Title")
 }

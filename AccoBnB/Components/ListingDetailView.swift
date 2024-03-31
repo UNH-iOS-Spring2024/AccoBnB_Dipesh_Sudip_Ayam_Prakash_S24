@@ -84,7 +84,7 @@ struct ListingDetailView: View {
                     }
                 VStack {
                     Spacer()
-                    BookingRequestView(isPresented: $isBookingRequestViewPresented) { bookingNote in
+                    BottomSheetView(isPresented: $isBookingRequestViewPresented, viewTitle: "Booking Request") { bookingNote, rating in
                         bookingViewModel.createBooking(userId: authViewModel.userSession!.uid, listingId: listingDetail.id, bookingNote: bookingNote) { result in
                             switch result {
                             case .success(let createdBooking):

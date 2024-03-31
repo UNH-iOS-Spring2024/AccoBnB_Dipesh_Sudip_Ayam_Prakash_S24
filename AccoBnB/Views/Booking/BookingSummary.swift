@@ -12,6 +12,7 @@ struct BookingSummary: View {
     @State var bookingDetail: Booking
     @State var region: MKCoordinateRegion
     private var formattedBookingDetails: [String:Any] = [:]
+    @State private var isBottomSheetViewEnabled: Bool = false
     
     init(bookingDetail: Booking) {
         self._bookingDetail = State(initialValue: bookingDetail)
@@ -66,7 +67,15 @@ struct BookingSummary: View {
                     }
                 }
             }
-            CustomButtonView(buttonText: "Review your Booking")
+            
+            CustomButtonView(buttonText: "Review your Booking"){
+                self.isBottomSheetViewEnabled = true
+            }
+            if isBottomSheetViewEnabled{
+                BottomSheetView(isPresented: $isBottomSheetViewEnabled, viewTitle: "Write a review", isRatingViewDisabled: false) { review, rating in
+                    print("TODO: update review to database \(review) \(rating)")
+                }
+            }
         }
     }
 }

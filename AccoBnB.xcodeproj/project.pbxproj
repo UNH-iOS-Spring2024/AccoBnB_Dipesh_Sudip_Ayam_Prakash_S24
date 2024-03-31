@@ -70,7 +70,7 @@
 		E123E81B2B8CFE3300FEBDBA /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123E81A2B8CFE3300FEBDBA /* Review.swift */; };
 		E123E81D2B8CFE7E00FEBDBA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123E81C2B8CFE7E00FEBDBA /* User.swift */; };
 		E123E8212B8CFF0800FEBDBA /* Favourite.swift in Sources */ = {isa = PBXBuildFile; fileRef = E123E8202B8CFF0800FEBDBA /* Favourite.swift */; };
-		E12B64242BAA4ED50045303F /* BookingRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12B64232BAA4ED40045303F /* BookingRequestView.swift */; };
+		E12B64242BAA4ED50045303F /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12B64232BAA4ED40045303F /* BottomSheetView.swift */; };
 		E12B64272BAB6F450045303F /* BookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12B64262BAB6F450045303F /* BookingViewModel.swift */; };
 		E12B64292BAB70090045303F /* BookingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12B64282BAB70090045303F /* BookingRepository.swift */; };
 		E12B642B2BAB707C0045303F /* FirestoreBookingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12B642A2BAB707C0045303F /* FirestoreBookingRepository.swift */; };
@@ -118,7 +118,7 @@
 		E123E81A2B8CFE3300FEBDBA /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		E123E81C2B8CFE7E00FEBDBA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E123E8202B8CFF0800FEBDBA /* Favourite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favourite.swift; sourceTree = "<group>"; };
-		E12B64232BAA4ED40045303F /* BookingRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingRequestView.swift; sourceTree = "<group>"; };
+		E12B64232BAA4ED40045303F /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
 		E12B64262BAB6F450045303F /* BookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingViewModel.swift; sourceTree = "<group>"; };
 		E12B64282BAB70090045303F /* BookingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingRepository.swift; sourceTree = "<group>"; };
 		E12B642A2BAB707C0045303F /* FirestoreBookingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreBookingRepository.swift; sourceTree = "<group>"; };
@@ -253,7 +253,7 @@
 				13BA6B7B2B8C238800D816E9 /* MenuNavigationView.swift */,
 				E1E5BE042BA1457A004BD586 /* ListingDetailView.swift */,
 				1336F28D2BA1DE1B003AA20D /* ReviewCardView.swift */,
-				E12B64232BAA4ED40045303F /* BookingRequestView.swift */,
+				E12B64232BAA4ED40045303F /* BottomSheetView.swift */,
 				D02908472BAA5266001EA8B1 /* SearchBarView.swift */,
 				13DCA1532BB9D62E00838279 /* RatingStarView.swift */,
 			);
@@ -480,7 +480,7 @@
 				E123E8112B8C001400FEBDBA /* SplashScreenView.swift in Sources */,
 				E123E81D2B8CFE7E00FEBDBA /* User.swift in Sources */,
 				E12B642D2BAF74A30045303F /* BookingView.swift in Sources */,
-				E12B64242BAA4ED50045303F /* BookingRequestView.swift in Sources */,
+				E12B64242BAA4ED50045303F /* BottomSheetView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RatingStarView: View {
-    @State var rating: Double
+    @Binding var rating: Double?
     var starWidth = 40.0
     
     private func handleTap(index: Int, location: CGPoint){
@@ -17,11 +17,11 @@ struct RatingStarView: View {
     }
     
     private func starType(index: Int) -> String{
-        var roundedRating = ceil(rating)
+        var roundedRating = ceil(rating!)
         // This condition applies to all indexes
 //        print(rating)
         if Double(index) <= roundedRating {
-            if Double(index) <= rating {
+            if Double(index) <= rating!{
                 return "star.fill"
             } else {
                 return "star.leadinghalf.fill"
@@ -45,5 +45,5 @@ struct RatingStarView: View {
 }
 
 #Preview {
-    RatingStarView(rating: 3.5)
+    RatingStarView(rating: .constant(0.0))
 }
