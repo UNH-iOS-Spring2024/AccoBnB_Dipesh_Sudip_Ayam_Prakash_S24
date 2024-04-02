@@ -22,8 +22,9 @@ struct ListingCardView: View {
                         case .success(let image):
                             image
                                 .resizable()
+                                .frame(width: .infinity, height: 200)
                                 .aspectRatio(contentMode: .fit)
-                                .frame(height: 200)
+                                
                         case .failure:
                             Image("mt-everest")
                                 .resizable()
