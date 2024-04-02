@@ -11,8 +11,12 @@ import MapKit
 struct BookingSummary: View {
     @State var bookingDetail: Booking
     @State var region: MKCoordinateRegion
-    private var formattedBookingDetails: [String:Any] = [:]
     @State private var isBottomSheetViewEnabled: Bool = false
+    @EnvironmentObject var reviewViewModel: ReviewViewModel
+    
+    @State var isReviewedAlready: Bool = false
+    
+     private var formattedBookingDetails: [String:Any] = [:]
     
     init(bookingDetail: Booking) {
         self._bookingDetail = State(initialValue: bookingDetail)
@@ -24,11 +28,11 @@ struct BookingSummary: View {
             center: center, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)))
         
         // converting Date to String type
-        let date = self.bookingDetail.createdAt ?? Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/YYYY HH:MM"
-        let formattedCreatedAt = dateFormatter.string(from: date)
-        self.formattedBookingDetails["createdAt"] = formattedCreatedAt
+         let date = self.bookingDetail.createdAt ?? Date()
+         let dateFormatter = DateFormatter()
+         dateFormatter.dateFormat = "MM/dd/YYYY HH:MM"
+         let formattedCreatedAt = dateFormatter.string(from: date)
+         self.formattedBookingDetails["createdAt"] = formattedCreatedAt
     }
     var body: some View {
         VStack(alignment: .leading){
@@ -71,9 +75,15 @@ struct BookingSummary: View {
             CustomButtonView(buttonText: "Review your Booking"){
                 self.isBottomSheetViewEnabled = true
             }
+            .disabled(isReviewedAlready)
+            
             if isBottomSheetViewEnabled{
                 BottomSheetView(isPresented: $isBottomSheetViewEnabled, viewTitle: "Write a review", isRatingViewDisabled: false) { review, rating in
-                    print("TODO: update review to database \(review) \(rating)")
+//                    print("TODO: update review to database \(review) \(rating)")
+                    Task {
+                        try await reviewViewModel.createUserReview(reviewerId: bookingDetail.userId, listingId: bookingDetail.listingId, rating: Float(rating!), comment: review, date: Date())
+                    }
+                    isReviewedAlready = true
                 }
             }
         }

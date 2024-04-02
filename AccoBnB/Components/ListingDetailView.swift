@@ -32,6 +32,13 @@ struct ListingDetailView: View {
         self._region = State(initialValue: MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)))
     }
     
+    func formatDate(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/YY"
+        let formattedDate = dateFormatter.string(from: date)
+        return formattedDate
+    }
+    
     var body: some View {
         ZStack{
             VStack(alignment: .leading){
@@ -48,10 +55,15 @@ struct ListingDetailView: View {
                     Section("Reviews"){
                         ScrollView(.horizontal){
                             HStack {
-                                ForEach(listingDetail.reviews){review in
-                                    ReviewCardView(ratingValue: review.rating, date: String(review.date.prefix(10))+","+String(review.date.suffix(5)), reviewerName: "Anonymous", comment: review.comment)
-                                        .frame(width: 280)
-                                        .containerRelativeFrame(.horizontal)
+                                if listingDetail.reviews.isEmpty{
+                                    Text("No reviews yet.")
+                                } else {
+                                    ForEach(listingDetail.reviews) { review in
+                                        var formattedDate = formatDate(date: review.date!)
+                                        ReviewCardView(ratingValue: review.rating, date: String(formattedDate.prefix(10)), reviewerName: review.reviewerName, comment: review.comment)
+                                            .frame(width: 250)
+                                            .containerRelativeFrame(.horizontal)
+                                    }
                                 }
                             }
                         }

@@ -17,11 +17,11 @@ struct RatingStarView: View {
     }
     
     private func starType(index: Int) -> String{
-        var roundedRating = ceil(rating!)
+        var roundedRating = ceil(rating ?? 0.0)
         // This condition applies to all indexes
 //        print(rating)
         if Double(index) <= roundedRating {
-            if Double(index) <= rating!{
+            if Double(index) <= rating ?? 0.0{
                 return "star.fill"
             } else {
                 return "star.leadinghalf.fill"
