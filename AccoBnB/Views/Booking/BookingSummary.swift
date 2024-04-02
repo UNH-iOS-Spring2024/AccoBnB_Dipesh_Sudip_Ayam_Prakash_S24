@@ -79,7 +79,7 @@ struct BookingSummary: View {
             .disabled(isReviewedAlready)
             
             if isBottomSheetViewEnabled{
-                BottomSheetView(isPresented: $isBottomSheetViewEnabled, viewTitle: "Write a review", isRatingViewDisabled: false) { review, rating in
+                BottomSheetView(isPresented: $isBottomSheetViewEnabled, viewTitle: "Write a review", isRatingViewDisabled: false, showAlert: true, alertTitle: "Confirm Review?", alertMessage: "Please click on confirm button to post your review.") { review, rating in
 //                    print("TODO: update review to database \(review) \(rating)")
                     Task {
                         try await reviewViewModel.createUserReview(reviewerId: bookingDetail.userId, listingId: bookingDetail.listingId, rating: Float(rating!), comment: review, date: Date())
