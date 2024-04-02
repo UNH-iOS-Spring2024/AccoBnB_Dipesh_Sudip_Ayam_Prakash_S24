@@ -13,14 +13,18 @@ struct BookingView: View {
 
     
     var body: some View {
+        NavigationSplitView {
             ScrollView {
                 VStack(spacing: 10) {
                     if(bookingViewModel.bookings.isEmpty){
                         Text("No Bookings Available")
                     } else {
                         ForEach(bookingViewModel.bookings, id: \.id) { booking in
-                            ListingCardView(listingDetail: booking.listingInfo ?? Listing.defaultListing)
-                                .padding(.horizontal)
+                            NavigationLink(destination: BookingSummary(bookingDetail: booking).navigationTitle("Summary")){
+                                ListingCardView(listingDetail: booking.listingInfo ?? Listing.defaultListing)
+                                    .padding(.horizontal)
+                            }
+                            .navigationTitle("Bookings")
                         }
 
                     }
@@ -29,6 +33,9 @@ struct BookingView: View {
                 }
             }
             .padding(.vertical)
+        } detail: {
+            Text("Show more")
+        }
         
     }
 }

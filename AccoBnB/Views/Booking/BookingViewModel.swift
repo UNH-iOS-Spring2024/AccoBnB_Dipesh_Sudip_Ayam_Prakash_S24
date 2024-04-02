@@ -27,7 +27,7 @@ final class BookingViewModel : ObservableObject {
             switch result {
             case .success(let bookings):
                 DispatchQueue.main.async {
-                    print("Booking loaded",bookings)
+//                    print("Booking loaded",bookings)
                     self?.bookings = bookings
                 }
             case .failure(let error):
