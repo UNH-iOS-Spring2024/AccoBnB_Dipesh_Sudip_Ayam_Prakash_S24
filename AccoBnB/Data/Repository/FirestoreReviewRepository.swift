@@ -22,33 +22,33 @@ class FirestoreReviewRepository: ReviewRepository{
         try await db.collection(reviewsCollection).document(userReview.id).setData(encodedReview)
     }
     
-    func getReviewsByListingId(for listingId: String, completion: @escaping (Result<[Review], Error>) -> Void){
-        db.collection(reviewsCollection)
-            .whereField("listingId",isEqualTo: listingId)
-            .getDocuments { snapshot, err in
-                if let error = err{
-                    completion(.failure(error))
-                    return
-                }
+    // func getReviewsByListingId(for listingId: String, completion: @escaping (Result<[Review], Error>) -> Void){
+    //     db.collection(reviewsCollection)
+    //         .whereField("listingId",isEqualTo: listingId)
+    //         .getDocuments { snapshot, err in
+    //             if let error = err{
+    //                 completion(.failure(error))
+    //                 return
+    //             }
                 
-                guard let documents = snapshot?.documents else{
-                    completion(.success([]))
-                    return
-                }
+    //             guard let documents = snapshot?.documents else{
+    //                 completion(.success([]))
+    //                 return
+    //             }
                 
-                let reviews = documents.compactMap { document -> Review? in
-                    let result = Result{
-                        try document.data(as: Review.self)
-                    }
-                    switch result{
-                    case .success(let review):
-                        return review
-                    case .failure(let error):
-                        print("Error in decoding review \(error)")
-                        return nil
-                    }
-                }
-                completion(.success(reviews))
-            }
-    }
+    //             let reviews = documents.compactMap { document -> Review? in
+    //                 let result = Result{
+    //                     try document.data(as: Review.self)
+    //                 }
+    //                 switch result{
+    //                 case .success(let review):
+    //                     return review
+    //                 case .failure(let error):
+    //                     print("Error in decoding review \(error)")
+    //                     return nil
+    //                 }
+    //             }
+    //             completion(.success(reviews))
+    //         }
+    // }
 }
