@@ -34,14 +34,15 @@ class ReviewViewModel: ObservableObject {
         }
     }
     
-    // func getReviewsByListingId(for listingId: String, completion: @escaping (Result<[Review], Error>) -> Void){
-    //     reviewRepository.getReviewsByListingId(for: listingId) { result in
-    //         switch result {
-    //         case .success(let reviews):
-    //             completion(.success(reviews))
-    //         case .failure(let error):
-    //             completion(.failure(error))
-    //         }
-    //     }
-    // }
+    func getReviewsByListingId(for listingId: String, completion: @escaping (Result<[Review], Error>) -> Void){
+        reviewRepository.getReviewsByListingId(for: listingId) { result in
+            switch result {
+            case .success(let reviews):
+                print("\n Reviews ---> \(reviews)")
+                completion(.success(reviews))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
 }

@@ -11,5 +11,5 @@ protocol ReviewRepository {
     
     func getReviewId() -> String
     func createUserReview(userReview: Review) async throws
-    // func getReviewsByListingId(for listingId: String, completion: @escaping (Result<[Review], Error>) -> Void)
+    func getReviewsByListingId(for listingId: String, completion: @escaping (Result<[Review], Error>) -> Void)
 }
