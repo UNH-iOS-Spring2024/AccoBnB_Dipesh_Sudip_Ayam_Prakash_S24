@@ -12,6 +12,7 @@ struct MenuNavigationView: View {
     @StateObject var bookingViewModel: BookingViewModel
     @ObservedObject var listingViewModel = ListingViewModel()
     @StateObject var reviewViewModel = ReviewViewModel()
+    @StateObject var notificationViewModel = NotificationViewModel()
     
     init(authViewModel: AuthViewModel) {
         _bookingViewModel = StateObject(wrappedValue: BookingViewModel(authViewModel: authViewModel))
@@ -44,6 +45,7 @@ struct MenuNavigationView: View {
                         }
                 }
                 NotificationView()
+                    .environmentObject(notificationViewModel)
                     .tabItem {
                         Image(systemName: "bell")
                         Text("Notification")
