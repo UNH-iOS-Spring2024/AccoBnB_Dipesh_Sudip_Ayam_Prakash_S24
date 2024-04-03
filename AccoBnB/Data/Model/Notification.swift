@@ -7,8 +7,7 @@
 
 import Foundation
 
-struct Notification: Codable {
-    var id: String = ""
+struct Notification: Hashable, Codable {
     var receiverId: String = ""
     var senderId: String = ""
     var listingId: String = ""

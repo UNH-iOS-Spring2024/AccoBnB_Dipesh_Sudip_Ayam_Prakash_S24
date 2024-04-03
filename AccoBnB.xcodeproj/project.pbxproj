@@ -34,6 +34,9 @@
 		13DCA1562BBA2BF600838279 /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA1552BBA2BF600838279 /* ReviewViewModel.swift */; };
 		13DCA1582BBA32A000838279 /* ReviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA1572BBA32A000838279 /* ReviewRepository.swift */; };
 		13DCA15A2BBA32AE00838279 /* FirestoreReviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA1592BBA32AE00838279 /* FirestoreReviewRepository.swift */; };
+		80526C3C2BBCCF0A008BE699 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80526C3B2BBCCF0A008BE699 /* NotificationViewModel.swift */; };
+		80526C3E2BBCCF42008BE699 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80526C3D2BBCCF42008BE699 /* NotificationRepository.swift */; };
+		80526C402BBCCF58008BE699 /* FirestoreNotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80526C3F2BBCCF58008BE699 /* FirestoreNotificationRepository.swift */; };
 		D02908482BAA5266001EA8B1 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02908472BAA5266001EA8B1 /* SearchBarView.swift */; };
 		E120AD282B97C04E0061ECD4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E120AD272B97C04D0061ECD4 /* GoogleService-Info.plist */; };
 		E120AD2B2B97C22A0061ECD4 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = E120AD2A2B97C22A0061ECD4 /* FirebaseAnalytics */; };
@@ -112,6 +115,9 @@
 		13DCA1552BBA2BF600838279 /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
 		13DCA1572BBA32A000838279 /* ReviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRepository.swift; sourceTree = "<group>"; };
 		13DCA1592BBA32AE00838279 /* FirestoreReviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreReviewRepository.swift; sourceTree = "<group>"; };
+		80526C3B2BBCCF0A008BE699 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
+		80526C3D2BBCCF42008BE699 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
+		80526C3F2BBCCF58008BE699 /* FirestoreNotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreNotificationRepository.swift; sourceTree = "<group>"; };
 		D02908472BAA5266001EA8B1 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		E120AD272B97C04D0061ECD4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E120AD612B97C2730061ECD4 /* ListingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingViewModel.swift; sourceTree = "<group>"; };
@@ -269,12 +275,12 @@
 		13BA6B5B2B89659B00D816E9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				80526C3A2BBCCEAA008BE699 /* Notification */,
 				137AE8FB2BAC33610030B75B /* Authentication */,
 				E12B64252BAB6F2B0045303F /* Booking */,
 				136372212BA859220082518A /* Profile */,
 				E120AD602B97C2590061ECD4 /* Listing */,
 				E123E8102B8C001400FEBDBA /* SplashScreenView.swift */,
-				13BA6B772B8C211600D816E9 /* NotificationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -286,6 +292,15 @@
 				13DCA1552BBA2BF600838279 /* ReviewViewModel.swift */,
 			);
 			path = viewmodels;
+			sourceTree = "<group>";
+		};
+		80526C3A2BBCCEAA008BE699 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				13BA6B772B8C211600D816E9 /* NotificationView.swift */,
+				80526C3B2BBCCF0A008BE699 /* NotificationViewModel.swift */,
+			);
+			path = Notification;
 			sourceTree = "<group>";
 		};
 		E120AD602B97C2590061ECD4 /* Listing */ = {
@@ -310,6 +325,8 @@
 				E12B642A2BAB707C0045303F /* FirestoreBookingRepository.swift */,
 				13DCA1572BBA32A000838279 /* ReviewRepository.swift */,
 				13DCA1592BBA32AE00838279 /* FirestoreReviewRepository.swift */,
+				80526C3D2BBCCF42008BE699 /* NotificationRepository.swift */,
+				80526C3F2BBCCF58008BE699 /* FirestoreNotificationRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -471,6 +488,8 @@
 				E12B642B2BAB707C0045303F /* FirestoreBookingRepository.swift in Sources */,
 				E123E8152B8C655400FEBDBA /* Listing.swift in Sources */,
 				13BA6B742B8C20CA00D816E9 /* ListingView.swift in Sources */,
+				80526C3E2BBCCF42008BE699 /* NotificationRepository.swift in Sources */,
+				80526C402BBCCF58008BE699 /* FirestoreNotificationRepository.swift in Sources */,
 				13BA6B682B89697100D816E9 /* ResetPasswordView.swift in Sources */,
 				136372252BA85A6B0082518A /* UserRepository.swift in Sources */,
 				13BA6B4D2B8963F900D816E9 /* AccoBnBApp.swift in Sources */,
@@ -490,6 +509,7 @@
 				E12B64292BAB70090045303F /* BookingRepository.swift in Sources */,
 				13BA6B602B8965D800D816E9 /* CustomButtonView.swift in Sources */,
 				E123E8112B8C001400FEBDBA /* SplashScreenView.swift in Sources */,
+				80526C3C2BBCCF0A008BE699 /* NotificationViewModel.swift in Sources */,
 				E123E81D2B8CFE7E00FEBDBA /* User.swift in Sources */,
 				E12B642D2BAF74A30045303F /* BookingView.swift in Sources */,
 				E12B64242BAA4ED50045303F /* BottomSheetView.swift in Sources */,
