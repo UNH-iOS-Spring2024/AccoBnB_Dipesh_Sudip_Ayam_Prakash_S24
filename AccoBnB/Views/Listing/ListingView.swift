@@ -11,13 +11,13 @@ struct ListingView: View {
     @State private var searchText = ""
     @EnvironmentObject var listingViewModel: ListingViewModel
     @EnvironmentObject var bookingViewModel: BookingViewModel
-
+    
     var body: some View {
-        NavigationSplitView {
+        NavigationStack {
             VStack {
-//                SearchBar(searchText: $searchText)
-//                    .padding(.top, 10)
-//                    .padding(.horizontal,20)
+                //                SearchBar(searchText: $searchText)
+                //                    .padding(.top, 10)
+                //                    .padding(.horizontal,20)
                 if listingViewModel.isLoading {
                     ProgressView("Loading...")
                         .progressViewStyle(CircularProgressViewStyle())
@@ -25,22 +25,23 @@ struct ListingView: View {
                 } else {
                     List {
                         ForEach(listingViewModel.listings, id: \.id) { listing in
-                            NavigationLink(destination: ListingDetailView(listingDetail: listing).environmentObject(bookingViewModel).navigationTitle(listing.title)) {
+                            ZStack {
                                 ListingCardView(listingDetail: listing)
+                                NavigationLink(destination: ListingDetailView(listingDetail: listing).environmentObject(bookingViewModel).navigationTitle(listing.title)) {
+                                    EmptyView()
+                                }.opacity(0)
                             }
-
-                        }
-                        .navigationTitle("Listings")
-                    }.listStyle(PlainListStyle())
-                    .padding(0)
+                            
+                        }.listRowSeparator(.hidden)
+                        
+                    }.navigationTitle("Listings")
+                        .listStyle(PlainListStyle())
                 }
             }
             .onAppear {
                 listingViewModel.getAllListings()
             }
-        } detail: {
-            Text("Show me")
-        }
+        }.padding(0)
     }
 }
 

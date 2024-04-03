@@ -29,7 +29,9 @@ struct BookingView: View {
 
                     }
                 }.onAppear{
-                    bookingViewModel.getUserBooking(userId: authViewModel.userSession!.uid)
+                    if(authViewModel.userSession != nil){
+                        bookingViewModel.getUserBooking(userId: authViewModel.userSession!.uid)
+                    }
                 }
             }
             .padding(.vertical)
