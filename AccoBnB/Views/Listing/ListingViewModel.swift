@@ -24,7 +24,6 @@ final class ListingViewModel : ObservableObject {
             case .success(let listings):
                 DispatchQueue.main.async {
                     self?.listings = listings
-//                     print("Got all listing, \(self?.listings)")
                 }
             case .failure(let error):
                 print("Failed to fetch listings: \(error)")

@@ -4,7 +4,6 @@
 //
 //  Created by Dipesh Shrestha on 2/23/24.
 //
-
 import SwiftUI
 
 struct MyProfileView: View {
@@ -12,6 +11,7 @@ struct MyProfileView: View {
     @EnvironmentObject var authVM: AuthViewModel
     
     @State private var isEditUserDetailViewActive = false
+    @State private var isSettingsViewActive = false // Add this state
     
     var body: some View {
         NavigationSplitView{
@@ -23,7 +23,7 @@ struct MyProfileView: View {
                 }else{
                     HStack{
                         VStack{
-                            Text("\(userProfileVM.userDetail.firstName) å\(userProfileVM.userDetail.lastName)")
+                            Text("\(userProfileVM.userDetail.firstName) \(userProfileVM.userDetail.lastName)")
                                 .bold()
                                 .font(.headline)
                                 .frame(maxWidth: .infinity,alignment: .leading)
@@ -31,7 +31,7 @@ struct MyProfileView: View {
                             
                             Text(userProfileVM.userDetail.email )
                                 .font(.system(size: 12))
-                                .tint(Color.gray)
+                                .foregroundColor(Color.gray)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
                         
@@ -40,7 +40,7 @@ struct MyProfileView: View {
                             .background(Color("primaryColor"))
                             .foregroundColor(Color.white)
                             .font(.system(size: 30))
-                            .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                            .clipShape(Circle())
                     }
                     .padding(.horizontal, 30)
                     .padding(.vertical,10)
@@ -58,8 +58,13 @@ struct MyProfileView: View {
                         BorderlessIconButtonView(buttonName: "My Favorites", iconName: "heart.circle")
                         
                         BorderlessIconButtonView(buttonName: "My Bookings", iconName: "list.bullet.circle")
-                        
-                        BorderlessIconButtonView(buttonName: "Settings", iconName: "gearshape")
+
+                        NavigationLink(destination:     SettingsView(), isActive: $isSettingsViewActive) {
+                            BorderlessIconButtonView(buttonName: "Settings", iconName: "gearshape"){
+                                isSettingsViewActive = true
+                            }
+                        }
+                        .navigationTitle("Setting")
                         
                         BorderlessIconButtonView(buttonName: "Help", iconName: "phone.bubble")
                         
@@ -82,6 +87,7 @@ struct MyProfileView: View {
         }
     }
 }
+
 
 #Preview {
     MyProfileView()
