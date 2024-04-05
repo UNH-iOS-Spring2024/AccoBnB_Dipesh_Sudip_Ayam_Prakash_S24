@@ -18,9 +18,13 @@ struct ReviewCardView: View {
             HStack{
                 ConciseRatingView(ratingValue: ratingValue)
                 Spacer()
+                Spacer()
+                Spacer()
+                Spacer()
                 Text(date)
                     .foregroundColor(.gray)
                     .font(.system(size: 16))
+                Spacer()
             }
             // Reviewer Name
             Text(reviewerName)

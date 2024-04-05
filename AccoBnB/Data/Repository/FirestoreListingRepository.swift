@@ -41,7 +41,7 @@ class FirestoreListingRepository: ListingRepository {
                 case .success(let listing):
                     if var listing = listing{
                         // Fetch reviews for current listing:
-                        self.fetchReviews(for: listing.id){result in
+                        self.getReviewsByListingId(for: listing.id){result in
                             switch(result){
                             case .success(let reviews):
                                 listing.reviews = reviews
@@ -62,33 +62,33 @@ class FirestoreListingRepository: ListingRepository {
         }
     }
     
-    private func fetchReviews(for listingId: String, completion: @escaping (Result<[Review], Error>) -> Void){
-        db.collection(reviewsCollection)
-            .whereField("listingId",isEqualTo: listingId)
-            .getDocuments { snapshot, err in
-                if let error = err{
-                    completion(.failure(error))
-                    return
-                }
-                
-                guard let documents = snapshot?.documents else{
-                    completion(.success([]))
-                    return
-                }
-                
-                let reviews = documents.compactMap { document -> Review? in
-                    let result = Result{
-                        try document.data(as: Review.self)
-                    }
-                    switch result{
-                    case .success(let review):
-                        return review
-                    case .failure(let error):
-                        print("Error in decoding review \(error)")
-                        return nil
-                    }
-                }
-                completion(.success(reviews))
-            }
-    }
+   private func getReviewsByListingId(for listingId: String, completion: @escaping (Result<[Review], Error>) -> Void){
+       db.collection(reviewsCollection)
+           .whereField("listingId",isEqualTo: listingId)
+           .getDocuments { snapshot, err in
+               if let error = err{
+                   completion(.failure(error))
+                   return
+               }
+               
+               guard let documents = snapshot?.documents else{
+                   completion(.success([]))
+                   return
+               }
+               
+               let reviews = documents.compactMap { document -> Review? in
+                   let result = Result{
+                       try document.data(as: Review.self)
+                   }
+                   switch result{
+                   case .success(let review):
+                       return review
+                   case .failure(let error):
+                       print("Error in decoding review \(error)")
+                       return nil
+                   }
+               }
+               completion(.success(reviews))
+           }
+   }
 }

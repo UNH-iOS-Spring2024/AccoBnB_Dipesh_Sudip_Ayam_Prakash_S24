@@ -11,6 +11,8 @@ struct MenuNavigationView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @StateObject var bookingViewModel: BookingViewModel
     @ObservedObject var listingViewModel = ListingViewModel()
+    @StateObject var reviewViewModel = ReviewViewModel()
+    @StateObject var notificationViewModel = NotificationViewModel()
     
     init(authViewModel: AuthViewModel) {
         _bookingViewModel = StateObject(wrappedValue: BookingViewModel(authViewModel: authViewModel))
@@ -29,6 +31,7 @@ struct MenuNavigationView: View {
                 if authViewModel.currentUser?.role == UserRole.guest {
                     BookingView()
                         .environmentObject(bookingViewModel)
+                        .environmentObject(reviewViewModel)
                         .tabItem {
                             Image(systemName: "apps.iphone.badge.plus")
                             Text("Bookings")
@@ -42,6 +45,7 @@ struct MenuNavigationView: View {
                         }
                 }
                 NotificationView()
+                    .environmentObject(notificationViewModel)
                     .tabItem {
                         Image(systemName: "bell")
                         Text("Notification")
