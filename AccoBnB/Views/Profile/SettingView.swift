@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @State private var isDarkModeOn = false
+    
     var body: some View {
         NavigationView {
             Form {
@@ -18,7 +20,7 @@ struct SettingsView: View {
                 }
                 
                 Section(header: Text("App Settings")) {
-                    Toggle("Dark Mode", isOn: .constant(false))
+                    Toggle("Dark Mode", isOn: $isDarkModeOn)
                     Toggle("Location Services", isOn: .constant(true))
                 }
                 
@@ -29,6 +31,7 @@ struct SettingsView: View {
                 }
             }
             .navigationBarTitle("Settings")
+            .preferredColorScheme(isDarkModeOn ? .dark : .light) // 
         }
     }
 }
@@ -38,3 +41,4 @@ struct SettingsView_Previews: PreviewProvider {
         SettingsView()
     }
 }
+ 
