@@ -38,7 +38,7 @@ enum ListingType: String, Codable {
     case rental = "RENTAL"
 }
 
-enum Amenity: String, Codable {
+enum Amenity: String, Codable, CaseIterable  {
     case wifi = "WIFI"
     case parking = "PARKING"
     case gym = "GYM"
@@ -58,7 +58,7 @@ struct Listing: Codable {
     var hostId: String = ""
     var title: String = ""
     var description: String = ""
-    var address: Address? = nil
+    var address: Address = Address()
     var geoLocation: GeoLocation? = nil
     var geoHash: String? = nil
     var status: ListingStatus = .draft
@@ -70,7 +70,7 @@ struct Listing: Codable {
     var bannerImage: String = ""
     var imageGallery: [String] = []
     var views: Int = 0
-    var amenities: [Amenity] = []
+    var amenities: Set<Amenity> = []
     var availableFrom: Date? = nil
     var rating: Float = 0.0
     var reviews: [Review] = []
