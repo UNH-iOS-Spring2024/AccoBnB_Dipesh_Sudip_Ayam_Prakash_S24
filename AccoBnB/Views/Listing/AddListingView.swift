@@ -7,12 +7,16 @@
 
 import SwiftUI
 import MapKit
-
+import PhotosUI
 
 struct AddListingView: View {
     @State private var listingDetail = Listing()
     @State private var selectedLocation: MKLocalSearchCompletion?
-    @State private var searchResultsAvailable = false // Track if search results are available
+    @State private var selectedPhoto: UIImage? // Store selected photo
+    @State private var isShowingImagePicker = false // Control showing the image picker
+    @State private var isShowingCamera = false // Control showing the camera
+    @EnvironmentObject var listingViewModel: ListingViewModel
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
@@ -23,6 +27,40 @@ struct AddListingView: View {
                 TextEditor(text: $listingDetail.description)
                     .frame(minHeight: 100)
                     .border(Color.gray, width: 1)
+                //image here
+                if let photo = selectedPhoto {
+                    Image(uiImage: photo)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 200, height: 200)
+                    
+                    Button("Choose Another Photo") {
+                        selectedPhoto = nil // Clear the selected photo
+                        isShowingImagePicker.toggle()
+                    }
+                    .padding()
+                } else {
+                    HStack {
+                        Button("Take Photo") {
+                            isShowingCamera = true
+                            isShowingImagePicker.toggle()
+                        }
+                        .padding()
+                        
+                        Button("Choose from Library") {
+                            isShowingCamera = false
+                            isShowingImagePicker.toggle()
+                        }
+                        .padding()
+                    }
+                    .sheet(isPresented: $isShowingImagePicker, onDismiss: {
+                        isShowingImagePicker = false
+                    }, content: {
+                        ImagePicker(selectedImage: $selectedPhoto, isShowingImagePicker: $isShowingImagePicker, isShowingCamera: $isShowingCamera)
+                    })
+                }
+                
+                // image end here
                 
                 Picker("Listing Type", selection: $listingDetail.type) {
                     Text("Rental").tag(ListingType.rental)
@@ -120,6 +158,17 @@ struct AddListingView: View {
                         return
                     }
                     print("New Listing:", listingDetail)
+                    listingViewModel.createListing(bannerImagePath: selectedPhoto, listing: &listingDetail) { result in
+                        switch result {
+                        case .success(let createdListing):
+                            print("Listing created successfully:", createdListing)
+                            // Optionally, perform any actions after the listing is successfully created
+                        case .failure(let error):
+                            print("Failed to create listing: \(error)")
+                            // Handle the error, such as showing an alert to the user
+                        }
+                    }
+                    
                 }
             }
             .padding()
@@ -232,3 +281,4 @@ struct AddListingView_Previews: PreviewProvider {
         AddListingView()
     }
 }
+
