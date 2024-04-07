@@ -115,23 +115,88 @@ struct AddListingView: View {
                     if let location = selectedLocation {
                         reverseGeocode(location: location)
                     }
+                    guard isInputValid() else {
+                        // Handle invalid input condition
+                        return
+                    }
                     print("New Listing:", listingDetail)
                 }
             }
             .padding()
-//            .overlay(
-//                // 1. Overlay TestSearchAddressView using ZStack
-//                ZStack {
-//                    TestSearchAddressView { location in
-//                        self.selectedLocation = location
-//                    }
-//                    .padding(.horizontal)
-//                    // .opacity(searchText.isEmpty ? 0 : 1) // Hide if search text is empty
-//                }
-//            )
+            //            .overlay(
+            //                // 1. Overlay TestSearchAddressView using ZStack
+            //                ZStack {
+            //                    TestSearchAddressView { location in
+            //                        self.selectedLocation = location
+            //                    }
+            //                    .padding(.horizontal)
+            //                    // .opacity(searchText.isEmpty ? 0 : 1) // Hide if search text is empty
+            //                }
+            //            )
         }
         .navigationTitle("Add Listing")
     }
+    
+    private func isInputValid() -> Bool {
+        var isValid = true
+        
+        if listingDetail.title.isEmpty {
+            // Show error for title field
+            isValid = false
+            print("Title is required.")
+        }
+        
+        if listingDetail.description.isEmpty {
+            // Show error for description field
+            isValid = false
+            print("Description is required.")
+        }
+        
+        if listingDetail.type == .rental && listingDetail.availableRooms == 0 {
+            // Show error for available rooms field if listing type is rental
+            isValid = false
+            print("Number of available rooms is required for rental type.")
+        }
+        
+        if listingDetail.type == .temporary && listingDetail.guestCount == 0 {
+            // Show error for guest count field if listing type is temporary
+            isValid = false
+            print("Guest count is required for temporary type.")
+        }
+        
+        if listingDetail.type == .rental && listingDetail.monthlyPrice == 0 {
+            // Show error for monthly price field if listing type is rental
+            isValid = false
+            print("Price is required for rental type.")
+        }
+        
+        if listingDetail.type == .temporary && listingDetail.dailyPrice == 0 {
+            // Show error for daily price field if listing type is temporary
+            isValid = false
+            print("Price is required for temporary type.")
+        }
+        
+        if listingDetail.amenities.isEmpty {
+            // Show error for amenities
+            isValid = false
+            print("At least one amenity is required.")
+        }
+        
+        if listingDetail.address.addressLine1.isEmpty ||
+            listingDetail.address.city.isEmpty ||
+            listingDetail.address.zipCode.isEmpty {
+            // Show error for address fields
+            isValid = false
+            print("Address, city, and zip code are required.")
+        }
+        
+        if !isValid {
+            print("Please fill out the required fields.")
+        }
+        
+        return isValid
+    }
+    
     
     private func reverseGeocode(location: MKLocalSearchCompletion) {
         let searchRequest = MKLocalSearch.Request(completion: location)
