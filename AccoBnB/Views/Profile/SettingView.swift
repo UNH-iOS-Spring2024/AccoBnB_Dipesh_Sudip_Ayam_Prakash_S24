@@ -26,8 +26,11 @@ struct SettingsView: View {
                 
                 Section(header: Text("About")) {
                     Text("Version 1.0")
+                NavigationLink(destination: PrivacyPolicyView()) {
                     Text("Privacy Policy")
-                    Text("Terms & Conditions")
+                    }
+                NavigationLink(destination:TermsAndConditionsView()){
+                        Text("Terms & Conditions")}
                 }
             }
             .navigationBarTitle("Settings")
