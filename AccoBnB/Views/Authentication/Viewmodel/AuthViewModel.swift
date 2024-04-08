@@ -17,7 +17,13 @@ class AuthViewModel: ObservableObject{
     init() {
         // Auth.auth().currentUser is the functionality from firebase to check for a logged in user
         // Initializing userSession with currently logged in user.
-        self.userSession = Auth.auth().currentUser
+        let currentUser = Auth.auth().currentUser
+        
+        if(currentUser != nil){
+            self.userSession = Auth.auth().currentUser
+        } else  {
+            self.userSession = nil
+        }
         Task {
             await fetchUser()
         }
@@ -29,7 +35,11 @@ class AuthViewModel: ObservableObject{
             // Using "DispatchQueue.main.async" to publish all the UI changes to the Main Thread.
             // Basically all the asynchronous task run on the background thread and the changes occured through these tasks should be published on the main thread so "DispatchQueue.main.async" helps us achieve this
             // fetch signedin user to initialize currentUser variable.
+
             await fetchUser()
+            let deviceToken = UserDefaults.standard.value(forKey:"fcmToken") as? String ?? "not found"
+            try await Firestore.firestore().collection(userCollection).document(result.user.uid).updateData(["fcmIosToken": deviceToken])
+            
             DispatchQueue.main.async {
                 self.userSession = result.user
             }
@@ -43,7 +53,8 @@ class AuthViewModel: ObservableObject{
             // Creating a user using firebase auth functionality
             let result = try await Auth.auth().createUser(withEmail: email, password: password)
             // Creating our User model with the result from firebase auth
-            let user = User(id: result.user.uid, firstName: firstName, lastName: lastName, email: email, role: role)
+            let deviceToken = UserDefaults.standard.value(forKey:"fcmToken") as? String ?? "not found"
+            let user = User(id: result.user.uid, firstName: firstName, lastName: lastName, email: email, role: role, fcmIosToken: deviceToken)
             // creating a user session
             DispatchQueue.main.async {
                 self.userSession = result.user
@@ -59,12 +70,15 @@ class AuthViewModel: ObservableObject{
         }
     }
     
-    func signOut() {
+    func signOut(){
         do {
+            if currentUser != nil {
+                Firestore.firestore().collection(userCollection).document(currentUser!.id).updateData(["fcmIosToken": ""])
+            }
+
             try Auth.auth().signOut() // signs out user from Firebase server.
             self.userSession = nil // wipes out userSession and takes us back to login screen.
             self.currentUser = nil // wipes out current user data model.
-
         } catch {
             print("DEBUG: Failed to logout user with error: \(error.localizedDescription)")
         }

@@ -37,6 +37,8 @@
 		80526C3C2BBCCF0A008BE699 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80526C3B2BBCCF0A008BE699 /* NotificationViewModel.swift */; };
 		80526C3E2BBCCF42008BE699 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80526C3D2BBCCF42008BE699 /* NotificationRepository.swift */; };
 		80526C402BBCCF58008BE699 /* FirestoreNotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80526C3F2BBCCF58008BE699 /* FirestoreNotificationRepository.swift */; };
+		80526C5A2BC355E1008BE699 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 80526C592BC355E1008BE699 /* GoogleService-Info.plist */; };
+		80526C602BC36F94008BE699 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80526C5F2BC36F94008BE699 /* AppDelegate.swift */; };
 		D02908482BAA5266001EA8B1 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02908472BAA5266001EA8B1 /* SearchBarView.swift */; };
 		D051E6442BBC7890000158AC /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051E6432BBC7890000158AC /* SettingView.swift */; };
 		D051E6462BBC7C16000158AC /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D051E6452BBC7C16000158AC /* FirebaseAnalytics */; };
@@ -45,7 +47,6 @@
 		D051E64C2BBC7C16000158AC /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D051E64B2BBC7C16000158AC /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		D051E64E2BBC7C16000158AC /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = D051E64D2BBC7C16000158AC /* FirebaseAppCheck */; };
 		E11609B12BBE56DE00404A7C /* AddressSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11609B02BBE56DE00404A7C /* AddressSearchBarView.swift */; };
-		E120AD282B97C04E0061ECD4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E120AD272B97C04D0061ECD4 /* GoogleService-Info.plist */; };
 		E120AD2B2B97C22A0061ECD4 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = E120AD2A2B97C22A0061ECD4 /* FirebaseAnalytics */; };
 		E120AD2D2B97C22A0061ECD4 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = E120AD2C2B97C22A0061ECD4 /* FirebaseAnalyticsOnDeviceConversion */; };
 		E120AD2F2B97C22A0061ECD4 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E120AD2E2B97C22A0061ECD4 /* FirebaseAnalyticsSwift */; };
@@ -127,10 +128,13 @@
 		80526C3B2BBCCF0A008BE699 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
 		80526C3D2BBCCF42008BE699 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
 		80526C3F2BBCCF58008BE699 /* FirestoreNotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreNotificationRepository.swift; sourceTree = "<group>"; };
+		80526C592BC355E1008BE699 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		80526C5B2BC35736008BE699 /* AccoBnB.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AccoBnB.entitlements; sourceTree = "<group>"; };
+		80526C5C2BC35A6B008BE699 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		80526C5F2BC36F94008BE699 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D02908472BAA5266001EA8B1 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		D051E6432BBC7890000158AC /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		E11609B02BBE56DE00404A7C /* AddressSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchBarView.swift; sourceTree = "<group>"; };
-		E120AD272B97C04D0061ECD4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E120AD612B97C2730061ECD4 /* ListingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingViewModel.swift; sourceTree = "<group>"; };
 		E120AD642B97C6180061ECD4 /* ListingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingRepository.swift; sourceTree = "<group>"; };
 		E120AD662B97C6750061ECD4 /* FirestoreListingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreListingRepository.swift; sourceTree = "<group>"; };
@@ -252,13 +256,16 @@
 		13BA6B4B2B8963F900D816E9 /* AccoBnB */ = {
 			isa = PBXGroup;
 			children = (
+				80526C5C2BC35A6B008BE699 /* Info.plist */,
+				80526C5B2BC35736008BE699 /* AccoBnB.entitlements */,
+				80526C592BC355E1008BE699 /* GoogleService-Info.plist */,
 				13BA6B802B99B7DE00D816E9 /* viewmodels */,
 				E123E8122B8C651200FEBDBA /* Data */,
 				13BA6B5B2B89659B00D816E9 /* Views */,
 				13BA6B5A2B89659100D816E9 /* Components */,
 				13BA6B4C2B8963F900D816E9 /* AccoBnBApp.swift */,
+				80526C5F2BC36F94008BE699 /* AppDelegate.swift */,
 				13BA6B4E2B8963F900D816E9 /* ContentView.swift */,
-				E120AD272B97C04D0061ECD4 /* GoogleService-Info.plist */,
 				13BA6B502B8963FA00D816E9 /* Assets.xcassets */,
 				13BA6B522B8963FA00D816E9 /* Preview Content */,
 			);
@@ -482,7 +489,7 @@
 			files = (
 				13BA6B542B8963FA00D816E9 /* Preview Assets.xcassets in Resources */,
 				13BA6B512B8963FA00D816E9 /* Assets.xcassets in Resources */,
-				E120AD282B97C04E0061ECD4 /* GoogleService-Info.plist in Resources */,
+				80526C5A2BC355E1008BE699 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -502,6 +509,7 @@
 				13BA6B4F2B8963F900D816E9 /* ContentView.swift in Sources */,
 				E1E5BE052BA1457A004BD586 /* ListingDetailView.swift in Sources */,
 				E12B64272BAB6F450045303F /* BookingViewModel.swift in Sources */,
+				80526C602BC36F94008BE699 /* AppDelegate.swift in Sources */,
 				1336F28E2BA1DE1B003AA20D /* ReviewCardView.swift in Sources */,
 				13BA6B6A2B8969A100D816E9 /* MyProfileView.swift in Sources */,
 				13BA6B662B89693B00D816E9 /* LoginView.swift in Sources */,
@@ -674,12 +682,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = AccoBnB/AccoBnB.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"AccoBnB/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = RT32ZWV93X;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AccoBnB/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -690,7 +700,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dipeshcodes.AccoBnB;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dipeshcodes.AccoBnB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -703,12 +713,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = AccoBnB/AccoBnB.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"AccoBnB/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = RT32ZWV93X;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AccoBnB/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -719,7 +731,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dipeshcodes.AccoBnB;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dipeshcodes.AccoBnB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

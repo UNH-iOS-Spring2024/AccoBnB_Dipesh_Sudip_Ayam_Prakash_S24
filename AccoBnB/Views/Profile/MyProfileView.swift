@@ -80,7 +80,9 @@ struct MyProfileView: View {
                 }
             }
             .onAppear{
-                userProfileVM.getUserDetails(userId: authVM.currentUser!.id)
+                if(authVM.currentUser != nil){
+                    userProfileVM.getUserDetails(userId: authVM.currentUser!.id)
+                }
             }
         }detail: {
             Text("See more")
