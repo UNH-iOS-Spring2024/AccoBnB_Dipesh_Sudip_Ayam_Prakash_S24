@@ -16,6 +16,9 @@ struct AddListingView: View {
     @State private var isShowingImagePicker = false // Control showing the image picker
     @State private var isShowingCamera = false // Control showing the camera
     @EnvironmentObject var listingViewModel: ListingViewModel
+    //@FocusState private var isAddressSearching: Bool
+    @State private var isTextFieldFocused = false
+    @State private var showSearchAddressBottomSheet = false
     
     var body: some View {
         ScrollView {
@@ -26,7 +29,7 @@ struct AddListingView: View {
                 
                 TextEditor(text: $listingDetail.description)
                     .frame(minHeight: 100)
-                    .border(Color.gray, width: 1)
+                    .border(Color.gray.opacity(0.2), width: 1)
                 //image here
                 if let photo = selectedPhoto {
                     Image(uiImage: photo)
@@ -83,7 +86,7 @@ struct AddListingView: View {
                         Spacer()
                         TextField("Guests", text: Binding(
                             get: { String(listingDetail.guestCount) },
-                            set: { if let value = Int($0) { listingDetail.availableRooms = value } }
+                            set: { if let value = Int($0) { listingDetail.guestCount = value } }
                         ))
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .keyboardType(.numberPad)
@@ -128,10 +131,41 @@ struct AddListingView: View {
                     }
                     .padding(.vertical, 8)
                 }
-                AddressSearchBarView { location in
-                    self.selectedLocation = location
-                }.frame(height: 300)
                 
+                Button {
+
+                    self.showSearchAddressBottomSheet = true
+                }
+                label: {
+                    TextField("Search Address", text: self.$listingDetail.address.addressLine1, onCommit: {
+                        self.showSearchAddressBottomSheet = true
+                    })
+                    .padding(.horizontal, 30) // Adjust padding as necessary
+                    .padding(10)
+                    .background(Color(UIColor.systemGray6))
+                    .cornerRadius(8)
+                    .overlay(
+                        HStack {
+                            Image(systemName: "magnifyingglass")
+                                .foregroundColor(.gray)
+                                .padding(.leading, 10)
+                                .padding(.trailing, 5)
+                            Spacer()
+                        }
+                            .padding(.horizontal, 10) // Adjust padding as necessary
+                    )
+                    .padding(.horizontal)
+                
+                    .sheet(isPresented: $showSearchAddressBottomSheet) {
+                        AddressSearchBarView { location in
+                            self.showSearchAddressBottomSheet = false
+                            self.selectedLocation = location
+                            if let location = selectedLocation {
+                                reverseGeocode(location: location)
+                            }
+                        }
+                    }
+                }
                 
                 TextField("Address", text: $listingDetail.address.addressLine1)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -161,8 +195,9 @@ struct AddListingView: View {
                     listingViewModel.createListing(bannerImagePath: selectedPhoto, listing: &listingDetail) { result in
                         switch result {
                         case .success(let createdListing):
-                            print("Listing created successfully:", createdListing)
-                            // Optionally, perform any actions after the listing is successfully created
+                            self.listingDetail = Listing()
+                            self.selectedLocation = nil
+                            self.selectedPhoto = nil
                         case .failure(let error):
                             print("Failed to create listing: \(error)")
                             // Handle the error, such as showing an alert to the user
@@ -172,16 +207,6 @@ struct AddListingView: View {
                 }
             }
             .padding()
-            //            .overlay(
-            //                // 1. Overlay TestSearchAddressView using ZStack
-            //                ZStack {
-            //                    TestSearchAddressView { location in
-            //                        self.selectedLocation = location
-            //                    }
-            //                    .padding(.horizontal)
-            //                    // .opacity(searchText.isEmpty ? 0 : 1) // Hide if search text is empty
-            //                }
-            //            )
         }
         .navigationTitle("Add Listing")
     }
