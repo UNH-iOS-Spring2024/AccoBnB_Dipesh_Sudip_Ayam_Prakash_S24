@@ -10,4 +10,5 @@ import UIKit
 
 protocol StorageRepository{
     func uploadImagetoFirebaseStorage(_ image: UIImage,storageName: String, completion: @escaping (Result<String, Error>) -> Void)
+    func uploadImagetoFirebaseStorageAsync(_ image: UIImage, storageName: String) async throws -> String
 }

@@ -18,7 +18,7 @@ class FirestoreUserRepository: UserRepository{
         Task{
             do{
                 db.collection(userCollection).document(userId).getDocument(){ (document, error) in
-                
+                    
                     if let error = error{
                         completion(.failure(error))
                         return
@@ -45,9 +45,16 @@ class FirestoreUserRepository: UserRepository{
         }
     }
     
-    func updateUserDetail(userDetail: User) async throws{
-        let userId = userDetail.id
-        let encodedUserDetail = try Firestore.Encoder().encode(userDetail)
-        try await Firestore.firestore().collection(userCollection).document(userId).setData(encodedUserDetail)
+    func updateUserDetail(userImage: UIImage?, userDetail: User) async throws {
+      var updatedUser = userDetail
+      let userId = updatedUser.id
+      if let imageToUpload = userImage {
+        let storageRepo = FirestoreStorageRepository()
+        let imageURL = try await storageRepo.uploadImagetoFirebaseStorageAsync(imageToUpload, storageName: "profiles")
+        updatedUser.profileImage = imageURL
+      }
+      let encodedUserDetail = try Firestore.Encoder().encode(updatedUser)
+      try await Firestore.firestore().collection(userCollection).document(userId).setData(encodedUserDetail)
     }
+    
 }
