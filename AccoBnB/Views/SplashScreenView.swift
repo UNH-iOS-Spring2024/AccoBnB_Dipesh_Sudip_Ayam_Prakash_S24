@@ -16,18 +16,19 @@ struct SplashScreenView: View {
             ContentView()
         } else {
             VStack {
-                VStack {
+                ZStack {
                     Image("ic_logo")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                     Text("Your Accomodation, Your Way")
                         .font(.system(size: 28))
                         .foregroundColor(Color("primaryColor"))
+                        .padding(.top, 250)
                 }
                 .scaleEffect(size)
                 .opacity(opacity)
                 .onAppear{
-                    withAnimation(.easeIn(duration: 1.5)){
+                    withAnimation(.easeInOut(duration: 1.5)){
                         self.size = 0.9
                         self.opacity = 1.0
                     }
