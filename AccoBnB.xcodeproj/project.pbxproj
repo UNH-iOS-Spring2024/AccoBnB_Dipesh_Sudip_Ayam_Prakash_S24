@@ -111,6 +111,8 @@
 		E12B642B2BAB707C0045303F /* FirestoreBookingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12B642A2BAB707C0045303F /* FirestoreBookingRepository.swift */; };
 		E12B642D2BAF74A30045303F /* BookingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12B642C2BAF74A30045303F /* BookingView.swift */; };
 		E16236BE2BC344AA008D657B /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16236BD2BC344AA008D657B /* ImagePicker.swift */; };
+		E19A6F622BC7088100136974 /* StorageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A6F612BC7088100136974 /* StorageRepository.swift */; };
+		E19A6F642BC708B500136974 /* FirestoreStorageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19A6F632BC708B500136974 /* FirestoreStorageRepository.swift */; };
 		E1E5BE052BA1457A004BD586 /* ListingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E5BE042BA1457A004BD586 /* ListingDetailView.swift */; };
 		E1EFA9602BB7977300E50E64 /* ManageListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EFA95F2BB7977200E50E64 /* ManageListingView.swift */; };
 		E1EFA9622BB79C6400E50E64 /* AddListingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EFA9612BB79C6400E50E64 /* AddListingView.swift */; };
@@ -178,6 +180,8 @@
 		E12B642A2BAB707C0045303F /* FirestoreBookingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreBookingRepository.swift; sourceTree = "<group>"; };
 		E12B642C2BAF74A30045303F /* BookingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingView.swift; sourceTree = "<group>"; };
 		E16236BD2BC344AA008D657B /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		E19A6F612BC7088100136974 /* StorageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageRepository.swift; sourceTree = "<group>"; };
+		E19A6F632BC708B500136974 /* FirestoreStorageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreStorageRepository.swift; sourceTree = "<group>"; };
 		E1E5BE042BA1457A004BD586 /* ListingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingDetailView.swift; sourceTree = "<group>"; };
 		E1EFA95F2BB7977200E50E64 /* ManageListingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageListingView.swift; sourceTree = "<group>"; };
 		E1EFA9612BB79C6400E50E64 /* AddListingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddListingView.swift; sourceTree = "<group>"; };
@@ -405,6 +409,8 @@
 				13DCA1592BBA32AE00838279 /* FirestoreReviewRepository.swift */,
 				80526C3D2BBCCF42008BE699 /* NotificationRepository.swift */,
 				80526C3F2BBCCF58008BE699 /* FirestoreNotificationRepository.swift */,
+				E19A6F612BC7088100136974 /* StorageRepository.swift */,
+				E19A6F632BC708B500136974 /* FirestoreStorageRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -559,6 +565,7 @@
 			files = (
 				13DCA1582BBA32A000838279 /* ReviewRepository.swift in Sources */,
 				D00CCF5B2BC24DD200DAB1FE /* PrivacyPolicyView.swift in Sources */,
+				E19A6F642BC708B500136974 /* FirestoreStorageRepository.swift in Sources */,
 				E1EFA9602BB7977300E50E64 /* ManageListingView.swift in Sources */,
 				13BA6B702B8A629800D816E9 /* ConciseRatingView.swift in Sources */,
 				E16236BE2BC344AA008D657B /* ImagePicker.swift in Sources */,
@@ -589,6 +596,7 @@
 				80526C3E2BBCCF42008BE699 /* NotificationRepository.swift in Sources */,
 				D00CCF5F2BC2548200DAB1FE /* TermsAndConditionsView.swift in Sources */,
 				80526C402BBCCF58008BE699 /* FirestoreNotificationRepository.swift in Sources */,
+				E19A6F622BC7088100136974 /* StorageRepository.swift in Sources */,
 				13BA6B682B89697100D816E9 /* ResetPasswordView.swift in Sources */,
 				136372252BA85A6B0082518A /* UserRepository.swift in Sources */,
 				13BA6B4D2B8963F900D816E9 /* AccoBnBApp.swift in Sources */,
