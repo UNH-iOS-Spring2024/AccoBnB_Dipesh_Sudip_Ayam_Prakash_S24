@@ -76,8 +76,8 @@ struct Listing: Codable {
     var reviews: [Review] = []
     var histories: [ListingHistory] = []
     var isPublished: Bool? = false
-    var createdAt: Int64? = nil
-    var updatedAt: Int64? = nil
+    var createdAt: Date? = nil
+    var updatedAt: Date? = nil
 }
 // Extension for defining defaultListing
 extension Listing {

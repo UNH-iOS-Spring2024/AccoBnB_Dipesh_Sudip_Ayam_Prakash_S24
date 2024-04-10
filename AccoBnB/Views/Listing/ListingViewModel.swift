@@ -18,7 +18,11 @@ final class ListingViewModel : ObservableObject {
     }
     
     func getAllListings() {
+        if(!listings.isEmpty){
+            return
+        }
         isLoading = true // Show loader
+        
         listingRepository.getAllListings { [weak self] result in
             self?.isLoading = false // Hide loader after operation completes
             switch result {
@@ -35,6 +39,8 @@ final class ListingViewModel : ObservableObject {
     
     func createListing(bannerImagePath: UIImage?, listing: inout Listing, completion: @escaping (Result<Listing, Error>) -> Void) {
         listing.id = listingRepository.getListingId()
+        listing.createdAt = Date()
+        listing.updatedAt = Date()
         isLoading = true // Show loader
         listingRepository.createListing(bannerImagePath: bannerImagePath, listing: listing) { [weak self] result in
             self?.isLoading = false // Hide loader after operation completes

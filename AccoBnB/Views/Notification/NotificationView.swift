@@ -21,8 +21,20 @@ struct NotificationView: View {
                 } else {
                     List {
                         ForEach(notificationViewModel.notifications, id: \.self) { notification in
-                            Text(notification.message)
-                            
+                            HStack {
+                                Image(systemName: "bell.circle")
+                                    .font(.system(size: 30, weight: .light))
+                                    .foregroundStyle(.secondary)
+                                VStack(alignment: .leading) {
+                                    Text(notification.message)
+                                        .font(.system(size: 14))
+                                    Text(notification.createdAt!.timeAgoDisplay())
+                                        .font(.system(size: 10))
+                                        .foregroundStyle(.secondary)
+                                }
+                                
+                            }
+                            .padding(.vertical, 2)
                         }
                         
                     }.navigationTitle("Notifications")
@@ -31,9 +43,10 @@ struct NotificationView: View {
             }
             .onAppear {
                 if((authViewModel.currentUser?.id) != nil){
-                    notificationViewModel.getNotifications(userId: authViewModel.currentUser!.id)
+                    notificationViewModel.getNotifications(userId: "xap9z81gb2XFsULfi5mAsvWme792")
                 }
-      
+                notificationViewModel.getNotifications(userId: "xap9z81gb2XFsULfi5mAsvWme792")
+
             }
         } detail: {
             EmptyView()
@@ -41,6 +54,13 @@ struct NotificationView: View {
     }
 }
 
-#Preview {
-    NotificationView()
+struct NotificationView_Previews: PreviewProvider {
+    static var previews: some View {
+        let notificationViewModel = NotificationViewModel()
+        let authViewModel = AuthViewModel()
+        NotificationView()
+            .environmentObject(notificationViewModel)
+            .environmentObject(authViewModel)
+    }
 }
+

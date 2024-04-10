@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CachedAsyncImage
 
 struct ListingCardView: View {
     @State var listingDetail: Listing
@@ -15,7 +16,7 @@ struct ListingCardView: View {
             VStack(alignment: .center) {
                 // Load image from URL using AsyncImage
                 if let url = URL(string: listingDetail.bannerImage) {
-                    AsyncImage(url: url) { phase in
+                    CachedAsyncImage(url: url, urlCache: .imageCache) { phase in
                         switch phase {
                         case .empty:
                             ProgressView()
