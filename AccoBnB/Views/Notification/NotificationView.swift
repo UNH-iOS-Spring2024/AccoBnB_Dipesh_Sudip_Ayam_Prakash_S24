@@ -43,10 +43,8 @@ struct NotificationView: View {
             }
             .onAppear {
                 if((authViewModel.currentUser?.id) != nil){
-                    notificationViewModel.getNotifications(userId: "xap9z81gb2XFsULfi5mAsvWme792")
+                    notificationViewModel.getNotifications(userId: authViewModel.currentUser!.id)
                 }
-                notificationViewModel.getNotifications(userId: "xap9z81gb2XFsULfi5mAsvWme792")
-
             }
         } detail: {
             EmptyView()

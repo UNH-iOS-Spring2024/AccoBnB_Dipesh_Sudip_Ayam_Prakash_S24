@@ -12,7 +12,9 @@ struct EditUserDetailView: View {
     @Environment(\.dismiss) var dismiss // used to stack back to parent screen
     
     @State var userDetail: User
-    
+    @State private var selectedPhoto: UIImage?
+    @State private var isShowingImagePicker = false // Control showing the image picker
+    @State private var isShowingCamera = false // Control showing the camera
     var body: some View {
         Spacer()
         VStack{
@@ -28,26 +30,54 @@ struct EditUserDetailView: View {
                             .aspectRatio(contentMode: .fit)
                             .frame(height: 200)
                     case .failure:
-                        Image("mt-everest")
+                        Image(systemName: "person")
                             .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(height: 200)
+                            .frame(width: 200, height: 200)
                     @unknown default:
                         EmptyView()
                     }
                 }
-                .foregroundColor(Color.white)
+                .foregroundColor(Color.gray)
                 .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                 .padding(.bottom, 20)
+                .overlay(alignment: .center) {
+                    Button {
+                        isShowingImagePicker.toggle()
+                    } label: {
+                        Image(systemName: "pencil.circle.fill")
+                            .symbolRenderingMode(.multicolor)
+                            .font(.system(size: 30))
+                            .foregroundColor(.accentColor)
+                    }
+                }
+                .sheet(isPresented: $isShowingImagePicker, onDismiss: {
+                    isShowingImagePicker = false
+                }, content: {
+                    ImagePicker(selectedImage: $selectedPhoto, isShowingImagePicker: $isShowingImagePicker, isShowingCamera: $isShowingCamera)
+                })
             } else {
                 // Use a placeholder if the URL is invalid
-                Image("mt-everest")
+                Image(systemName: "person")
                     .resizable()
-                    .frame(height: 200)
-                    .aspectRatio(contentMode: .fit)
-                    .foregroundColor(Color.white)
+                    .frame(width: 200, height: 200)
+                    .background(Color.gray)
                     .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                     .padding(.bottom, 20)
+                    .overlay(alignment: .center) {
+                        Button {
+                            isShowingImagePicker.toggle()
+                        } label: {
+                            Image(systemName: "pencil.circle.fill")
+                                .symbolRenderingMode(.multicolor)
+                                .font(.system(size: 30))
+                                .foregroundColor(.accentColor)
+                        }
+                    }
+                    .sheet(isPresented: $isShowingImagePicker, onDismiss: {
+                        isShowingImagePicker = false
+                    }, content: {
+                        ImagePicker(selectedImage: $selectedPhoto, isShowingImagePicker: $isShowingImagePicker, isShowingCamera: $isShowingCamera)
+                    })
             }
             
             CustomTextFieldView(placeholder: "First Name", text: $userDetail.firstName, isSecureField: false)
@@ -55,7 +85,7 @@ struct EditUserDetailView: View {
             CustomTextFieldView(placeholder: "Email",text: $userDetail.email, isSecureField: false, isDisabled: true)
                 .foregroundColor(Color.gray)
             CustomTextFieldView(placeholder: "Phone Number", text: $userDetail.phone, isSecureField: false)
-
+            
             CustomButtonView(buttonText: "Update"){
                 Task{
                     await userProfileVM.updateUserDetail(userDetail: userDetail)
