@@ -34,7 +34,6 @@ struct NotificationView: View {
                                 }
                                 
                             }
-                            .frame(width: .infinity, height: .infinity)
                             .padding(.vertical, 2)
                         }
                         
