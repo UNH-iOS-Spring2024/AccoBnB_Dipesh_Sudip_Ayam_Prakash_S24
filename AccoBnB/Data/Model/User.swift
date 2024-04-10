@@ -38,20 +38,20 @@ extension User {
     static let defaultUser: User = {
         let defaultAddress = Address(city: "New York", country: "United States", zipCode: "10001", addressLine1: "123 Main Street", addressLine2: "Apt 4B")
         let defaultPreference = UserPreference(darkMode: false, budget: 1000.0)
-        
         return User(
-            id: "aQVsN0AiruQAatC2GAbJncspdCg2",
-            firstName: "Guest",
-            lastName: "User",
-            phone: "1234567890",
-            profileImage: "https://example.com/default_profile_image.png",
-            email: "john@example.com",
-            role: .guest,
+            id: "xap9z81gb2XFsULfi5mAsvWme792",
+            firstName: "test",
+            lastName: "Host",
+            phone: "",
+            profileImage: "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+            email: "dipesh@gmail.com",
+            role: .host,
             fcmIosToken: "",
             address: defaultAddress,
             preference: defaultPreference,
             favourites: []
         )
+       
     }()
 }
 
