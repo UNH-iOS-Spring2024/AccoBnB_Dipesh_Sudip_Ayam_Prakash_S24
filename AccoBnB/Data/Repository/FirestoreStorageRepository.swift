@@ -37,4 +37,23 @@ class FirestoreStorageRepository : StorageRepository {
             }
         }
     }
+    
+    func uploadImagetoFirebaseStorageAsync(_ image: UIImage, storageName: String) async throws -> String {
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
+            throw "Failed to convert image to data" as! Error
+        }
+        let storageRef = storage.reference()
+        let listingImagesRef = storageRef.child(storageName).child(UUID().uuidString)
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+        do {
+            let uploadMetadata = try await listingImagesRef.putDataAsync(imageData, metadata: metadata)
+            let downloadURL = try await listingImagesRef.downloadURL()
+            print("uploaded", downloadURL.absoluteString)
+            return downloadURL.absoluteString
+        } catch {
+            print("Error while uploading: \(error)")
+            throw error
+        }
+    }
 }

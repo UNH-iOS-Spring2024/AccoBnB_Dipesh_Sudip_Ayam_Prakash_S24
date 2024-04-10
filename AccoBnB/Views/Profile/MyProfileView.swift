@@ -94,8 +94,6 @@ struct MyProfileView: View {
                         
                     }
                     .padding(.horizontal, 30)
-                    
-                    
                     VStack{
                         Divider()
                         NavigationLink(destination: EditUserDetailView(userDetail: userProfileVM.userDetail), isActive: $isEditUserDetailViewActive){

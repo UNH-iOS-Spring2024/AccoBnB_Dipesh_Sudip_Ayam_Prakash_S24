@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import UIKit
 
 protocol UserRepository{
     func getUserDetails(userId: String, completion: @escaping (Result<User, Error>) -> Void)
-    func updateUserDetail(userDetail: User) async throws
+    func updateUserDetail(userImage: UIImage?,userDetail: User) async throws
 }
