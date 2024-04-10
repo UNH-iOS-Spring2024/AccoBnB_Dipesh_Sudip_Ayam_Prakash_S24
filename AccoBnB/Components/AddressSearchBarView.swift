@@ -55,25 +55,11 @@ struct AddressSearchBarView: View {
     var didSelectLocation: ((MKLocalSearchCompletion) -> Void)?
     
     var body: some View {
-        VStack {
-            HStack {
-                Image(systemName: "magnifyingglass")
-                    .foregroundColor(.gray)
-                TextField("Search", text: $searchText) { isEditing in
-                    // Handle text field editing if needed
-                } onCommit: {
-                    completerDelegateWrapper.performSearch(for: searchText)
-                }
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-            }
-            .padding(.vertical, 8)
-            .background(Color(.systemGray5))
-            .cornerRadius(8)
-            
+        
+        NavigationStack {
             List(completerDelegateWrapper.searchResults, id: \.self) { location in
-                Button(action: {                    
+                Button(action: {
                     didSelectLocation?(location)
-                    // Hide list on button click
                     withAnimation {
                         isListVisible = false
                     }
@@ -87,10 +73,13 @@ struct AddressSearchBarView: View {
                 }
             }
             .listStyle(PlainListStyle())
-            .opacity(isListVisible ? 1 : 0) // Apply opacity based on state
+            .opacity(isListVisible ? 1 : 0)                    
+            .navigationTitle("Search Location")
         }
-        .padding(.horizontal)
+        .searchable(text: $searchText)
+        .onChange(of: searchText) { completerDelegateWrapper.performSearch(for: searchText) }
     }
+    
 }
 
 
