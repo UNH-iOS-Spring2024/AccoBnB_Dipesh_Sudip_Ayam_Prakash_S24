@@ -32,12 +32,39 @@ struct MyProfileView: View {
                         }
                         
                         VStack {
-                            Image(systemName: "person")
-                                .padding(35)
-                                .background(Color("primaryColor"))
-                                .foregroundColor(Color.white)
-                                .font(.system(size: 30))
-                                .clipShape(Circle())
+                            if let url = URL(string: userProfileVM.userDetail.profileImage) {
+                                AsyncImage(url: url) { phase in
+                                    switch phase {
+                                    case .empty:
+                                        ProgressView()
+                                    case .success(let image):
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(height: 130)
+                                            .background(Color.gray)
+                                            .clipShape(Circle())
+                                    case .failure:
+                                        Image(systemName: "person")
+                                            .padding(35)
+                                            .background(Color("primaryColor"))
+                                            .foregroundColor(Color.white)
+                                            .font(.system(size: 30))
+                                            .clipShape(Circle())
+                                    @unknown default:
+                                        EmptyView()
+                                    }
+                                }
+                                
+                            }
+                            else {
+                                Image(systemName: "person")
+                                    .padding(35)
+                                    .background(Color("primaryColor"))
+                                    .foregroundColor(Color.white)
+                                    .font(.system(size: 30))
+                                    .clipShape(Circle())
+                            }
                             Text("\(userProfileVM.userDetail.firstName) \(userProfileVM.userDetail.lastName)")
                                 .bold()
                                 .font(.largeTitle)
@@ -78,13 +105,13 @@ struct MyProfileView: View {
                         }
                         .navigationTitle("Profile")
                         Divider()
-
+                        
                         BorderlessIconButtonView(buttonName: "My Favorites", iconName: "heart.circle")
                         Divider()
-
+                        
                         BorderlessIconButtonView(buttonName: "My Bookings", iconName: "list.bullet.circle")
                         Divider()
-
+                        
                         NavigationLink(destination: SettingsView(), isActive: $isSettingsViewActive) {
                             BorderlessIconButtonView(buttonName: "Settings", iconName: "gearshape"){
                                 isSettingsViewActive = true
@@ -92,10 +119,10 @@ struct MyProfileView: View {
                         }
                         .navigationTitle("Setting")
                         Divider()
-
+                        
                         BorderlessIconButtonView(buttonName: "Help", iconName: "phone.bubble")
                         Divider()
-
+                        
                     }
                     .padding(.vertical, 20)
                     
@@ -110,11 +137,7 @@ struct MyProfileView: View {
             .navigationBarHidden(true)
             .padding(.top, 0)
             .onAppear{
-                if(authVM.currentUser != nil){
-                    userProfileVM.getUserDetails(userId: authVM.currentUser!.id)
-                }
-                
-                userProfileVM.getUserDetails(userId: "xap9z81gb2XFsULfi5mAsvWme792")
+                userProfileVM.getUserDetails(userId: authVM.currentUser!.id)
             }
         }detail: {
             Text("See more")
@@ -126,8 +149,10 @@ struct MyProfileView: View {
 struct MyProfileView_Previews: PreviewProvider {
     static var previews: some View {
         let userProfileViewModel = UserProfileViewModel()
+        userProfileViewModel.userDetail = User.defaultUser
         let authViewModel = AuthViewModel()
-        MyProfileView()
+        authViewModel.currentUser = User.defaultUser
+        return MyProfileView()
             .environmentObject(userProfileViewModel)
             .environmentObject(authViewModel)
     }

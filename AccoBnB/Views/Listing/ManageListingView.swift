@@ -24,7 +24,7 @@ struct ManageListingView: View {
                                 ListingCardView(listingDetail: listing)
 
                             }
-                            .navigationTitle("Listings")
+                            .navigationTitle("My Listings")
                         }.listStyle(PlainListStyle())
                         .padding(0)
                     }
