@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ListingCardView: View {
     @State var listingDetail: Listing
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .center) {
@@ -46,23 +46,23 @@ struct ListingCardView: View {
                         .foregroundColor(.gray)
                 }
             }
-
+            
             VStack(alignment: .leading) {
                 // Full Location
                 HStack {
                     Image(systemName: "mappin.and.ellipse")
                         .foregroundColor(Color("primaryColor"))
-                    Text("\(listingDetail.address?.addressLine1 ?? "Unknown"), \(listingDetail.address?.city ?? "Unknown"), \(listingDetail.address?.zipCode ?? "Unknown")")
+                    Text("\(listingDetail.address.addressLine1), \(listingDetail.address.city), \(listingDetail.address.zipCode)")
                         .foregroundColor(Color.gray)
                 }
                 .font(.system(size: 14))
-
+                
                 // Listing Title
                 Text(listingDetail.title)
                     .bold()
                     .font(.headline)
                     .padding(.vertical, 2)
-
+                
                 // Listing Type: Temporary, Permanent & price in HStack{}
                 HStack {
                     HStack {
@@ -76,7 +76,7 @@ struct ListingCardView: View {
                 }
                 .font(.system(size: 14))
                 .foregroundColor(Color.gray)
-
+                
                 // Listing Rating
                 ConciseRatingView(ratingValue: listingDetail.rating)
                     .padding(.bottom, 5)

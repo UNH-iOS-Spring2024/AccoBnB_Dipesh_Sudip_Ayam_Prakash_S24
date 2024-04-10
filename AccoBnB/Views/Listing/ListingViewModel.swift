@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class ListingViewModel : ObservableObject {
     @Published var listings: [Listing] = []
@@ -31,5 +32,27 @@ final class ListingViewModel : ObservableObject {
             }
         }
     }
+    
+    func createListing(bannerImagePath: UIImage?, listing: inout Listing, completion: @escaping (Result<Listing, Error>) -> Void) {
+        listing.id = listingRepository.getListingId()
+        isLoading = true // Show loader
+        listingRepository.createListing(bannerImagePath: bannerImagePath, listing: listing) { [weak self] result in
+            self?.isLoading = false // Hide loader after operation completes
+            switch result {
+            case .success(let createdListing):
+                DispatchQueue.main.async {
+                    // Update the local listings array with the newly created listing
+                    self?.listings.append(createdListing)
+                    // Optionally, you can also call getAllListings() here to refresh the listings array
+                    completion(.success(createdListing)) // Pass back the created listing
+                }
+            case .failure(let error):
+                print("Failed to create listing: \(error)")
+                // Handle error, such as showing an alert to the user
+                completion(.failure(error)) // Pass back the error
+            }
+        }
+    }
+
 }
 

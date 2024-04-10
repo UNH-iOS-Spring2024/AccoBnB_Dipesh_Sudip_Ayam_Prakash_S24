@@ -7,19 +7,25 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseStorage
 
 class FirestoreListingRepository: ListingRepository {
     private let db = Firestore.firestore()
     private let listingsCollection = "listings" // Firestore collection name
     private let reviewsCollection = "reviews"
-
+    private let storage = Storage.storage()
+    
+    func getListingId() -> String {
+        return db.collection(listingsCollection).document().documentID
+    }
+    
     func getAllListings(completion: @escaping (Result<[Listing], Error>) -> Void) {
         db.collection(listingsCollection).getDocuments { snapshot, error in
             if let error = error {
                 completion(.failure(error))
                 return
             }
-
+            
             guard let documents = snapshot?.documents else {
                 completion(.success([]))
                 return
@@ -62,33 +68,119 @@ class FirestoreListingRepository: ListingRepository {
         }
     }
     
-   private func getReviewsByListingId(for listingId: String, completion: @escaping (Result<[Review], Error>) -> Void){
-       db.collection(reviewsCollection)
-           .whereField("listingId",isEqualTo: listingId)
-           .getDocuments { snapshot, err in
-               if let error = err{
-                   completion(.failure(error))
-                   return
-               }
-               
-               guard let documents = snapshot?.documents else{
-                   completion(.success([]))
-                   return
-               }
-               
-               let reviews = documents.compactMap { document -> Review? in
-                   let result = Result{
-                       try document.data(as: Review.self)
-                   }
-                   switch result{
-                   case .success(let review):
-                       return review
-                   case .failure(let error):
-                       print("Error in decoding review \(error)")
-                       return nil
-                   }
-               }
-               completion(.success(reviews))
-           }
-   }
+    private func getReviewsByListingId(for listingId: String, completion: @escaping (Result<[Review], Error>) -> Void){
+        db.collection(reviewsCollection)
+            .whereField("listingId",isEqualTo: listingId)
+            .getDocuments { snapshot, err in
+                if let error = err{
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let documents = snapshot?.documents else{
+                    completion(.success([]))
+                    return
+                }
+                
+                let reviews = documents.compactMap { document -> Review? in
+                    let result = Result{
+                        try document.data(as: Review.self)
+                    }
+                    switch result{
+                    case .success(let review):
+                        return review
+                    case .failure(let error):
+                        print("Error in decoding review \(error)")
+                        return nil
+                    }
+                }
+                completion(.success(reviews))
+            }
+    }
+    
+    func createListing(bannerImagePath: UIImage?, listing: Listing, completion: @escaping (Result<Listing, Error>) -> Void) {
+        var updatedListing = listing
+        
+        // Check if bannerImagePath is provided
+        if let bannerImagePath = bannerImagePath {
+            // Upload the image data to Firebase Storage
+            uploadListingImage(bannerImagePath) { result in
+                switch result {
+                case .success(let imageURL):
+                    // If successful, update the listing's bannerImage with the imageURL
+                    updatedListing.bannerImage = imageURL
+                    // Add the updated listing to Firestore
+                    self.addListingToFirestore(listing: updatedListing, completion: completion)
+                case .failure(let error):
+                    // If upload fails, pass the error to the completion handler
+                    completion(.failure(error))
+                }
+            }
+        } else {
+            // If no banner image provided, directly add the listing to Firestore
+            addListingToFirestore(listing: updatedListing, completion: completion)
+        }
+    }
+    
+    
+    
+    
+    
+    private func addListingToFirestore(listing: Listing, completion: @escaping (Result<Listing, Error>) -> Void) {
+        do {
+            try db.collection(listingsCollection).document(listing.id).setData(Firestore.Encoder().encode(listing)) { error in
+                if let error = error {
+                    print("Error while adding listing: \(error)")
+                    completion(.failure(error))
+                } else {
+                    completion(.success(listing))
+                }
+            }
+        } catch {
+            completion(.failure(error))
+        }
+    }
+    
+    
+    func getListingById(listingId: String, completion: @escaping (Result<Listing?, Error>) -> Void) {
+        db.collection(listingsCollection).document(listingId).getDocument { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+            } else if let data = snapshot?.data() {
+                do {
+                    let listing = try Firestore.Decoder().decode(Listing.self, from: data)
+                    completion(.success(listing))
+                } catch {
+                    completion(.failure(error))
+                }
+            } else {
+                completion(.success(nil))
+            }
+        }
+    }
+    
+    private func uploadListingImage(_ image: UIImage, completion: @escaping (Result<String, Error>) -> Void) {
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
+            completion(.failure("Failed to convert image to data" as! Error))
+            return
+        }
+        
+        let storageRef = storage.reference()
+        let listingImagesRef = storageRef.child("listings").child(UUID().uuidString)
+        
+        listingImagesRef.putData(imageData, metadata: nil) { metadata, error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                listingImagesRef.downloadURL { url, error in
+                    if let error = error {
+                        completion(.failure(error))
+                    } else if let downloadURL = url {
+                        completion(.success(downloadURL.absoluteString))
+                    }
+                }
+            }
+        }
+    }
+    
 }

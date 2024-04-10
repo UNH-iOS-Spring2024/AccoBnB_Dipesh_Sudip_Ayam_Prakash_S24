@@ -15,7 +15,7 @@ struct User: Identifiable, Codable {
     var profileImage: String = ""
     var email: String = ""
     var role: UserRole = .guest
-    var fcmToken: String? = "" //made it optional till we add authentication logic
+    var fcmIosToken: String? = "" //made it optional till we add authentication logic
     var address: Address? = nil
     var preference: UserPreference? = nil
     var favourites: [Favourite] = [] // discuss and add if we are adding add to favorite feature to the app
@@ -47,7 +47,7 @@ extension User {
             profileImage: "https://example.com/default_profile_image.png",
             email: "john@example.com",
             role: .guest,
-            fcmToken: "",
+            fcmIosToken: "",
             address: defaultAddress,
             preference: defaultPreference,
             favourites: []

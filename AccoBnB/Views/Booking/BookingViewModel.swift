@@ -17,7 +17,9 @@ final class BookingViewModel : ObservableObject {
         self.bookingRepository = bookingRepository
         self.authViewModel = authViewModel
         print("BookingViewModel initialized with text: \(text)")
-        getUserBooking(userId: authViewModel.userSession!.uid)
+        if(authViewModel.userSession != nil){
+            getUserBooking(userId: authViewModel.userSession!.uid)
+        }
     }
     
     func getUserBooking(userId: String) {
