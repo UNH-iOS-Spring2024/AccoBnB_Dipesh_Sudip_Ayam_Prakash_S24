@@ -28,6 +28,11 @@ struct MenuNavigationView: View {
                         Image(systemName: "house")
                         Text("Home")
                     }
+                MapView()
+                    .tabItem {
+                        Image(systemName: "map")
+                        Text("Map")
+                    }
                 if authViewModel.currentUser?.role == UserRole.guest {
                     BookingView()
                         .environmentObject(bookingViewModel)
