@@ -42,6 +42,8 @@
 		80526C402BBCCF58008BE699 /* FirestoreNotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80526C3F2BBCCF58008BE699 /* FirestoreNotificationRepository.swift */; };
 		80526C5A2BC355E1008BE699 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 80526C592BC355E1008BE699 /* GoogleService-Info.plist */; };
 		80526C602BC36F94008BE699 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80526C5F2BC36F94008BE699 /* AppDelegate.swift */; };
+		D00CCF5B2BC24DD200DAB1FE /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00CCF5A2BC24DD200DAB1FE /* PrivacyPolicyView.swift */; };
+		D00CCF5F2BC2548200DAB1FE /* TermsAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00CCF5E2BC2548200DAB1FE /* TermsAndConditionsView.swift */; };
 		D02908482BAA5266001EA8B1 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02908472BAA5266001EA8B1 /* SearchBarView.swift */; };
 		D051E6442BBC7890000158AC /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D051E6432BBC7890000158AC /* SettingView.swift */; };
 		D051E6462BBC7C16000158AC /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D051E6452BBC7C16000158AC /* FirebaseAnalytics */; };
@@ -137,6 +139,8 @@
 		80526C5B2BC35736008BE699 /* AccoBnB.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AccoBnB.entitlements; sourceTree = "<group>"; };
 		80526C5C2BC35A6B008BE699 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		80526C5F2BC36F94008BE699 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D00CCF5A2BC24DD200DAB1FE /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
+		D00CCF5E2BC2548200DAB1FE /* TermsAndConditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsView.swift; sourceTree = "<group>"; };
 		D02908472BAA5266001EA8B1 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		D051E6432BBC7890000158AC /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		E11609B02BBE56DE00404A7C /* AddressSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchBarView.swift; sourceTree = "<group>"; };
@@ -210,8 +214,10 @@
 			isa = PBXGroup;
 			children = (
 				1363721F2BA848930082518A /* EditUserDetailView.swift */,
+				D00CCF5A2BC24DD200DAB1FE /* PrivacyPolicyView.swift */,
 				13BA6B692B8969A100D816E9 /* MyProfileView.swift */,
 				D051E6432BBC7890000158AC /* SettingView.swift */,
+				D00CCF5E2BC2548200DAB1FE /* TermsAndConditionsView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -519,6 +525,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13DCA1582BBA32A000838279 /* ReviewRepository.swift in Sources */,
+				D00CCF5B2BC24DD200DAB1FE /* PrivacyPolicyView.swift in Sources */,
 				E1EFA9602BB7977300E50E64 /* ManageListingView.swift in Sources */,
 				13BA6B702B8A629800D816E9 /* ConciseRatingView.swift in Sources */,
 				E16236BE2BC344AA008D657B /* ImagePicker.swift in Sources */,
@@ -545,6 +552,7 @@
 				E1EFA9642BBCCC1200E50E64 /* AmenityChipView.swift in Sources */,
 				13BA6B742B8C20CA00D816E9 /* ListingView.swift in Sources */,
 				80526C3E2BBCCF42008BE699 /* NotificationRepository.swift in Sources */,
+				D00CCF5F2BC2548200DAB1FE /* TermsAndConditionsView.swift in Sources */,
 				80526C402BBCCF58008BE699 /* FirestoreNotificationRepository.swift in Sources */,
 				13BA6B682B89697100D816E9 /* ResetPasswordView.swift in Sources */,
 				136372252BA85A6B0082518A /* UserRepository.swift in Sources */,
