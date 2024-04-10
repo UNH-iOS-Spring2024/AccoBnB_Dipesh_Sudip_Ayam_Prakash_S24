@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1336F28E2BA1DE1B003AA20D /* ReviewCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1336F28D2BA1DE1B003AA20D /* ReviewCardView.swift */; };
+		135743AF2BC05A53008442B8 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135743AE2BC05A53008442B8 /* MapView.swift */; };
 		136372202BA848930082518A /* EditUserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1363721F2BA848930082518A /* EditUserDetailView.swift */; };
 		136372232BA859600082518A /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136372222BA859600082518A /* UserProfileViewModel.swift */; };
 		136372252BA85A6B0082518A /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136372242BA85A6B0082518A /* UserRepository.swift */; };
@@ -94,6 +95,7 @@
 
 /* Begin PBXFileReference section */
 		1336F28D2BA1DE1B003AA20D /* ReviewCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCardView.swift; sourceTree = "<group>"; };
+		135743AE2BC05A53008442B8 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		1363721F2BA848930082518A /* EditUserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserDetailView.swift; sourceTree = "<group>"; };
 		136372222BA859600082518A /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
 		136372242BA85A6B0082518A /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
@@ -281,6 +283,7 @@
 				E12B64232BAA4ED40045303F /* BottomSheetView.swift */,
 				D02908472BAA5266001EA8B1 /* SearchBarView.swift */,
 				13DCA1532BB9D62E00838279 /* RatingStarView.swift */,
+				135743AE2BC05A53008442B8 /* MapView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -498,6 +501,7 @@
 				E123E81B2B8CFE3300FEBDBA /* Review.swift in Sources */,
 				137AE8FF2BAC33AD0030B75B /* AuthViewModel.swift in Sources */,
 				136372272BA85B870082518A /* FirestoreUserRepository.swift in Sources */,
+				135743AF2BC05A53008442B8 /* MapView.swift in Sources */,
 				13DCA1542BB9D62E00838279 /* RatingStarView.swift in Sources */,
 				13BA6B622B89682C00D816E9 /* BorderlessIconButtonView.swift in Sources */,
 				13DCA1522BB88AE200838279 /* BookingSummary.swift in Sources */,
