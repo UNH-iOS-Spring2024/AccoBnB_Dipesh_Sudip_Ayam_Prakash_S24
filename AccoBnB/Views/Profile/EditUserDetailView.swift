@@ -10,7 +10,6 @@ import SwiftUI
 struct EditUserDetailView: View {
     @ObservedObject private var userProfileVM = UserProfileViewModel()
     @Environment(\.dismiss) var dismiss // used to stack back to parent screen
-    
     @State var userDetail: User
     @State private var selectedPhoto: UIImage?
     @State private var isShowingImagePicker = false // Control showing the image picker
@@ -18,67 +17,29 @@ struct EditUserDetailView: View {
     var body: some View {
         Spacer()
         VStack{
-            // Load image from URL using AsyncImage
-            if let url = URL(string: userDetail.profileImage) {
-                AsyncImage(url: url) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(height: 200)
-                    case .failure:
-                        Image(systemName: "person")
-                            .resizable()
-                            .frame(width: 200, height: 200)
-                    @unknown default:
-                        EmptyView()
-                    }
-                }
-                .foregroundColor(Color.gray)
-                .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                .padding(.bottom, 20)
-                .overlay(alignment: .center) {
+            Image(uiImage: selectedPhoto ?? UIImage(systemName: "person")!)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(height: 300)
+                .background(Color.gray)
+                .clipShape(Circle())
+                .overlay(alignment: .centerFirstTextBaseline) {
                     Button {
                         isShowingImagePicker.toggle()
                     } label: {
                         Image(systemName: "pencil.circle.fill")
                             .symbolRenderingMode(.multicolor)
-                            .font(.system(size: 30))
+                            .font(.system(size: 50))
                             .foregroundColor(.accentColor)
                     }
                 }
                 .sheet(isPresented: $isShowingImagePicker, onDismiss: {
                     isShowingImagePicker = false
-                }, content: {
+                }) {
                     ImagePicker(selectedImage: $selectedPhoto, isShowingImagePicker: $isShowingImagePicker, isShowingCamera: $isShowingCamera)
-                })
-            } else {
-                // Use a placeholder if the URL is invalid
-                Image(systemName: "person")
-                    .resizable()
-                    .frame(width: 200, height: 200)
-                    .background(Color.gray)
-                    .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                    .padding(.bottom, 20)
-                    .overlay(alignment: .center) {
-                        Button {
-                            isShowingImagePicker.toggle()
-                        } label: {
-                            Image(systemName: "pencil.circle.fill")
-                                .symbolRenderingMode(.multicolor)
-                                .font(.system(size: 30))
-                                .foregroundColor(.accentColor)
-                        }
-                    }
-                    .sheet(isPresented: $isShowingImagePicker, onDismiss: {
-                        isShowingImagePicker = false
-                    }, content: {
-                        ImagePicker(selectedImage: $selectedPhoto, isShowingImagePicker: $isShowingImagePicker, isShowingCamera: $isShowingCamera)
-                    })
-            }
+                }
+                .padding(.bottom, 20)
+            
             
             CustomTextFieldView(placeholder: "First Name", text: $userDetail.firstName, isSecureField: false)
             CustomTextFieldView(placeholder: "Last Name" , text: $userDetail.lastName, isSecureField: false)
@@ -95,10 +56,17 @@ struct EditUserDetailView: View {
             }
             .padding(.top, 8)
         }
+        .onAppear{
+            if let url = URL(string: userDetail.profileImage){
+                let imageData = try! Data(contentsOf: url)
+                selectedPhoto = UIImage(data: imageData)
+            }
+        }
+        
         Spacer()
     }
 }
 
 #Preview {
-    EditUserDetailView(userDetail: User(id: "HTBPM53yGJalG6JpB4wuQmVYKGx1",firstName: "Dipesh", lastName: "Shrestha", phone: "0000000000", profileImage: "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg", email: "dipesh@gmail.com"))
+    EditUserDetailView(userDetail: User.defaultUser)
 }
