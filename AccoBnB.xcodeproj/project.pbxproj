@@ -34,6 +34,8 @@
 		13DCA1562BBA2BF600838279 /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA1552BBA2BF600838279 /* ReviewViewModel.swift */; };
 		13DCA1582BBA32A000838279 /* ReviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA1572BBA32A000838279 /* ReviewRepository.swift */; };
 		13DCA15A2BBA32AE00838279 /* FirestoreReviewRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA1592BBA32AE00838279 /* FirestoreReviewRepository.swift */; };
+		800BEB892BC6490600FEDCFE /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 800BEB882BC6490600FEDCFE /* CachedAsyncImage */; };
+		800BEB8C2BC649FF00FEDCFE /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 800BEB8B2BC649FF00FEDCFE /* ImageCache.swift */; };
 		80526C3C2BBCCF0A008BE699 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80526C3B2BBCCF0A008BE699 /* NotificationViewModel.swift */; };
 		80526C3E2BBCCF42008BE699 /* NotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80526C3D2BBCCF42008BE699 /* NotificationRepository.swift */; };
 		80526C402BBCCF58008BE699 /* FirestoreNotificationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80526C3F2BBCCF58008BE699 /* FirestoreNotificationRepository.swift */; };
@@ -125,6 +127,7 @@
 		13DCA1552BBA2BF600838279 /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
 		13DCA1572BBA32A000838279 /* ReviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRepository.swift; sourceTree = "<group>"; };
 		13DCA1592BBA32AE00838279 /* FirestoreReviewRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreReviewRepository.swift; sourceTree = "<group>"; };
+		800BEB8B2BC649FF00FEDCFE /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		80526C3B2BBCCF0A008BE699 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
 		80526C3D2BBCCF42008BE699 /* NotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRepository.swift; sourceTree = "<group>"; };
 		80526C3F2BBCCF58008BE699 /* FirestoreNotificationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreNotificationRepository.swift; sourceTree = "<group>"; };
@@ -183,6 +186,7 @@
 				E120AD3F2B97C22A0061ECD4 /* FirebaseDatabaseSwift in Frameworks */,
 				E120AD492B97C22A0061ECD4 /* FirebaseFunctions in Frameworks */,
 				E120AD5F2B97C22A0061ECD4 /* FirebaseStorageCombine-Community in Frameworks */,
+				800BEB892BC6490600FEDCFE /* CachedAsyncImage in Frameworks */,
 				E120AD592B97C22A0061ECD4 /* FirebaseRemoteConfig in Frameworks */,
 				E120AD352B97C22A0061ECD4 /* FirebaseAppDistribution-Beta in Frameworks */,
 				E120AD392B97C22A0061ECD4 /* FirebaseAuthCombine-Community in Frameworks */,
@@ -256,6 +260,7 @@
 		13BA6B4B2B8963F900D816E9 /* AccoBnB */ = {
 			isa = PBXGroup;
 			children = (
+				800BEB8A2BC649BD00FEDCFE /* Utils */,
 				80526C5C2BC35A6B008BE699 /* Info.plist */,
 				80526C5B2BC35736008BE699 /* AccoBnB.entitlements */,
 				80526C592BC355E1008BE699 /* GoogleService-Info.plist */,
@@ -321,6 +326,14 @@
 				13DCA1552BBA2BF600838279 /* ReviewViewModel.swift */,
 			);
 			path = viewmodels;
+			sourceTree = "<group>";
+		};
+		800BEB8A2BC649BD00FEDCFE /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				800BEB8B2BC649FF00FEDCFE /* ImageCache.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		80526C3A2BBCCEAA008BE699 /* Notification */ = {
@@ -441,6 +454,7 @@
 				D051E6492BBC7C16000158AC /* FirebaseAnalyticsSwift */,
 				D051E64B2BBC7C16000158AC /* FirebaseAnalyticsWithoutAdIdSupport */,
 				D051E64D2BBC7C16000158AC /* FirebaseAppCheck */,
+				800BEB882BC6490600FEDCFE /* CachedAsyncImage */,
 			);
 			productName = AccoBnB;
 			productReference = 13BA6B492B8963F900D816E9 /* AccoBnB.app */;
@@ -472,6 +486,7 @@
 			mainGroup = 13BA6B402B8963F900D816E9;
 			packageReferences = (
 				E120AD292B97C22A0061ECD4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				800BEB872BC6490600FEDCFE /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 			);
 			productRefGroup = 13BA6B4A2B8963F900D816E9 /* Products */;
 			projectDirPath = "";
@@ -540,6 +555,7 @@
 				E120AD672B97C6750061ECD4 /* FirestoreListingRepository.swift in Sources */,
 				13BA6B642B8968E800D816E9 /* RegisterView.swift in Sources */,
 				13BA6B722B8A62A100D816E9 /* ListingCardView.swift in Sources */,
+				800BEB8C2BC649FF00FEDCFE /* ImageCache.swift in Sources */,
 				E123E8212B8CFF0800FEBDBA /* Favourite.swift in Sources */,
 				13BA6B5D2B8965B500D816E9 /* CustomTextFieldView.swift in Sources */,
 				13DCA15A2BBA32AE00838279 /* FirestoreReviewRepository.swift in Sources */,
@@ -763,6 +779,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		800BEB872BC6490600FEDCFE /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.1;
+			};
+		};
 		E120AD292B97C22A0061ECD4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -774,6 +798,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		800BEB882BC6490600FEDCFE /* CachedAsyncImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 800BEB872BC6490600FEDCFE /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
+			productName = CachedAsyncImage;
+		};
 		D051E6452BBC7C16000158AC /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E120AD292B97C22A0061ECD4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

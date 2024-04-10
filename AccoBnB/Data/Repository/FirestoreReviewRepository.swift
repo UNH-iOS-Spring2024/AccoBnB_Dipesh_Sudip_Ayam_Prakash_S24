@@ -25,7 +25,7 @@ class FirestoreReviewRepository: ReviewRepository{
     func getReviewsByListingId(for listingId: String, completion: @escaping (Result<[Review], Error>) -> Void){
         db.collection(reviewsCollection)
             .whereField("listingId",isEqualTo: listingId)
-            .getDocuments { snapshot, err in
+            .addSnapshotListener { snapshot, err in
                 if let error = err{
                     completion(.failure(error))
                     return

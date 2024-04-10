@@ -15,7 +15,7 @@ class FirestoreNotificationRepository: NotificationRepository {
     func getNotifications(for userId: String, completion: @escaping (Result<[Notification], Error>) -> Void) {
         db.collection(notificaitonsCollection)
             .whereField("receiverId", isEqualTo: userId)
-            .getDocuments{ snapshot, err in
+            .addSnapshotListener{ snapshot, err in
                 if let error = err{
                     completion(.failure(error))
                     return

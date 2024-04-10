@@ -20,7 +20,7 @@ class FirestoreListingRepository: ListingRepository {
     }
     
     func getAllListings(completion: @escaping (Result<[Listing], Error>) -> Void) {
-        db.collection(listingsCollection).getDocuments { snapshot, error in
+        db.collection(listingsCollection).order(by: "createdAt", descending: true).addSnapshotListener { snapshot, error in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -71,7 +71,7 @@ class FirestoreListingRepository: ListingRepository {
     private func getReviewsByListingId(for listingId: String, completion: @escaping (Result<[Review], Error>) -> Void){
         db.collection(reviewsCollection)
             .whereField("listingId",isEqualTo: listingId)
-            .getDocuments { snapshot, err in
+            .addSnapshotListener { snapshot, err in
                 if let error = err{
                     completion(.failure(error))
                     return
