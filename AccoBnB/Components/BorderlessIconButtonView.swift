@@ -20,7 +20,7 @@ struct BorderlessIconButtonView: View {
         }label: {
             Image(systemName: iconName)
                 .resizable()
-                .frame(width: 28, height: 28)
+                .frame(width: 24, height: 24)
                 .tint(Color("primaryColor"))
             Text(buttonName)
                 .font(.system(size: 18))

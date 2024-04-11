@@ -104,7 +104,8 @@ class FirestoreListingRepository: ListingRepository {
         // Check if bannerImagePath is provided
         if let bannerImagePath = bannerImagePath {
             // Upload the image data to Firebase Storage
-            uploadListingImage(bannerImagePath) { result in
+            let storageRepo = FirestoreStorageRepository()
+            storageRepo.uploadImagetoFirebaseStorage(bannerImagePath,storageName: "listings"){ result in
                 switch result {
                 case .success(let imageURL):
                     // If successful, update the listing's bannerImage with the imageURL
@@ -159,28 +160,29 @@ class FirestoreListingRepository: ListingRepository {
         }
     }
     
-    private func uploadListingImage(_ image: UIImage, completion: @escaping (Result<String, Error>) -> Void) {
-        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
-            completion(.failure("Failed to convert image to data" as! Error))
-            return
-        }
-        
-        let storageRef = storage.reference()
-        let listingImagesRef = storageRef.child("listings").child(UUID().uuidString)
-        
-        listingImagesRef.putData(imageData, metadata: nil) { metadata, error in
-            if let error = error {
-                completion(.failure(error))
-            } else {
-                listingImagesRef.downloadURL { url, error in
-                    if let error = error {
-                        completion(.failure(error))
-                    } else if let downloadURL = url {
-                        completion(.success(downloadURL.absoluteString))
-                    }
-                }
-            }
-        }
-    }
+//    private func uploadListingImage(_ image: UIImage, completion: @escaping (Result<String, Error>) -> Void) {
+//        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
+//            completion(.failure("Failed to convert image to data" as! Error))
+//            return
+//        }
+//        
+//        let storageRef = storage.reference()
+//        let listingImagesRef = storageRef.child("listings").child(UUID().uuidString)
+//        let metadata = StorageMetadata()
+//        metadata.contentType = "image/jpeg"
+//        listingImagesRef.putData(imageData, metadata: metadata) { metadata, error in
+//            if let error = error {
+//                completion(.failure(error))
+//            } else {
+//                listingImagesRef.downloadURL { url, error in
+//                    if let error = error {
+//                        completion(.failure(error))
+//                    } else if let downloadURL = url {
+//                        completion(.success(downloadURL.absoluteString))
+//                    }
+//                }
+//            }
+//        }
+//    }
     
 }
