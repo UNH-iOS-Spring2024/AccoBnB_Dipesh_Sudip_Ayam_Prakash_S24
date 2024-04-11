@@ -19,7 +19,7 @@ class FirestoreListingRepository: ListingRepository {
         return db.collection(listingsCollection).document().documentID
     }
     
-    func getAllListings(completion: @escaping (Result<[Listing], Error>) -> Void) {
+    func getAllActiveListings(completion: @escaping (Result<[Listing], Error>) -> Void) {
         db.collection(listingsCollection).order(by: "createdAt", descending: true).addSnapshotListener { snapshot, error in
             if let error = error {
                 completion(.failure(error))

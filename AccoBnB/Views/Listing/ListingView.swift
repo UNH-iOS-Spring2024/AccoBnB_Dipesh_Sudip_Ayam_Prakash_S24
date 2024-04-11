@@ -39,7 +39,7 @@ struct ListingView: View {
                 }
             }
             .onAppear {
-                listingViewModel.getAllListings()
+                listingViewModel.getAllActiveListings()
             }
         }.padding(0)
     }
