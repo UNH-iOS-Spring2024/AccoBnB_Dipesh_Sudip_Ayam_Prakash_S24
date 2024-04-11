@@ -17,13 +17,13 @@ final class ListingViewModel : ObservableObject {
         self.listingRepository = listingRepository
     }
     
-    func getAllActiveListings() {
+    func getAllActiveListings(userId: String?) {
         if(!listings.isEmpty){
             return
         }
         isLoading = true // Show loader
         
-        listingRepository.getAllActiveListings { [weak self] result in
+        listingRepository.getAllActiveListings(userId: userId) { [weak self] result in
             self?.isLoading = false // Hide loader after operation completes
             switch result {
             case .success(let listings):
