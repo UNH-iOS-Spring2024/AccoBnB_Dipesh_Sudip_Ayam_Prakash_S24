@@ -10,14 +10,35 @@ import FirebaseCore
 import FirebaseMessaging
 import Firebase
 import FirebaseFirestoreSwift
+import CoreLocation
 
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
+//   initializing location manager for requesting location access to user
+    private let manager = CLLocationManager()
+    var userLocation: CLLocation?
+    
+    override init(){
+        super.init()
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.startUpdatingLocation()
+    }
+    
+    // request location when application in use
+    func requestLocation() {
+        manager.requestWhenInUseAuthorization()
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         FirebaseApp.configure()
         
-        // Setting up permissions for notifications
+        // if user location is not set request for it.
+        if self.userLocation == nil {
+            self.requestLocation()
+        }
         
+        // Setting up permissions for notifications
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
             UNUserNotificationCenter.current().delegate = self
@@ -135,3 +156,27 @@ extension AppDelegate: MessagingDelegate {
     }
     
 }
+
+//extension LocationManager: CLLocationManagerDelegate {
+//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+//        switch status {
+//        case .notDetermined:
+//            print("Not Determined")
+//        case .restricted:
+//            print("Restricted")
+//        case .denied:
+//            print("Denied")
+//        case .authorizedAlways:
+//            print("Authorization Always")
+//        case .authorizedWhenInUse:
+//            print("Authorization when in use")
+//        @unknown default:
+//            break
+//        }
+//    }
+//    
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        guard let location = locations.last else { return }
+//        self.userLocation = location
+//    }
+//}
