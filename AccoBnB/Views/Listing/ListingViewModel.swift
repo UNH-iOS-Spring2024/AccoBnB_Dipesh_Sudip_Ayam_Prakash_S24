@@ -35,13 +35,13 @@ final class ListingViewModel : ObservableObject {
         self.listingRepository = listingRepository
     }
     
-    func getAllListings() {
+    func getAllActiveListings() {
         if(!listings.isEmpty){
             return
         }
         isLoading = true // Show loader
         
-        listingRepository.getAllListings { [weak self] result in
+        listingRepository.getAllActiveListings { [weak self] result in
             self?.isLoading = false // Hide loader after operation completes
             switch result {
             case .success(let listings):
@@ -65,10 +65,8 @@ final class ListingViewModel : ObservableObject {
             switch result {
             case .success(let createdListing):
                 DispatchQueue.main.async {
-                    // Update the local listings array with the newly created listing
                     self?.listings.append(createdListing)
-                    // Optionally, you can also call getAllListings() here to refresh the listings array
-                    completion(.success(createdListing)) // Pass back the created listing
+                    completion(.success(createdListing))
                 }
             case .failure(let error):
                 print("Failed to create listing: \(error)")

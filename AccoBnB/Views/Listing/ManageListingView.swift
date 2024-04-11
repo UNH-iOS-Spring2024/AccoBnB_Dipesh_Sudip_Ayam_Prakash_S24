@@ -50,7 +50,7 @@ struct ManageListingView: View {
                 }
             }
             .onAppear {
-                listingViewModel.getAllListings()
+                listingViewModel.getAllActiveListings()
             }
         }
     }

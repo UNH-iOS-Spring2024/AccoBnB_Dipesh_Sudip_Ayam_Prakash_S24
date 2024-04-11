@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol ListingRepository {
-    func getAllListings(completion: @escaping (Result<[Listing], Error>) -> Void)
+    func getAllActiveListings(completion: @escaping (Result<[Listing], Error>) -> Void)
     func getListingId() -> String
     func createListing(bannerImagePath: UIImage?, listing: Listing, completion: @escaping (Result<Listing, Error>) -> Void)
     func getListingById(listingId: String, completion: @escaping (Result<Listing?, Error>) -> Void)
