@@ -10,15 +10,24 @@ import MapKit
 import PhotosUI
 
 struct AddListingView: View {
-    @State private var listingDetail = Listing()
+    @State private var listingDetail: Listing // Remove the @State wrapper
     @State private var selectedLocation: MKLocalSearchCompletion?
     @State private var selectedPhoto: UIImage? // Store selected photo
     @State private var isShowingImagePicker = false // Control showing the image picker
     @State private var isShowingCamera = false // Control showing the camera
     @EnvironmentObject var listingViewModel: ListingViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
     //@FocusState private var isAddressSearching: Bool
     @State private var isTextFieldFocused = false
     @State private var showSearchAddressBottomSheet = false
+    
+    init(listing: Listing?) {
+        if let listing = listing {
+            _listingDetail = State(initialValue: listing)
+        } else {
+            _listingDetail = State(initialValue: Listing())
+        }
+    }
     
     var body: some View {
         ScrollView {
@@ -133,39 +142,39 @@ struct AddListingView: View {
                 }
                 
                 Button {
-
+                    
                     self.showSearchAddressBottomSheet = true
                 }
-                label: {
-                    TextField("Search Address", text: self.$listingDetail.address.addressLine1, onCommit: {
-                        self.showSearchAddressBottomSheet = true
-                    })
-                    .padding(.horizontal, 30) // Adjust padding as necessary
-                    .padding(10)
-                    .background(Color(UIColor.systemGray6))
-                    .cornerRadius(8)
-                    .overlay(
-                        HStack {
-                            Image(systemName: "magnifyingglass")
-                                .foregroundColor(.gray)
-                                .padding(.leading, 10)
-                                .padding(.trailing, 5)
-                            Spacer()
-                        }
-                            .padding(.horizontal, 10) // Adjust padding as necessary
-                    )
-                    .padding(.horizontal)
+            label: {
+                TextField("Search Address", text: self.$listingDetail.address.addressLine1, onCommit: {
+                    self.showSearchAddressBottomSheet = true
+                })
+                .padding(.horizontal, 30) // Adjust padding as necessary
+                .padding(10)
+                .background(Color(UIColor.systemGray6))
+                .cornerRadius(8)
+                .overlay(
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(.gray)
+                            .padding(.leading, 10)
+                            .padding(.trailing, 5)
+                        Spacer()
+                    }
+                        .padding(.horizontal, 10) // Adjust padding as necessary
+                )
+                .padding(.horizontal)
                 
-                    .sheet(isPresented: $showSearchAddressBottomSheet) {
-                        AddressSearchBarView { location in
-                            self.showSearchAddressBottomSheet = false
-                            self.selectedLocation = location
-                            if let location = selectedLocation {
-                                reverseGeocode(location: location)
-                            }
+                .sheet(isPresented: $showSearchAddressBottomSheet) {
+                    AddressSearchBarView { location in
+                        self.showSearchAddressBottomSheet = false
+                        self.selectedLocation = location
+                        if let location = selectedLocation {
+                            reverseGeocode(location: location)
                         }
                     }
                 }
+            }
                 
                 TextField("Address", text: $listingDetail.address.addressLine1)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -184,6 +193,7 @@ struct AddListingView: View {
                         .keyboardType(.numberPad)
                 }
                 CustomButtonView(buttonText: "Submit"){
+                    listingDetail.hostId = authViewModel.userSession?.uid ?? ""
                     if let location = selectedLocation {
                         reverseGeocode(location: location)
                     }
@@ -256,6 +266,12 @@ struct AddListingView: View {
             print("At least one amenity is required.")
         }
         
+        if listingDetail.hostId.isEmpty {
+            // Show error for hostid
+            isValid = false
+            print("Need logged in user to add listing")
+        }
+        
         if listingDetail.address.addressLine1.isEmpty ||
             listingDetail.address.city.isEmpty ||
             listingDetail.address.zipCode.isEmpty {
@@ -303,7 +319,7 @@ struct AddListingView: View {
 
 struct AddListingView_Previews: PreviewProvider {
     static var previews: some View {
-        AddListingView()
+        return AddListingView(listing: Listing())
     }
 }
 
