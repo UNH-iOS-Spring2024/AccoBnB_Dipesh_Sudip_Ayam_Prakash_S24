@@ -19,8 +19,16 @@ class FirestoreListingRepository: ListingRepository {
         return db.collection(listingsCollection).document().documentID
     }
     
-    func getAllActiveListings(completion: @escaping (Result<[Listing], Error>) -> Void) {
-        db.collection(listingsCollection).order(by: "createdAt", descending: true).addSnapshotListener { snapshot, error in
+    func getAllActiveListings(userId: String?, completion: @escaping (Result<[Listing], Error>) -> Void) {
+        var query = db.collection(listingsCollection)
+            .whereField("isPublished", isEqualTo: true)
+            .order(by: "createdAt", descending: true)
+        
+        if let userId = userId {
+            // If userId is provided, filter listings by hostId
+            query = query.whereField("hostId", isEqualTo: userId)
+        }
+        query.addSnapshotListener { snapshot, error in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -42,6 +50,7 @@ class FirestoreListingRepository: ListingRepository {
                 let result = Result{
                     try? document.data(as: Listing.self)
                 }
+                print("Listings",result)
                 
                 switch result{
                 case .success(let listing):
