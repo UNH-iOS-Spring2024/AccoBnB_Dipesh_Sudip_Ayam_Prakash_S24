@@ -16,7 +16,7 @@ struct ManageListingView: View {
     
     var body: some View {
         NavigationView {
-            ZStack {
+            ZStack(alignment: .bottomTrailing) {
                 VStack {
                     if listingViewModel.isLoading {
                         ProgressView("Loading...")
@@ -29,31 +29,40 @@ struct ManageListingView: View {
                                     ListingCardView(listingDetail: listing)
                                     
                                     // Edit Button
-                                    Button(action: {
-                                        selectedListing = listing
-                                        print("SelectedListing", listing.title)
-                                    }) {
-                                        Image(systemName: "pencil")
-                                            .padding()
-                                            .background(Color.white) // As desired for button color
-                                            .clipShape(Circle())
-                                    }
-                                    .contentShape(Rectangle()) // Clickable area = entire button
-                                    .padding(8)
+                                    Image(systemName: "pencil")
+                                        .padding()
+                                        .background(Color.white) // As desired for button color
+                                        .clipShape(Circle())
+                                        .onTapGesture {
+                                            selectedListing = listing
+                                        }
+                                        .contentShape(Rectangle()) // Clickable area = entire button
+                                        .padding(8)
                                 }
+                                .background(
+                                    NavigationLink(
+                                        destination: AddListingView(listing: selectedListing ?? Listing())
+                                            .onDisappear {
+                                                selectedListing = nil
+                                            },
+                                        isActive: .constant(selectedListing != nil),
+                                        label: { EmptyView() }
+                                    )
+                                    .hidden()
+                                )
                             }
                             .navigationTitle("My Listings")
                         }.listStyle(PlainListStyle())
-                        .padding(0)
+                            .padding(0)
                     }
                     Spacer()
-
+                    
                 }
                 .navigationTitle("Manage Listing")
                 
                 HStack {
                     Spacer()
-                    NavigationLink(destination: AddListingView()) {
+                    NavigationLink(destination: AddListingView(listing: Listing())) {
                         Image(systemName: "plus")
                             .resizable()
                             .frame(width: 24, height: 24)
@@ -68,10 +77,7 @@ struct ManageListingView: View {
                 }
             }
             .onAppear {
-                listingViewModel.getAllActiveListings(userId: "xap9z81gb2XFsULfi5mAsvWme792")
-                if(authViewModel.userSession != nil){
-                    listingViewModel.getAllActiveListings(userId: authViewModel.userSession!.uid)
-                }
+                listingViewModel.getAllActiveListings(userId: authViewModel.currentUser!.id)
             }
         }
     }
