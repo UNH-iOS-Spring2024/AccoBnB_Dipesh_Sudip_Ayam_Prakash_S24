@@ -60,7 +60,7 @@ final class ListingViewModel : ObservableObject {
         listing.createdAt = Date()
         listing.updatedAt = Date()
         isLoading = true // Show loader
-        listingRepository.createListing(bannerImagePath: bannerImagePath, listing: listing) { [weak self] result in
+        listingRepository.setListing(bannerImagePath: bannerImagePath, listing: listing) { [weak self] result in
             self?.isLoading = false // Hide loader after operation completes
             switch result {
             case .success(let createdListing):
@@ -75,6 +75,29 @@ final class ListingViewModel : ObservableObject {
             }
         }
     }
+    
+    func updateListing(bannerImagePath: UIImage?, listing: inout Listing, completion: @escaping (Result<Listing, Error>) -> Void) {
+        listing.updatedAt = Date()
+        isLoading = true // Show loader
+        listingRepository.setListing(bannerImagePath: bannerImagePath, listing: listing) { [weak self] result in
+            self?.isLoading = false // Hide loader after operation completes
+            switch result {
+            case .success(let updatedListing):
+                DispatchQueue.main.async {
+                    // Update the existing listing in the list with the updated one
+                    if let index = self?.listings.firstIndex(where: { $0.id == updatedListing.id }) {
+                        self?.listings[index] = updatedListing
+                    }
+                    completion(.success(updatedListing))
+                }
+            case .failure(let error):
+                print("Failed to update listing: \(error)")
+                // Handle error, such as showing an alert to the user
+                completion(.failure(error)) // Pass back the error
+            }
+        }
+    }
+
 
 }
 
