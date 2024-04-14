@@ -107,7 +107,7 @@ class FirestoreListingRepository: ListingRepository {
             }
     }
     
-    func createListing(bannerImagePath: UIImage?, listing: Listing, completion: @escaping (Result<Listing, Error>) -> Void) {
+    func setListing(bannerImagePath: UIImage?, listing: Listing, completion: @escaping (Result<Listing, Error>) -> Void) {
         var updatedListing = listing
         
         // Check if bannerImagePath is provided
@@ -120,7 +120,7 @@ class FirestoreListingRepository: ListingRepository {
                     // If successful, update the listing's bannerImage with the imageURL
                     updatedListing.bannerImage = imageURL
                     // Add the updated listing to Firestore
-                    self.addListingToFirestore(listing: updatedListing, completion: completion)
+                    self.setListingToFirestore(listing: updatedListing, completion: completion)
                 case .failure(let error):
                     // If upload fails, pass the error to the completion handler
                     completion(.failure(error))
@@ -128,7 +128,7 @@ class FirestoreListingRepository: ListingRepository {
             }
         } else {
             // If no banner image provided, directly add the listing to Firestore
-            addListingToFirestore(listing: updatedListing, completion: completion)
+            setListingToFirestore(listing: updatedListing, completion: completion)
         }
     }
     
@@ -136,7 +136,7 @@ class FirestoreListingRepository: ListingRepository {
     
     
     
-    private func addListingToFirestore(listing: Listing, completion: @escaping (Result<Listing, Error>) -> Void) {
+    private func setListingToFirestore(listing: Listing, completion: @escaping (Result<Listing, Error>) -> Void) {
         do {
             try db.collection(listingsCollection).document(listing.id).setData(Firestore.Encoder().encode(listing)) { error in
                 if let error = error {
