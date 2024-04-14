@@ -218,7 +218,7 @@ struct AddListingView: View {
             }
             .padding()
         }
-        .navigationTitle("Add Listing")
+        .navigationTitle(listingDetail.id.isEmpty ? "Add Listing" : "Edit Listing")
     }
     
     private func isInputValid() -> Bool {
