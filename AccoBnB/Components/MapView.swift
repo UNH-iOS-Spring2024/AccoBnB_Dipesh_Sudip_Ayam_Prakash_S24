@@ -31,7 +31,7 @@ struct MapView: View {
             MapPitchToggle()
         }
         .onAppear {
-            listings = listingViewModel.listings
+            listings = listingViewModel.filteredListings
             updatedListings = listings.map { listing in
                 MapAnnotationItems(text: listing.title, lat: Double(listing.geoLocation!.lat) ?? 0.0, long: Double(listing.geoLocation!.long) ?? 0.0)
                 
