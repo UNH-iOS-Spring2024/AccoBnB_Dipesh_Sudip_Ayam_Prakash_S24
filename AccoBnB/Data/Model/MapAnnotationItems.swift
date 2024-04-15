@@ -1,3 +1,4 @@
+
 //
 //  MapAnnotationItems.swift
 //  AccoBnB
@@ -13,7 +14,7 @@ struct MapAnnotationItems: Identifiable {
     let text: String
     let lat: Double
     let long: Double
-    
+
     var coordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(latitude: lat, longitude: long)
     }
