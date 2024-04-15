@@ -8,23 +8,20 @@
 import SwiftUI
 
 struct ListingView: View {
-    @State private var searchText = ""
+    
     @EnvironmentObject var listingViewModel: ListingViewModel
     @EnvironmentObject var bookingViewModel: BookingViewModel
     
     var body: some View {
         NavigationStack {
             VStack {
-                //                SearchBar(searchText: $searchText)
-                //                    .padding(.top, 10)
-                //                    .padding(.horizontal,20)
                 if listingViewModel.isLoading {
                     ProgressView("Loading...")
                         .progressViewStyle(CircularProgressViewStyle())
                         .padding()
                 } else {
                     List {
-                        ForEach(listingViewModel.listings, id: \.id) { listing in
+                        ForEach(listingViewModel.filteredListings, id: \.id) { listing in
                             ZStack {
                                 ListingCardView(listingDetail: listing)
                                 NavigationLink(destination: ListingDetailView(listingDetail: listing).environmentObject(bookingViewModel).navigationTitle(listing.title)) {
@@ -34,8 +31,10 @@ struct ListingView: View {
                             
                         }.listRowSeparator(.hidden)
                         
-                    }.navigationTitle("Listings")
-                        .listStyle(PlainListStyle())
+                    }
+                    .navigationTitle("Listings")
+                    .listStyle(PlainListStyle())
+                    .searchable(text: $listingViewModel.searchText, prompt: "search housing")
                 }
             }
             .onAppear {

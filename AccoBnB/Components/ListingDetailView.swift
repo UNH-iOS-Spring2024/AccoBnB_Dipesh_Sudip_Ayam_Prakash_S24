@@ -29,7 +29,7 @@ struct ListingDetailView: View {
             longitude: Double(listingDetail.geoLocation?.long ?? "0.0")!
         )
         // initializing state variable "region" with coordinates
-        self._region = State(initialValue: MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)))
+        self._region = State(initialValue: MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.007, longitudeDelta: 0.007)))
     }
     
     func formatDate(date: Date) -> String {
@@ -72,9 +72,11 @@ struct ListingDetailView: View {
                     
                     Section("Location"){
                         // interaction mode is used to restrict user interactions
-                        Map(coordinateRegion: $region, interactionModes: [.pan, .zoom])
-                            .listRowInsets(EdgeInsets())
-                            .frame(width: 400, height: 200)
+                        Map() {
+                            Marker("", coordinate: region.center)
+                        }
+                        .listRowInsets(EdgeInsets())
+                        .frame(width: 400, height: 200)
                     }
                 }
                 .onAppear{

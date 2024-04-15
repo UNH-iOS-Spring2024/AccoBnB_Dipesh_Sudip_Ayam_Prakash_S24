@@ -11,6 +11,24 @@ import UIKit
 final class ListingViewModel : ObservableObject {
     @Published var listings: [Listing] = []
     @Published var isLoading = false // Track loading state
+    // variable that stores the user input in search box of listing view screen
+    @Published var searchText = ""
+    // this computed property filters out all the listing based on the search text
+    var filteredListings: [Listing] {
+        // if user doesn't type anything is search box then return all the listings to filteredListings
+        guard !searchText.isEmpty else {
+            return listings
+        }
+        // if user types in search box then check the listing title as well as address to match the search text
+        // and filter out those matching listings.
+        return listings.filter { listing in
+            listing.title.localizedCaseInsensitiveContains(searchText) || listing.address.addressLine1.localizedCaseInsensitiveContains(searchText) ||
+            listing.address.addressLine2.localizedCaseInsensitiveContains(searchText) ||
+            listing.address.city.localizedCaseInsensitiveContains(searchText) ||
+            listing.address.country.localizedCaseInsensitiveContains(searchText) ||
+            listing.address.zipCode.localizedCaseInsensitiveContains(searchText)
+        }
+    }
     private let listingRepository: ListingRepository
     
     init(listingRepository: ListingRepository = FirestoreListingRepository()) {
