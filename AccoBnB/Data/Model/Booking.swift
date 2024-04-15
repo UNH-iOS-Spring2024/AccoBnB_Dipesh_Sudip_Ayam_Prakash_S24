@@ -28,3 +28,21 @@ struct Booking: Codable {
     var createdAt: Date? = nil
     var updatedAt: Date? = nil
 }
+
+extension Booking {
+    static var defaultBooking: Booking {
+        return Booking(
+            id:"xap9z81gb2XFsULfi5mAsvWme792",
+            userId: "xap9z81gb2XFsULfi5mAsvWme792",
+            listingId: "1M4QVd7B2lEzz6ivpRtB",
+            listingInfo: Listing.defaultListing,
+            userInfo: User.defaultUser,
+            bookingNote: "Default booking noteDefault booking noteDefault booking noteDefault booking note",
+            totalAmount: 0.0, // or any default amount you want
+            status: .pending,
+            createdAt: Date(),
+            updatedAt: Date()
+        )
+    }
+}
+
