@@ -37,7 +37,7 @@ extension Booking {
             listingId: "1M4QVd7B2lEzz6ivpRtB",
             listingInfo: Listing.defaultListing,
             userInfo: User.defaultUser,
-            bookingNote: "Default booking noteDefault booking noteDefault booking noteDefault booking note",
+            bookingNote: "Default bookingDefault bookingDefault bookingDefault bookingDefault booking",
             totalAmount: 0.0, // or any default amount you want
             status: .pending,
             createdAt: Date(),
