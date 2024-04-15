@@ -38,7 +38,7 @@ struct ListingView: View {
                 }
             }
             .onAppear {
-                listingViewModel.getAllListings()
+                listingViewModel.getAllActiveListings(userId: nil)
             }
         }.padding(0)
     }

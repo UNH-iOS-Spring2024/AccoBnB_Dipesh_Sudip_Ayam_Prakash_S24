@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class UserProfileViewModel: ObservableObject{
     @Published var userDetail: User = User()
@@ -25,16 +26,17 @@ final class UserProfileViewModel: ObservableObject{
                 DispatchQueue.main.async {
                     self.userDetail = user
                 }
-            print("user data: \(user)")
             case .failure(let error):
                 print("Failed to fetch user detail: \(error)")
             }
         }
     }
     
-    func updateUserDetail(userDetail: User) async{
+    func updateUserDetail(userImage: UIImage?, userDetail: User) async{
+        isLoading = true
         do {
-            try await userRepository.updateUserDetail(userDetail: userDetail)
+            try await userRepository.updateUserDetail(userImage: userImage,userDetail: userDetail)
+            isLoading = false
         } catch {
             print("DEBUG: Unable to update user detail with error \(error.localizedDescription)")
         }

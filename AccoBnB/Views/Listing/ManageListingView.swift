@@ -7,12 +7,16 @@
 
 
 import SwiftUI
-
 struct ManageListingView: View {
     @EnvironmentObject var listingViewModel: ListingViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
+    
+    
+    @State private var selectedListing: Listing? // Store the selected listing for editing
+    
     var body: some View {
         NavigationView {
-            ZStack (alignment: .bottomTrailing) {
+            ZStack(alignment: .bottomTrailing) {
                 VStack {
                     if listingViewModel.isLoading {
                         ProgressView("Loading...")
@@ -21,21 +25,44 @@ struct ManageListingView: View {
                     } else {
                         List {
                             ForEach(listingViewModel.listings, id: \.id) { listing in
-                                ListingCardView(listingDetail: listing)
-
+                                ZStack(alignment: .topTrailing) {
+                                    ListingCardView(listingDetail: listing)
+                                    
+                                    // Edit Button
+                                    Image(systemName: "pencil")
+                                        .padding()
+                                        .background(Color.white) // As desired for button color
+                                        .clipShape(Circle())
+                                        .onTapGesture {
+                                            selectedListing = listing
+                                        }
+                                        .contentShape(Rectangle()) // Clickable area = entire button
+                                        .padding(8)
+                                }
+                                .background(
+                                    NavigationLink(
+                                        destination: AddListingView(listing: selectedListing ?? Listing())
+                                            .onDisappear {
+                                                selectedListing = nil
+                                            },
+                                        isActive: .constant(selectedListing != nil),
+                                        label: { EmptyView() }
+                                    )
+                                    .hidden()
+                                )
                             }
-                            .navigationTitle("Listings")
+                            .navigationTitle("My Listings")
                         }.listStyle(PlainListStyle())
-                        .padding(0)
+                            .padding(0)
                     }
                     Spacer()
-                   
+                    
                 }
                 .navigationTitle("Manage Listing")
                 
                 HStack {
                     Spacer()
-                    NavigationLink(destination: AddListingView()) {
+                    NavigationLink(destination: AddListingView(listing: Listing())) {
                         Image(systemName: "plus")
                             .resizable()
                             .frame(width: 24, height: 24)
@@ -50,25 +77,21 @@ struct ManageListingView: View {
                 }
             }
             .onAppear {
-                listingViewModel.getAllListings()
+                listingViewModel.getAllActiveListings(userId: authViewModel.currentUser!.id)
             }
         }
     }
 }
 
-struct TestAddListingView: View {
-    @State var listingDetail: Listing
-    var body: some View {
-        Text(listingDetail.title)
-            .navigationTitle("Add Listing")
-    }
-}
 
 
 struct ManageListingView_Previews: PreviewProvider {
     static var previews: some View {
         let listingViewModel = ListingViewModel()
-        ManageListingView()
+        let authViewModel = AuthViewModel()
+        authViewModel.currentUser = User.defaultUser
+        return ManageListingView()
             .environmentObject(listingViewModel)
+            .environmentObject(authViewModel)
     }
 }

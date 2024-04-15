@@ -19,8 +19,16 @@ class FirestoreListingRepository: ListingRepository {
         return db.collection(listingsCollection).document().documentID
     }
     
-    func getAllListings(completion: @escaping (Result<[Listing], Error>) -> Void) {
-        db.collection(listingsCollection).order(by: "createdAt", descending: true).addSnapshotListener { snapshot, error in
+    func getAllActiveListings(userId: String?, completion: @escaping (Result<[Listing], Error>) -> Void) {
+        var query = db.collection(listingsCollection)
+            .whereField("isPublished", isEqualTo: true)
+            .order(by: "createdAt", descending: true)
+        
+        if let userId = userId {
+            // If userId is provided, filter listings by hostId
+            query = query.whereField("hostId", isEqualTo: userId)
+        }
+        query.addSnapshotListener { snapshot, error in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -42,6 +50,7 @@ class FirestoreListingRepository: ListingRepository {
                 let result = Result{
                     try? document.data(as: Listing.self)
                 }
+                print("Listings",result)
                 
                 switch result{
                 case .success(let listing):
@@ -98,19 +107,20 @@ class FirestoreListingRepository: ListingRepository {
             }
     }
     
-    func createListing(bannerImagePath: UIImage?, listing: Listing, completion: @escaping (Result<Listing, Error>) -> Void) {
+    func setListing(bannerImagePath: UIImage?, listing: Listing, completion: @escaping (Result<Listing, Error>) -> Void) {
         var updatedListing = listing
         
         // Check if bannerImagePath is provided
         if let bannerImagePath = bannerImagePath {
             // Upload the image data to Firebase Storage
-            uploadListingImage(bannerImagePath) { result in
+            let storageRepo = FirestoreStorageRepository()
+            storageRepo.uploadImagetoFirebaseStorage(bannerImagePath,storageName: "listings"){ result in
                 switch result {
                 case .success(let imageURL):
                     // If successful, update the listing's bannerImage with the imageURL
                     updatedListing.bannerImage = imageURL
                     // Add the updated listing to Firestore
-                    self.addListingToFirestore(listing: updatedListing, completion: completion)
+                    self.setListingToFirestore(listing: updatedListing, completion: completion)
                 case .failure(let error):
                     // If upload fails, pass the error to the completion handler
                     completion(.failure(error))
@@ -118,7 +128,7 @@ class FirestoreListingRepository: ListingRepository {
             }
         } else {
             // If no banner image provided, directly add the listing to Firestore
-            addListingToFirestore(listing: updatedListing, completion: completion)
+            setListingToFirestore(listing: updatedListing, completion: completion)
         }
     }
     
@@ -126,7 +136,7 @@ class FirestoreListingRepository: ListingRepository {
     
     
     
-    private func addListingToFirestore(listing: Listing, completion: @escaping (Result<Listing, Error>) -> Void) {
+    private func setListingToFirestore(listing: Listing, completion: @escaping (Result<Listing, Error>) -> Void) {
         do {
             try db.collection(listingsCollection).document(listing.id).setData(Firestore.Encoder().encode(listing)) { error in
                 if let error = error {
@@ -159,28 +169,29 @@ class FirestoreListingRepository: ListingRepository {
         }
     }
     
-    private func uploadListingImage(_ image: UIImage, completion: @escaping (Result<String, Error>) -> Void) {
-        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
-            completion(.failure("Failed to convert image to data" as! Error))
-            return
-        }
-        
-        let storageRef = storage.reference()
-        let listingImagesRef = storageRef.child("listings").child(UUID().uuidString)
-        
-        listingImagesRef.putData(imageData, metadata: nil) { metadata, error in
-            if let error = error {
-                completion(.failure(error))
-            } else {
-                listingImagesRef.downloadURL { url, error in
-                    if let error = error {
-                        completion(.failure(error))
-                    } else if let downloadURL = url {
-                        completion(.success(downloadURL.absoluteString))
-                    }
-                }
-            }
-        }
-    }
+//    private func uploadListingImage(_ image: UIImage, completion: @escaping (Result<String, Error>) -> Void) {
+//        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
+//            completion(.failure("Failed to convert image to data" as! Error))
+//            return
+//        }
+//        
+//        let storageRef = storage.reference()
+//        let listingImagesRef = storageRef.child("listings").child(UUID().uuidString)
+//        let metadata = StorageMetadata()
+//        metadata.contentType = "image/jpeg"
+//        listingImagesRef.putData(imageData, metadata: metadata) { metadata, error in
+//            if let error = error {
+//                completion(.failure(error))
+//            } else {
+//                listingImagesRef.downloadURL { url, error in
+//                    if let error = error {
+//                        completion(.failure(error))
+//                    } else if let downloadURL = url {
+//                        completion(.success(downloadURL.absoluteString))
+//                    }
+//                }
+//            }
+//        }
+//    }
     
 }
