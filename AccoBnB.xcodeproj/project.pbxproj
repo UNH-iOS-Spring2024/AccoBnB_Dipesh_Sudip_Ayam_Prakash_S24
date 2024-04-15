@@ -58,6 +58,7 @@
 		D051E64A2BBC7C16000158AC /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D051E6492BBC7C16000158AC /* FirebaseAnalyticsSwift */; };
 		D051E64C2BBC7C16000158AC /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D051E64B2BBC7C16000158AC /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		D051E64E2BBC7C16000158AC /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = D051E64D2BBC7C16000158AC /* FirebaseAppCheck */; };
+		E10D756C2BCDAF9A00D2B289 /* BookingRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10D756B2BCDAF9A00D2B289 /* BookingRequestView.swift */; };
 		E11609B12BBE56DE00404A7C /* AddressSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11609B02BBE56DE00404A7C /* AddressSearchBarView.swift */; };
 		E120AD2B2B97C22A0061ECD4 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = E120AD2A2B97C22A0061ECD4 /* FirebaseAnalytics */; };
 		E120AD2D2B97C22A0061ECD4 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = E120AD2C2B97C22A0061ECD4 /* FirebaseAnalyticsOnDeviceConversion */; };
@@ -154,6 +155,7 @@
 		D00CCF5E2BC2548200DAB1FE /* TermsAndConditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsView.swift; sourceTree = "<group>"; };
 		D02908472BAA5266001EA8B1 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		D051E6432BBC7890000158AC /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		E10D756B2BCDAF9A00D2B289 /* BookingRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingRequestView.swift; sourceTree = "<group>"; };
 		E11609B02BBE56DE00404A7C /* AddressSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchBarView.swift; sourceTree = "<group>"; };
 		E120AD612B97C2730061ECD4 /* ListingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingViewModel.swift; sourceTree = "<group>"; };
 		E120AD642B97C6180061ECD4 /* ListingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingRepository.swift; sourceTree = "<group>"; };
@@ -432,6 +434,7 @@
 				E12B642C2BAF74A30045303F /* BookingView.swift */,
 				E12B64262BAB6F450045303F /* BookingViewModel.swift */,
 				13DCA1512BB88AE200838279 /* BookingSummary.swift */,
+				E10D756B2BCDAF9A00D2B289 /* BookingRequestView.swift */,
 			);
 			path = Booking;
 			sourceTree = "<group>";
@@ -568,6 +571,7 @@
 				13BA6B662B89693B00D816E9 /* LoginView.swift in Sources */,
 				E123E81B2B8CFE3300FEBDBA /* Review.swift in Sources */,
 				137AE8FF2BAC33AD0030B75B /* AuthViewModel.swift in Sources */,
+				E10D756C2BCDAF9A00D2B289 /* BookingRequestView.swift in Sources */,
 				136372272BA85B870082518A /* FirestoreUserRepository.swift in Sources */,
 				135743AF2BC05A53008442B8 /* MapView.swift in Sources */,
 				13DCA1542BB9D62E00838279 /* RatingStarView.swift in Sources */,

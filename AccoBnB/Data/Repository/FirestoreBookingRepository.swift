@@ -14,6 +14,7 @@ class FirestoreBookingRepository: BookingRepository {
     let db = Firestore.firestore()
     private let bookingsCollection = "bookings"
     private let listingsCollection = "listings"
+    private let userCollections = "users"
     
     func getBookingId() -> String {
         return db.collection(bookingsCollection).document().documentID
@@ -130,13 +131,30 @@ class FirestoreBookingRepository: BookingRepository {
                                         print("Error decoding listing data:", error)
                                     }
                                 }
-                                
-                                // Add the booking (with or without listing info) to the array
-                                bookings.append(booking)
-                                
-                                // Check if all bookings have been processed and call the completion handler
-                                if bookings.count == snapshot.documents.count {
-                                    completion(.success(bookings))
+                                self.db.collection(self.userCollections).document(booking.userId).getDocument{
+                                    (userSnapshot,userError) in
+                                    if let userError = userError{
+                                        print("Error fetching user info: \(userError)")
+                                        // If there's an error fetching user info, still add the booking without listing info
+                                        bookings.append(booking)
+                                        return
+                                    }
+                                    if let userData = userSnapshot?.data() {
+                                        do {
+                                            let jsonData = try JSONSerialization.data(withJSONObject: userData)
+                                            let user = try JSONDecoder().decode(User.self, from: jsonData)
+                                            booking.userInfo = user
+                                        } catch {
+                                            print("Error decoding listing data:", error)
+                                        }
+                                    }
+                                    // Add the booking (with or without listing/booking info) to the array
+                                    bookings.append(booking)
+                                    
+                                    // Check if all bookings have been processed and call the completion handler
+                                    if bookings.count == snapshot.documents.count {
+                                        completion(.success(bookings))
+                                    }
                                 }
                             }
                         }

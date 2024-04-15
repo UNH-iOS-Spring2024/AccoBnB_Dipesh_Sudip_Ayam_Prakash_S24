@@ -13,4 +13,9 @@ extension Date {
         formatter.unitsStyle = .full
         return formatter.localizedString(for: self, relativeTo: Date())
     }
+    func formattedDateToString() -> String {
+          let dateFormatter = DateFormatter()
+          dateFormatter.dateFormat = "dd MMMM yyyy"
+          return dateFormatter.string(from: self)
+      }
 }
