@@ -40,6 +40,7 @@ struct ListingInfoView: View {
                 .font(.title)
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
+                .padding(.bottom, 15)
             
             // Display listing information if available
             if let listing = listing {
@@ -89,6 +90,7 @@ struct CustomerInfoView: View {
                 .font(.title)
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
+                .padding(.bottom, 15)
             
             // Display user information if available
             if let user = user {
@@ -138,6 +140,7 @@ struct BookingDetailsView: View {
                     .font(.title)
                     .fontWeight(.bold)
                     .multilineTextAlignment(.center)
+                    .padding(.bottom, 15)
             VStack(spacing: 5) {
                 // Requested Date
                 HStack {
@@ -162,11 +165,12 @@ struct BookingDetailsView: View {
                 }
             }
         }
-        VStack{
+        HStack{
             Text("Booking Note")
                 .fontWeight(.bold)
+                .frame(maxWidth: .infinity, alignment: .leading)
             Text(booking.bookingNote)
-                .multilineTextAlignment(.leading)
+                .frame(maxWidth: .infinity, alignment: .bottomTrailing)
             
         }
     }

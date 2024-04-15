@@ -59,8 +59,8 @@ struct ListingDetailView: View {
                                     Text("No reviews yet.")
                                 } else {
                                     ForEach(listingDetail.reviews) { review in
-                                        var formattedDate = formatDate(date: review.date!)
-                                        ReviewCardView(ratingValue: review.rating, date: String(formattedDate.prefix(10)), reviewerName: review.reviewerName, comment: review.comment)
+                                        var formattedDate = review.date!.formattedDateToString()
+                                        ReviewCardView(ratingValue: review.rating, date: formattedDate, reviewerName: review.reviewerName, comment: review.comment)
                                             .frame(width: 250)
                                             .containerRelativeFrame(.horizontal)
                                     }
@@ -99,7 +99,7 @@ struct ListingDetailView: View {
                 VStack {
                     Spacer()
                     BottomSheetView(isPresented: $isBookingRequestViewPresented, viewTitle: "Booking Request", showAlert: true, alertTitle: "Confirm Booking?", alertMessage: "Please click on confirm button to request for booking.") { bookingNote, _ in
-                        bookingViewModel.createBooking(userId: authViewModel.userSession!.uid, listingId: listingDetail.id, bookingNote: bookingNote) { result in
+                        bookingViewModel.createBooking(userId: authViewModel.currentUser!.id, listingId: listingDetail.id, bookingNote: bookingNote) { result in
                             switch result {
                             case .success(let createdBooking):
                                 isBookingRequestViewPresented = false
@@ -118,8 +118,14 @@ struct ListingDetailView: View {
     }
 }
 
-#Preview {
-    let newListing = Listing.defaultListing
-    return ListingDetailView(listingDetail: newListing)
-    
+struct ListingDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        let newListing = Listing.defaultListing
+        let authVm = AuthViewModel()
+        authVm.currentUser = User.defaultUser
+        let bookingVm = BookingViewModel(authViewModel: authVm)
+        return ListingDetailView(listingDetail: newListing)
+            .environmentObject(bookingVm)
+            .environmentObject(authVm)
+    }
 }
