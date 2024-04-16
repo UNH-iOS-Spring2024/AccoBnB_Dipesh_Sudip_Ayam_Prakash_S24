@@ -89,7 +89,7 @@ struct ManageListingView_Previews: PreviewProvider {
     static var previews: some View {
         let listingViewModel = ListingViewModel()
         let authViewModel = AuthViewModel()
-        authViewModel.currentUser = User.defaultUser
+        authViewModel.currentUser = User.defaultHostUser
         return ManageListingView()
             .environmentObject(listingViewModel)
             .environmentObject(authViewModel)
