@@ -12,8 +12,8 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-           if authViewModel.userSession != nil && authViewModel.currentUser != nil {
-               MenuNavigationView(authViewModel: authViewModel)
+           if authViewModel.userSession != nil &&  authViewModel.currentUser != nil {
+               MenuNavigationView()
            } else {
                LoginView()
            }
