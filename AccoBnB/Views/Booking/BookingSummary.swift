@@ -72,9 +72,11 @@ struct BookingSummary: View {
                     }
                 }
             }
-            
-            CustomButtonView(buttonText: "Review your Booking"){
-                self.isBottomSheetViewEnabled = true
+            if bookingDetail.status == BookingStatus.approved{
+                CustomButtonView(buttonText: "Review your Booking"){
+                    self.isBottomSheetViewEnabled = true
+                }
+                .disabled(isReviewedAlready)
             }
             .disabled(isReviewedAlready)
         }
@@ -83,6 +85,14 @@ struct BookingSummary: View {
                 //                    print("TODO: update review to database \(review) \(rating)")
                 Task {
                     try await reviewViewModel.createUserReview(reviewerId: bookingDetail.userId, listingId: bookingDetail.listingId, rating: Float(rating!), comment: review, date: Date())
+            
+            if isBottomSheetViewEnabled{
+                BottomSheetView(isPresented: $isBottomSheetViewEnabled, viewTitle: "Write a review", isRatingViewDisabled: false, showAlert: true, alertTitle: "Confirm Review?", alertMessage: "Please click on confirm button to post your review.") { review, rating in
+//                    print("TODO: update review to database \(review) \(rating)")
+                    Task {
+                        try await reviewViewModel.createUserReview(reviewerId: bookingDetail.userId, listingId: bookingDetail.listingId, rating: Float(rating!), comment: review, date: Date())
+                    }
+                    isReviewedAlready = true
                 }
                 isReviewedAlready = true
             }.presentationDetents([.medium, .medium]).presentationDragIndicator(.visible)
@@ -103,6 +113,12 @@ struct BookingSummary: View {
     }
 }
 
-#Preview {
-    BookingSummary(bookingDetail: Booking())
+struct BookingSummary_Previews: PreviewProvider {
+    static var previews: some View {
+        let defaultBooking = Booking.defaultBooking
+        let bookingViewModel = BookingViewModel()
+        return BookingSummary(bookingDetail: defaultBooking)
+            .environmentObject(ReviewViewModel())
+            .environmentObject(AuthViewModel())
+    }
 }

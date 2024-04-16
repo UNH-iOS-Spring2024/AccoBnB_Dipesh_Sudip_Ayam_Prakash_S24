@@ -95,30 +95,50 @@ struct ListingDetailView: View {
                 .disabled(isAlreadyBooked)
                 
             }
-            
-            if isBookingRequestViewPresented {
-                Color.black.opacity(0.5)
-                    .onTapGesture {
-                        isBookingRequestViewPresented = false // Close BookingRequestView on tap outside
-                    }
-                VStack {
-                    Spacer()
-                    BottomSheetView(isPresented: $isBookingRequestViewPresented, viewTitle: "Booking Request", showAlert: true, alertTitle: "Confirm Booking?", alertMessage: "Please click on confirm button to request for booking.") { bookingNote, _ in
-                        bookingViewModel.createBooking(userId: authViewModel.currentUser!.id, listingId: listingDetail.id, bookingNote: bookingNote) { result in
-                            switch result {
-                            case .success(_):
-                                isBookingRequestViewPresented = false
-                                isAlreadyBooked = true
-                            case .failure(let error):
-                                print("Failed to create booking: \(error)")
-                            }
+            .sheet(isPresented: $isBookingRequestViewPresented){
+                BottomSheetView(isPresented: $isBookingRequestViewPresented, viewTitle: "Booking Request", showAlert: true, alertTitle: "Confirm Booking?", alertMessage: "Please click on confirm button to request for booking.") { bookingNote, _ in
+                    let totalAmnt: Float = listingDetail.type == .temporary ?
+                        Float(listingDetail.guestCount) * listingDetail.dailyPrice :
+                        Float(listingDetail.monthlyPrice)
+                    bookingViewModel.createBooking(userId: authViewModel.currentUser!.id, listingId: listingDetail.id, bookingNote: bookingNote,totalAmnt: totalAmnt) { result in
+                        switch result {
+                        case .success(_):
+                            isBookingRequestViewPresented = false
+                            isAlreadyBooked = true
+                        case .failure(let error):
+                            print("Failed to create booking: \(error)")
                         }
                     }
-                    .background(Color.white)
-                    .cornerRadius(10)
                 }
-                
+                .background(Color.white)
+                .cornerRadius(10)
+                .presentationDetents([.height(400), .medium, .large])
+                       .presentationDragIndicator(.automatic)
             }
+            
+//            if isBookingRequestViewPresented {
+//                Color.black.opacity(0.5)
+//                    .onTapGesture {
+//                        isBookingRequestViewPresented = false // Close BookingRequestView on tap outside
+//                    }
+//                VStack {
+//                    Spacer()
+//                    BottomSheetView(isPresented: $isBookingRequestViewPresented, viewTitle: "Booking Request", showAlert: true, alertTitle: "Confirm Booking?", alertMessage: "Please click on confirm button to request for booking.") { bookingNote, _ in
+//                        bookingViewModel.createBooking(userId: authViewModel.currentUser!.id, listingId: listingDetail.id, bookingNote: bookingNote) { result in
+//                            switch result {
+//                            case .success(_):
+//                                isBookingRequestViewPresented = false
+//                                isAlreadyBooked = true
+//                            case .failure(let error):
+//                                print("Failed to create booking: \(error)")
+//                            }
+//                        }
+//                    }
+//                    .background(Color.white)
+//                    .cornerRadius(10)
+//                }
+//                
+//            }
         }
     }
 }
