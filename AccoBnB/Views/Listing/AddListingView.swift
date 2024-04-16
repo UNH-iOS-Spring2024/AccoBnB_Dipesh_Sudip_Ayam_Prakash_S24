@@ -44,8 +44,8 @@ struct AddListingView: View {
                 if let photo = selectedPhoto  {
                     Image(uiImage: photo)
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 200, height: 200)
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 300, height: 250)
                     
                     Button("Choose Another Photo") {
                         selectedPhoto = nil // Clear the selected photo
@@ -224,10 +224,17 @@ struct AddListingView: View {
                 }
             }
             .onAppear{
-                if let url = URL(string: listingDetail.bannerImage){
-                    let imageData = try! Data(contentsOf: url)
-                    selectedPhoto = UIImage(data: imageData)
-                }
+                guard let url = URL(string: listingDetail.bannerImage) else {return}
+                
+                URLSession.shared.dataTask(with: url) { data, response, error in
+                    if let error = error {
+                        print("Error loading image: \(error.localizedDescription)")
+                    } else if let data = data {
+                        DispatchQueue.main.async {
+                            self.selectedPhoto = UIImage(data: data)
+                        }
+                    }
+                }.resume()
             }
             .padding()
         }

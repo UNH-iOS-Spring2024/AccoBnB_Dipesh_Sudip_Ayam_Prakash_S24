@@ -81,7 +81,6 @@ struct ManageListingView: View {
             }
             .onAppear {
                 if authViewModel.currentUser != nil {
-                    print("HELLO", authViewModel.currentUser?.id)
                     listingViewModel.getAllActiveListings(userId: authViewModel.currentUser!.id)
                 }
                 selectedListing = nil

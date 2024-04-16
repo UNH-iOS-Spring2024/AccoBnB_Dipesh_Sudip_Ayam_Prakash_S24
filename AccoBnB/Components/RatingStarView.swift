@@ -12,12 +12,12 @@ struct RatingStarView: View {
     var starWidth = 40.0
     
     private func handleTap(index: Int, location: CGPoint){
-        var isTappedOnTheLeftSideOfStar = location.x < starWidth/2
+        let isTappedOnTheLeftSideOfStar = location.x < starWidth/2
         rating = isTappedOnTheLeftSideOfStar ? Double(Double(index) - 0.5) : Double(index)
     }
     
     private func starType(index: Int) -> String{
-        var roundedRating = ceil(rating ?? 0.0)
+        let roundedRating = ceil(rating ?? 0.0)
         // This condition applies to all indexes
 //        print(rating)
         if Double(index) <= roundedRating {

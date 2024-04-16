@@ -89,7 +89,6 @@ struct BookingSummary: View {
             }
         }
         .onAppear{
-            var reviewList: [Review] = []
             print("\n Listing Id: \(bookingDetail.listingId)")
             self.reviewViewModel.getReviewsByListingId(for: bookingDetail.listingId) { result in
                 switch result {

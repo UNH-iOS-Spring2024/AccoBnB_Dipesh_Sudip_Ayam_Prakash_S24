@@ -47,7 +47,7 @@ class FirestoreStorageRepository : StorageRepository {
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
         do {
-            let uploadMetadata = try await listingImagesRef.putDataAsync(imageData, metadata: metadata)
+            _ = try await listingImagesRef.putDataAsync(imageData, metadata: metadata)
             let downloadURL = try await listingImagesRef.downloadURL()
             print("uploaded", downloadURL.absoluteString)
             return downloadURL.absoluteString

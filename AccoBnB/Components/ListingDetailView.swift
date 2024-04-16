@@ -60,7 +60,7 @@ struct ListingDetailView: View {
                                     Text("No reviews yet.")
                                 } else {
                                     ForEach(listingDetail.reviews) { review in
-                                        var formattedDate = review.date!.formattedDateToString()
+                                        let formattedDate = review.date!.formattedDateToString()
                                         ReviewCardView(ratingValue: review.rating, date: formattedDate, reviewerName: review.reviewerName, comment: review.comment)
                                             .frame(width: 250)
                                             .containerRelativeFrame(.horizontal)
@@ -106,7 +106,7 @@ struct ListingDetailView: View {
                     BottomSheetView(isPresented: $isBookingRequestViewPresented, viewTitle: "Booking Request", showAlert: true, alertTitle: "Confirm Booking?", alertMessage: "Please click on confirm button to request for booking.") { bookingNote, _ in
                         bookingViewModel.createBooking(userId: authViewModel.currentUser!.id, listingId: listingDetail.id, bookingNote: bookingNote) { result in
                             switch result {
-                            case .success(let createdBooking):
+                            case .success(_):
                                 isBookingRequestViewPresented = false
                                 isAlreadyBooked = true
                             case .failure(let error):

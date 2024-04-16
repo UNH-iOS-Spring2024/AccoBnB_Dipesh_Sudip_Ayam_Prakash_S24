@@ -5,6 +5,7 @@
 //  Created by Dipesh Shrestha on 2/23/24.
 //
 import SwiftUI
+import CachedAsyncImage
 
 struct MyProfileView: View {
     @ObservedObject private var userProfileVM = UserProfileViewModel()
@@ -33,7 +34,7 @@ struct MyProfileView: View {
                         
                         VStack {
                             if let url = URL(string: userProfileVM.userDetail.profileImage) {
-                                AsyncImage(url: url) { phase in
+                                CachedAsyncImage(url: url, urlCache: .imageCache) { phase in
                                     switch phase {
                                     case .empty:
                                         ProgressView()
@@ -102,12 +103,6 @@ struct MyProfileView: View {
                             }
                         }
                         .navigationTitle("Profile")
-                        Divider()
-                        
-                        BorderlessIconButtonView(buttonName: "My Favorites", iconName: "heart.circle")
-                        Divider()
-                        
-                        BorderlessIconButtonView(buttonName: "My Bookings", iconName: "list.bullet.circle")
                         Divider()
                         
                         NavigationLink(destination: SettingsView(), isActive: $isSettingsViewActive) {

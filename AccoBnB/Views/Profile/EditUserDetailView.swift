@@ -59,15 +59,23 @@ struct EditUserDetailView: View {
                         await userProfileVM.updateUserDetail(userImage: selectedPhoto, userDetail: userDetail)
                         dismiss()
                     }
-                   
+                    
                 }
                 .padding(.top, 8)
             }
             .onAppear{
-                if let url = URL(string: userDetail.profileImage){
-                    let imageData = try! Data(contentsOf: url)
-                    userPhoto = UIImage(data: imageData)
-                }
+                guard let url = URL(string:userDetail.profileImage) else {return}
+                
+                URLSession.shared.dataTask(with: url) { data, response, error in
+                    if let error = error {
+                        print("Error loading image: \(error.localizedDescription)")
+                    } else if let data = data {
+                        DispatchQueue.main.async {
+                            self.userPhoto = UIImage(data: data)
+                        }
+                    }
+                }.resume()
+                
             }
         }
         
