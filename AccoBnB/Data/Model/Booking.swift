@@ -32,15 +32,15 @@ struct Booking: Codable {
 extension Booking {
     static var defaultBooking: Booking {
         return Booking(
-            id:"xap9z81gb2XFsULfi5mAsvWme792",
-            userId: "xap9z81gb2XFsULfi5mAsvWme792",
+            id: "N7MzOyfs08aD6BuWmLka",
+            userId: "jHWZTnWxDWMuhcEvueuBFUXmou63",
             listingId: "1M4QVd7B2lEzz6ivpRtB",
             listingInfo: Listing.defaultListing,
-            userInfo: User.defaultUser,
+            userInfo: User.defaultGuestUser,
             bookingNote: "Default bookingDefault bookingDefault bookingDefault bookingDefault booking",
             totalAmount: 0.0, // or any default amount you want
             status: .pending,
-            createdAt: Date(),
+            createdAt: Date(timeIntervalSince1970: 1676902184),
             updatedAt: Date()
         )
     }

@@ -77,5 +77,5 @@ struct EditUserDetailView: View {
 }
 
 #Preview {
-    EditUserDetailView(userDetail: User.defaultUser)
+    EditUserDetailView(userDetail: User.defaultHostUser)
 }

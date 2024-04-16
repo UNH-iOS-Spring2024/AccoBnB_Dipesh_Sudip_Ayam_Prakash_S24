@@ -35,16 +35,57 @@ class FirestoreBookingRepository: BookingRepository {
         }
     }
     
-    
-    
-    func readBookingById(bookingId: String, completion: @escaping (Result<Booking?, Error>) -> Void) {
+    func getBookingDetailById(bookingId: String, completion: @escaping (Result<Booking?, Error>) -> Void) {
         db.collection(bookingsCollection).document(bookingId).getDocument { snapshot, error in
             if let error = error {
                 completion(.failure(error))
             } else if let data = snapshot?.data() {
                 do {
-                    let booking = try Firestore.Decoder().decode(Booking.self, from: data)
-                    completion(.success(booking))
+                    print("Printdata",data)
+                    var booking = try Firestore.Decoder().decode(Booking.self, from: data)
+                    // Fetch listing info for the booking
+                    let listingId = booking.listingId
+                    let listingDocRef = self.db.collection(self.listingsCollection).document(listingId)
+                    listingDocRef.getDocument { (listingSnapshot, listingError) in
+                        if let listingError = listingError {
+                            print("Error fetching listing: \(listingError)")
+                            // If there's an error fetching listing info, set booking as nil and complete
+                            completion(.success(nil))
+                            return
+                        }
+                        
+                        if let listingData = listingSnapshot?.data() {
+                            do {
+                                let listing = try Firestore.Decoder().decode(Listing.self, from: listingData)
+                                booking.listingInfo = listing
+                            } catch {
+                                print("Error decoding listing data:", error)
+                            }
+                        }
+                        
+                        // Fetch user info for the booking
+                        let userDocRef = self.db.collection(self.userCollections).document(booking.userId)
+                        userDocRef.getDocument { (userSnapshot, userError) in
+                            if let userError = userError {
+                                print("Error fetching user info: \(userError)")
+                                // If there's an error fetching user info, set booking as nil and complete
+                                completion(.success(nil))
+                                return
+                            }
+                            
+                            if let userData = userSnapshot?.data() {
+                                do {
+                                    let user = try Firestore.Decoder().decode(User.self, from: userData)
+                                    booking.userInfo = user
+                                } catch {
+                                    print("Error decoding user data:", error)
+                                }
+                            }
+                            
+                            // Complete with the updated booking
+                            completion(.success(booking))
+                        }
+                    }
                 } catch {
                     completion(.failure(error))
                 }
@@ -53,12 +94,12 @@ class FirestoreBookingRepository: BookingRepository {
             }
         }
     }
+
     
-    func updateBooking(bookingId: String, updatedBooking: Booking, completion: @escaping (Result<Booking, Error>) -> Void) {
+    func updateBooking(updatedBooking: Booking, completion: @escaping (Result<Booking, Error>) -> Void) {
         do {
             var updatedBooking = updatedBooking
-            updatedBooking.id = bookingId
-            try db.collection(bookingsCollection).document(bookingId).setData(from: updatedBooking) { error in
+            try db.collection(bookingsCollection).document(updatedBooking.id!).setData(from: updatedBooking) { error in
                 if let error = error {
                     completion(.failure(error))
                 } else {
@@ -84,23 +125,6 @@ class FirestoreBookingRepository: BookingRepository {
         }
     }
     
-    //    func getUserBookings(userId: String, completion: @escaping (Result<[Booking], Error>) -> Void) {
-    //        print("userid from repo:\(userId)")
-    //        db.collection(bookingsCollection).whereField("userId", isEqualTo: userId).getDocuments { snapshot, error in
-    //            if let error = error {
-    //                completion(.failure(error))
-    //            } else if let snapshot = snapshot {
-    //                do {
-    //                    let bookings = try snapshot.documents.compactMap {
-    //                        try $0.data(as: Booking.self)
-    //                    }
-    //                    completion(.success(bookings))
-    //                } catch {
-    //                    completion(.failure(error))
-    //                }
-    //            }
-    //        }
-    //    }
     func getUserBookings(userId: String, completion: @escaping (Result<[Booking], Error>) -> Void) {
         db.collection(bookingsCollection)
             .whereField("userId", isEqualTo: userId)
@@ -124,8 +148,7 @@ class FirestoreBookingRepository: BookingRepository {
                                 
                                 if let listingData = listingSnapshot?.data() {
                                     do {
-                                        let jsonData = try JSONSerialization.data(withJSONObject: listingData)
-                                        let listing = try JSONDecoder().decode(Listing.self, from: jsonData)
+                                        let listing = try Firestore.Decoder().decode(Listing.self, from: listingData)
                                         booking.listingInfo = listing
                                     } catch {
                                         print("Error decoding listing data:", error)
@@ -141,8 +164,7 @@ class FirestoreBookingRepository: BookingRepository {
                                     }
                                     if let userData = userSnapshot?.data() {
                                         do {
-                                            let jsonData = try JSONSerialization.data(withJSONObject: userData)
-                                            let user = try JSONDecoder().decode(User.self, from: jsonData)
+                                            let user = try Firestore.Decoder().decode(User.self, from: userData)
                                             booking.userInfo = user
                                         } catch {
                                             print("Error decoding listing data:", error)
