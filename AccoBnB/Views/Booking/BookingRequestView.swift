@@ -7,19 +7,35 @@
 
 import SwiftUI
 struct BookingRequestView: View {
-    @ObservedObject var bookingViewModel: BookingViewModel
+    @ObservedObject var bookingViewModel = BookingViewModel()
     @State private var bookingDetail: Booking?
-    @State var bookingId: String // Local state to hold the bookingId
+    @State var bookingId: String
+    @Environment(\.dismiss) var dismiss
     
-    init(bookingViewModel: BookingViewModel, bookingId: String) {
-        self.bookingViewModel = bookingViewModel
+    init(bookingId: String) {
         self._bookingId = State(initialValue: bookingId)
+    }
+    
+    func updateBookingStatus(to status: BookingStatus) {
+        if var bookingDetail = bookingDetail {
+            bookingDetail.status = status
+            bookingViewModel.updateBooking(booking: bookingDetail) { result in
+                switch result {
+                case .success:
+                    // Handle success
+                    dismiss() // Dismiss the view
+                case .failure(let error):
+                    print("Error updating booking status: \(error)")
+                    // Handle failure
+                }
+            }
+        }
     }
     
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                if var bookingDetail = bookingDetail {
+                if let bookingDetail = bookingDetail {
                     // Display the booking details
                     ListingInfoView(listing: bookingDetail.listingInfo)
                     Divider()
@@ -27,16 +43,28 @@ struct BookingRequestView: View {
                     Divider()
                     BookingDetailsView(booking: bookingDetail)
                     Divider()
-                    // Accept and Reject Buttons
-                    HStack(spacing: 20) {
-                        CustomButtonView(buttonText: "Reject", color: "tertiaryColor") {
-                            bookingDetail.status = BookingStatus.rejected
+                    if bookingDetail.status == .pending {
+                        // Accept and Reject Buttons
+                        HStack(spacing: 20) {
+                            CustomButtonView(buttonText: "Reject", color: "tertiaryColor") {
+                                updateBookingStatus(to: .rejected)
+                            }
+                            .cornerRadius(8)
+                            Spacer()
+                            CustomButtonView(buttonText: "Approve") {
+                                updateBookingStatus(to: .approved)
+                            }
                         }
-                        .cornerRadius(8)
-                        Spacer()
-                        CustomButtonView(buttonText: "Approve") {
-                            bookingDetail.status = BookingStatus.approved
-                            // Handle acceptance action
+                    } else {
+                        VStack(spacing: 5) {
+                            HStack {
+                                Text("Booking Status")
+                                    .fontWeight(.bold)
+                                Spacer()
+                                Text(bookingDetail.status.rawValue)
+                                    .multilineTextAlignment(.trailing)
+                            }
+                            
                         }
                     }
                 } else {
@@ -54,7 +82,7 @@ struct BookingRequestView: View {
                         print("Error fetching booking details: \(error)")
                     }
                 }
-             
+                
             }
         }
     }
@@ -210,7 +238,6 @@ struct BookingDetailsView: View {
 struct BookingRequestView_Previews: PreviewProvider {
     static var previews: some View {
         let booking = Booking.defaultBooking
-        let bookingVm = BookingViewModel()
-        return BookingRequestView(bookingViewModel: bookingVm, bookingId:booking.id!)
+        return BookingRequestView(bookingId:booking.id!)
     }
 }

@@ -62,7 +62,21 @@ final class BookingViewModel : ObservableObject {
     }
     func updateBooking(booking: Booking, completion: @escaping (Result<Booking, Error>) -> Void) {
         isLoading = true
-        bookingRepository.updateBooking(updatedBooking: booking){[weak self] result in
+        let bookingToUpdate = Booking(
+            id: booking.id,
+            userId: booking.userId,
+            listingId: booking.listingId,
+            checkInDate: Date(),
+            checkOutDate: nil,
+            bookingNote: booking.bookingNote,
+            totalAmount: booking.totalAmount,
+            hasReviewed: booking.hasReviewed,
+            status: booking.status,
+            createdAt: booking.createdAt,
+            updatedAt: Date()
+        )
+        
+        bookingRepository.updateBooking(updatedBooking: bookingToUpdate){[weak self] result in
             self?.isLoading = false
             switch result {
             case .success(let updatedBooking):
