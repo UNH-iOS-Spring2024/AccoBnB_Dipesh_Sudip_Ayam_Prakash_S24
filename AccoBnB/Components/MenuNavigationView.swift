@@ -9,19 +9,17 @@ import SwiftUI
 
 struct MenuNavigationView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
-    @StateObject var bookingViewModel: BookingViewModel
+    @ObservedObject var bookingViewModel = BookingViewModel()
     @ObservedObject var listingViewModel = ListingViewModel()
-    @StateObject var reviewViewModel = ReviewViewModel()
-    @StateObject var notificationViewModel = NotificationViewModel()
+    @ObservedObject var reviewViewModel = ReviewViewModel()
+    @ObservedObject var notificationViewModel = NotificationViewModel()
     
-    init(authViewModel: AuthViewModel) {
-        _bookingViewModel = StateObject(wrappedValue: BookingViewModel(authViewModel: authViewModel))
-    }
     
     var body: some View {
         VStack{
             TabView{
                 ListingView()
+                    .environmentObject(authViewModel)
                     .environmentObject(listingViewModel)
                     .environmentObject(bookingViewModel)
                     .tabItem {
@@ -70,7 +68,8 @@ struct MenuNavigationView: View {
 
 struct MenuNavigationView_Previews: PreviewProvider {
     static var previews: some View {
-        let authViewModel = AuthViewModel() // Create an instance of AuthViewModel
-        MenuNavigationView(authViewModel: authViewModel) // Pass authViewModel to MenuNavigationView
+        let authViewModel = AuthViewModel()
+        authViewModel.currentUser = User.defaultGuestUser
+        return MenuNavigationView().environmentObject(authViewModel)
     }
 }

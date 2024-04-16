@@ -123,7 +123,7 @@ struct ListingDetailView_Previews: PreviewProvider {
         let newListing = Listing.defaultListing
         let authVm = AuthViewModel()
         authVm.currentUser = User.defaultGuestUser
-        let bookingVm = BookingViewModel(authViewModel: authVm)
+        let bookingVm = BookingViewModel()
         return ListingDetailView(listingDetail: newListing)
             .environmentObject(bookingVm)
             .environmentObject(authVm)

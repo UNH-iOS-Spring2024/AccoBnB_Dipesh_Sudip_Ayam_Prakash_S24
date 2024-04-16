@@ -49,7 +49,6 @@ struct BookingRequestView: View {
                 bookingViewModel.getBookingById(bookingId: bookingId){result in
                     switch result {
                     case .success(let booking):
-                        print("success",booking as Any)
                         self.bookingDetail = booking
                     case .failure(let error):
                         print("Error fetching booking details: \(error)")
@@ -211,9 +210,7 @@ struct BookingDetailsView: View {
 struct BookingRequestView_Previews: PreviewProvider {
     static var previews: some View {
         let booking = Booking.defaultBooking
-        let authVm = AuthViewModel()
-        authVm.currentUser = User.defaultHostUser
-        let bookingVm = BookingViewModel(authViewModel: authVm)
+        let bookingVm = BookingViewModel()
         return BookingRequestView(bookingViewModel: bookingVm, bookingId:booking.id!)
     }
 }

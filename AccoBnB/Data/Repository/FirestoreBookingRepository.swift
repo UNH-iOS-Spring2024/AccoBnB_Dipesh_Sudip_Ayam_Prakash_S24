@@ -41,7 +41,6 @@ class FirestoreBookingRepository: BookingRepository {
                 completion(.failure(error))
             } else if let data = snapshot?.data() {
                 do {
-                    print("Printdata",data)
                     var booking = try Firestore.Decoder().decode(Booking.self, from: data)
                     // Fetch listing info for the booking
                     let listingId = booking.listingId
@@ -98,7 +97,7 @@ class FirestoreBookingRepository: BookingRepository {
     
     func updateBooking(updatedBooking: Booking, completion: @escaping (Result<Booking, Error>) -> Void) {
         do {
-            var updatedBooking = updatedBooking
+            let updatedBooking = updatedBooking
             try db.collection(bookingsCollection).document(updatedBooking.id!).setData(from: updatedBooking) { error in
                 if let error = error {
                     completion(.failure(error))
@@ -124,6 +123,92 @@ class FirestoreBookingRepository: BookingRepository {
             }
         }
     }
+//    
+//    func getUserBookings(userId: String, completion: @escaping (Result<[Booking], Error>) -> Void) {
+//        var query = db.collection(bookingsCollection).whereField("userId", isEqualTo: userId)
+//        // Add a snapshot listener to listen for real-time updates
+//        query.addSnapshotListener { [weak self] snapshot, error in
+//            if let error = error {
+//                completion(.failure(error))
+//                return
+//            }
+//            
+//            guard let documents = snapshot?.documents else {
+//                completion(.success([]))
+//                return
+//            }
+//            
+//            var bookings: [Booking] = []
+//            let dispatchGroup = DispatchGroup()
+//            let dispatchQueue = DispatchQueue(label: "com.accobnb.fetchUserBookings", attributes: .concurrent)
+//            
+//            for document in documents {
+//                dispatchGroup.enter()
+//                guard var booking = try? document.data(as: Booking.self) else {
+//                    print("Error decoding booking data")
+//                    dispatchGroup.leave()
+//                    continue
+//                }
+//                
+//                let listingId = booking.listingId
+//                let userFetchGroup = DispatchGroup()
+//                var fetchedListing: Listing?
+//                var fetchedUser: User?
+//                
+//                // Fetch listing and user data concurrently
+//                dispatchQueue.async(group: userFetchGroup) {
+//                    let listingDocRef = self?.db.collection(self?.listingsCollection ?? "").document(listingId)
+//                    listingDocRef?.getDocument { listingSnapshot, listingError in
+//                        defer { userFetchGroup.leave() }
+//                        
+//                        if let listingError = listingError {
+//                            print("Error fetching listing: \(listingError)")
+//                            return
+//                        }
+//                        
+//                        if let listingData = listingSnapshot?.data() {
+//                            do {
+//                                fetchedListing = try Firestore.Decoder().decode(Listing.self, from: listingData)
+//                            } catch {
+//                                print("Error decoding listing data:", error)
+//                            }
+//                        }
+//                    }
+//                    
+//                    let userDocRef = self?.db.collection(self?.userCollections ?? "").document(booking.userId)
+//                    userDocRef?.getDocument { userSnapshot, userError in
+//                        defer { userFetchGroup.leave() }
+//                        
+//                        if let userError = userError {
+//                            print("Error fetching user info: \(userError)")
+//                            return
+//                        }
+//                        
+//                        if let userData = userSnapshot?.data() {
+//                            do {
+//                                fetchedUser = try Firestore.Decoder().decode(User.self, from: userData)
+//                            } catch {
+//                                print("Error decoding user data:", error)
+//                            }
+//                        }
+//                    }
+//                }
+//                
+//                // Wait for both listing and user data to be fetched
+//                userFetchGroup.notify(queue: .main) {
+//                    booking.listingInfo = fetchedListing
+//                    booking.userInfo = fetchedUser
+//                    bookings.append(booking)
+//                    dispatchGroup.leave()
+//                }
+//            }
+//            
+//            dispatchGroup.notify(queue: .main) {
+//                completion(.success(bookings))
+//            }
+//        }
+//    }
+
     
     func getUserBookings(userId: String, completion: @escaping (Result<[Booking], Error>) -> Void) {
         db.collection(bookingsCollection)

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ListingView: View {
     
+    @EnvironmentObject var authViewModel: AuthViewModel
     @EnvironmentObject var listingViewModel: ListingViewModel
     @EnvironmentObject var bookingViewModel: BookingViewModel
     
@@ -39,6 +40,9 @@ struct ListingView: View {
             }
             .onAppear {
                 listingViewModel.getAllActiveListings()
+                if(authViewModel.currentUser != nil){
+                    bookingViewModel.getUserBooking(userId: authViewModel.currentUser!.id)
+                }
             }
         }.padding(0)
     }
@@ -50,8 +54,9 @@ struct ListingView_Previews: PreviewProvider {
         let listingViewModel = ListingViewModel()
         let authViewModel = AuthViewModel()
         authViewModel.currentUser = User.defaultGuestUser
-        let bookingViewModel = BookingViewModel(authViewModel: authViewModel, text:"listingView")
+        let bookingViewModel = BookingViewModel()
         return ListingView()
+            .environmentObject(authViewModel)
             .environmentObject(listingViewModel)
             .environmentObject(bookingViewModel)
     }

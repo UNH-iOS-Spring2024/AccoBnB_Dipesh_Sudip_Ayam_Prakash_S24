@@ -64,7 +64,7 @@ extension User {
             phone: "",
             profileImage: "",
             email: "dipesh@gmail.com",
-            role: .host,
+            role: .guest,
             fcmIosToken: "",
             address: defaultAddress,
             preference: defaultPreference,

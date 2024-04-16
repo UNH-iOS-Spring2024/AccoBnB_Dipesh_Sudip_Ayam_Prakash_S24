@@ -44,9 +44,11 @@ struct BookingView: View {
 
 struct BookingView_Previews: PreviewProvider {
     static var previews: some View {
-        let authViewModel = AuthViewModel() // Create an instance of AuthViewModel
-        let bookingViewModel = BookingViewModel(authViewModel: authViewModel) // Create a mock BookingViewModel
-        BookingView()
-            .environmentObject(bookingViewModel) // Provide the mock BookingViewModel for preview
+        let authViewModel = AuthViewModel()
+        authViewModel.currentUser = User.defaultGuestUser
+        let bookingViewModel = BookingViewModel()
+        return BookingView()
+            .environmentObject(authViewModel)
+            .environmentObject(bookingViewModel)
     }
 }

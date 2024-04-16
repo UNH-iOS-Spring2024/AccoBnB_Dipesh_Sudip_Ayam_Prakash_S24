@@ -12,15 +12,19 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            if (authViewModel.userSession != nil && authViewModel.currentUser != nil){
-                    MenuNavigationView(authViewModel: authViewModel)
-            }else{
-                LoginView()
-            }
+           if authViewModel.userSession != nil && authViewModel.currentUser != nil {
+               MenuNavigationView(authViewModel: authViewModel)
+           } else {
+               LoginView()
+           }
         }
     }
 }
 
-#Preview {
-    ContentView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        let authViewModel = AuthViewModel()
+        authViewModel.currentUser = User.defaultGuestUser
+        return ContentView().environmentObject(authViewModel)
+    }
 }
