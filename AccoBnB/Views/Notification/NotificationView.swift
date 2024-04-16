@@ -21,18 +21,19 @@ struct NotificationView: View {
                 } else {
                     List {
                         ForEach(notificationViewModel.notifications, id: \.self) { notification in
-                            HStack {
-                                Image(systemName: "bell.circle")
-                                    .font(.system(size: 30, weight: .light))
-                                    .foregroundStyle(.secondary)
-                                VStack(alignment: .leading) {
-                                    Text(notification.message)
-                                        .font(.system(size: 14))
-                                    Text(notification.createdAt!.timeAgoDisplay())
-                                        .font(.system(size: 10))
+                            NavigationLink(destination: BookingRequestView(bookingId: notification.bookingId)) {
+                                HStack {
+                                    Image(systemName: "bell.circle")
+                                        .font(.system(size: 30, weight: .light))
                                         .foregroundStyle(.secondary)
+                                    VStack(alignment: .leading) {
+                                        Text(notification.message)
+                                            .font(.system(size: 14))
+                                        Text(notification.createdAt!.timeAgoDisplay())
+                                            .font(.system(size: 10))
+                                            .foregroundStyle(.secondary)
+                                    }
                                 }
-                                
                             }
                             .padding(.vertical, 2)
                         }
@@ -56,7 +57,8 @@ struct NotificationView_Previews: PreviewProvider {
     static var previews: some View {
         let notificationViewModel = NotificationViewModel()
         let authViewModel = AuthViewModel()
-        NotificationView()
+        authViewModel.currentUser = User.defaultHostUser
+        return NotificationView()
             .environmentObject(notificationViewModel)
             .environmentObject(authViewModel)
     }

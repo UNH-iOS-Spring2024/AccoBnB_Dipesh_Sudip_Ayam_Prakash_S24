@@ -16,6 +16,7 @@ struct ListingDetailView: View {
     @State var isBookingRequestViewPresented: Bool = false
     @EnvironmentObject var bookingViewModel: BookingViewModel
     @State var isAlreadyBooked : Bool = false
+    @State var isAdminView : Bool = false
     @EnvironmentObject var authViewModel: AuthViewModel
     
     // using init method to initialize the region variable with the passed parameter.
@@ -83,12 +84,16 @@ struct ListingDetailView: View {
                     isAlreadyBooked  = self.bookingViewModel.bookings.contains {
                         $0.listingId == listingDetail.id
                     }
+                    if let currentUser = authViewModel.currentUser {
+                        isAlreadyBooked = currentUser.role == UserRole.host || isAlreadyBooked
+                    }
                     
                 }
                 CustomButtonView(buttonText: "Book Now") {
                     isBookingRequestViewPresented = true // Set the binding variable to true to present BookingRequestView
                 }
                 .disabled(isAlreadyBooked)
+                
             }
             
             if isBookingRequestViewPresented {
@@ -123,7 +128,7 @@ struct ListingDetailView_Previews: PreviewProvider {
         let newListing = Listing.defaultListing
         let authVm = AuthViewModel()
         authVm.currentUser = User.defaultGuestUser
-        let bookingVm = BookingViewModel(authViewModel: authVm)
+        let bookingVm = BookingViewModel()
         return ListingDetailView(listingDetail: newListing)
             .environmentObject(bookingVm)
             .environmentObject(authVm)

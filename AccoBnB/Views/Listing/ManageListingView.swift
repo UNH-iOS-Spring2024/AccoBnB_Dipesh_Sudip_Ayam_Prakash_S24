@@ -97,8 +97,10 @@ struct ManageListingView_Previews: PreviewProvider {
         let listingViewModel = ListingViewModel()
         let authViewModel = AuthViewModel()
         authViewModel.currentUser = User.defaultHostUser
+        let bookingVm = BookingViewModel()
         return ManageListingView()
             .environmentObject(listingViewModel)
             .environmentObject(authViewModel)
+            .environmentObject(bookingVm)
     }
 }

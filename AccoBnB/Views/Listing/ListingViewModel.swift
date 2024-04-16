@@ -44,6 +44,7 @@ final class ListingViewModel : ObservableObject {
             switch result {
             case .success(let listings):
                 DispatchQueue.main.async {
+                    print("listingsLoaded")
                     self?.listings = listings
                 }
             case .failure(let error):

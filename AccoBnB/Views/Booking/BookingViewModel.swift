@@ -11,15 +11,9 @@ final class BookingViewModel : ObservableObject {
     @Published var bookings: [Booking] = []
     @Published var isLoading = false // Track loading state
     private let bookingRepository: BookingRepository
-    private let authViewModel: AuthViewModel
     
-    init(bookingRepository: BookingRepository = FirestoreBookingRepository(),authViewModel: AuthViewModel, text: String = "") {
+    init(bookingRepository: BookingRepository = FirestoreBookingRepository()) {
         self.bookingRepository = bookingRepository
-        self.authViewModel = authViewModel
-        //        print("BookingViewModel initialized with text: \(text)")
-        if(authViewModel.currentUser != nil){
-            getUserBooking(userId: authViewModel.currentUser!.id)
-        }
     }
     
     func getUserBooking(userId: String) {
@@ -29,7 +23,6 @@ final class BookingViewModel : ObservableObject {
             switch result {
             case .success(let bookings):
                 DispatchQueue.main.async {
-                    print("Booking loaded",bookings)
                     self?.bookings = bookings
                 }
             case .failure(let error):
@@ -69,7 +62,21 @@ final class BookingViewModel : ObservableObject {
     }
     func updateBooking(booking: Booking, completion: @escaping (Result<Booking, Error>) -> Void) {
         isLoading = true
-        bookingRepository.updateBooking(updatedBooking: booking){[weak self] result in
+        let bookingToUpdate = Booking(
+            id: booking.id,
+            userId: booking.userId,
+            listingId: booking.listingId,
+            checkInDate: Date(),
+            checkOutDate: nil,
+            bookingNote: booking.bookingNote,
+            totalAmount: booking.totalAmount,
+            hasReviewed: booking.hasReviewed,
+            status: booking.status,
+            createdAt: booking.createdAt,
+            updatedAt: Date()
+        )
+        
+        bookingRepository.updateBooking(updatedBooking: bookingToUpdate){[weak self] result in
             self?.isLoading = false
             switch result {
             case .success(let updatedBooking):

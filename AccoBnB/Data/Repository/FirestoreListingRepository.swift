@@ -76,7 +76,7 @@ class FirestoreListingRepository: ListingRepository {
     }
     
     func getAllActiveListings(completion: @escaping (Result<[Listing], Error>) -> Void) {
-        var query = db.collection(listingsCollection)
+        let query = db.collection(listingsCollection)
             .whereField("isPublished", isEqualTo: true)
             .order(by: "createdAt", descending: true)
         
@@ -102,11 +102,12 @@ class FirestoreListingRepository: ListingRepository {
                 let result = Result{
                     try? document.data(as: Listing.self)
                 }
-                print("Listings",result)
                 
                 switch result{
                 case .success(let listing):
                     if var listing = listing{
+                        
+                            print("listingsLoadedafterSnapshot")
                         // Fetch reviews for current listing:
                         self.getReviewsByListingId(for: listing.id){result in
                             switch(result){
