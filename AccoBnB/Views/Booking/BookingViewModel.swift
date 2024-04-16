@@ -32,7 +32,7 @@ final class BookingViewModel : ObservableObject {
         }
     }
     
-    func createBooking(userId: String, listingId: String, bookingNote: String, completion: @escaping (Result<Booking, Error>) -> Void) {
+    func createBooking(userId: String, listingId: String, bookingNote: String, totalAmnt: Float, completion: @escaping (Result<Booking, Error>) -> Void) {
         
         isLoading = true // Show loader
         let booking = Booking(
@@ -43,7 +43,7 @@ final class BookingViewModel : ObservableObject {
             checkInDate: nil,
             checkOutDate: nil,
             bookingNote: bookingNote,
-            totalAmount: 0.0,
+            totalAmount: totalAmnt,
             createdAt: Date(),
             updatedAt: nil
         )
