@@ -45,6 +45,7 @@ struct MenuNavigationView: View {
                 } else {
                     ManageListingView()
                         .environmentObject(listingViewModel)
+                        .environmentObject(bookingViewModel)
                         .tabItem {
                             Image(systemName: "apps.iphone.badge.plus")
                             Text("Manage Listings")

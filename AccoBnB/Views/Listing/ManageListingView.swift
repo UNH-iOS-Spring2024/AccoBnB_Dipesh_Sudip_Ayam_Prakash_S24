@@ -10,6 +10,7 @@ import SwiftUI
 struct ManageListingView: View {
     @EnvironmentObject var listingViewModel: ListingViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var bookingViewModel: BookingViewModel
     
     
     @State private var selectedListing: Listing? // Store the selected listing for editing
@@ -24,9 +25,14 @@ struct ManageListingView: View {
                             .padding()
                     } else {
                         List {
-                            ForEach(listingViewModel.listings, id: \.id) { listing in
+                            ForEach(listingViewModel.hostListings, id: \.id) { listing in
                                 ZStack(alignment: .topTrailing) {
-                                    ListingCardView(listingDetail: listing)
+                                    ZStack {
+                                        ListingCardView(listingDetail: listing)
+                                        NavigationLink(destination: ListingDetailView(listingDetail: listing).environmentObject(bookingViewModel).navigationTitle(listing.title)) {
+                                            EmptyView()
+                                        }.opacity(0)
+                                    }
                                     
                                     // Edit Button
                                     Image(systemName: "pencil")
@@ -39,13 +45,10 @@ struct ManageListingView: View {
                                         .contentShape(Rectangle()) // Clickable area = entire button
                                         .padding(8)
                                 }
-                                .background(
+                                .overlay(
                                     NavigationLink(
-                                        destination: AddListingView(listing: selectedListing ?? Listing())
-                                            .onDisappear {
-                                                selectedListing = nil
-                                            },
-                                        isActive: .constant(selectedListing != nil),
+                                        destination: AddListingView(listing: selectedListing ?? Listing()),
+                                        isActive: .constant(selectedListing?.id == listing.id),
                                         label: { EmptyView() }
                                     )
                                     .hidden()
@@ -77,7 +80,11 @@ struct ManageListingView: View {
                 }
             }
             .onAppear {
-                listingViewModel.getAllActiveListings(userId: authViewModel.currentUser!.id)
+                if authViewModel.currentUser != nil {
+                    print("HELLO", authViewModel.currentUser?.id)
+                    listingViewModel.getAllActiveListings(userId: authViewModel.currentUser!.id)
+                }
+                selectedListing = nil
             }
         }
     }

@@ -21,7 +21,6 @@ class FirestoreListingRepository: ListingRepository {
     
     func getAllActiveListings(userId: String?, completion: @escaping (Result<[Listing], Error>) -> Void) {
         var query = db.collection(listingsCollection)
-            .whereField("isPublished", isEqualTo: true)
             .order(by: "createdAt", descending: true)
         
         if let userId = userId {
@@ -69,6 +68,61 @@ class FirestoreListingRepository: ListingRepository {
                 case .failure(let error):
                     print("Error decoding listing: \(error)")
                     dispatchGroup.leave()                }
+            }
+            dispatchGroup.notify(queue: .main) {
+                completion(.success(listings))
+            }
+        }
+    }
+    
+    func getAllActiveListings(completion: @escaping (Result<[Listing], Error>) -> Void) {
+        var query = db.collection(listingsCollection)
+            .whereField("isPublished", isEqualTo: true)
+            .order(by: "createdAt", descending: true)
+        
+        query.addSnapshotListener { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let documents = snapshot?.documents else {
+                completion(.success([]))
+                return
+            }
+            
+            var listings: [Listing] = []
+            // Using dispatcher group to synchronize all asynchronous tasks. Here it ensures that the completion handler is called only after all asynchronous tasks related to fetching listings and their reviews are completed.
+            // If we don't use DispatchGroup() only listings will be returned while reviews will be retrieved later async-.
+            let dispatchGroup = DispatchGroup()
+            
+            for document in documents{
+                dispatchGroup.enter()
+                
+                let result = Result{
+                    try? document.data(as: Listing.self)
+                }
+                print("Listings",result)
+                
+                switch result{
+                case .success(let listing):
+                    if var listing = listing{
+                        // Fetch reviews for current listing:
+                        self.getReviewsByListingId(for: listing.id){result in
+                            switch(result){
+                            case .success(let reviews):
+                                listing.reviews = reviews
+                                listings.append(listing)
+                            case .failure(let error):
+                                print("Error in fetching reviews \(error)")
+                            }
+                            dispatchGroup.leave()
+                        }
+                    }
+                case .failure(let error):
+                    print("Error decoding listing: \(error)")
+                    dispatchGroup.leave()
+                }
             }
             dispatchGroup.notify(queue: .main) {
                 completion(.success(listings))

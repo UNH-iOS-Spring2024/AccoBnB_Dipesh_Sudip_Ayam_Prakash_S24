@@ -10,6 +10,7 @@ import UIKit
 
 final class ListingViewModel : ObservableObject {
     @Published var listings: [Listing] = []
+    @Published var hostListings: [Listing] = []
     @Published var isLoading = false // Track loading state
     // variable that stores the user input in search box of listing view screen
     @Published var searchText = ""
@@ -35,10 +36,24 @@ final class ListingViewModel : ObservableObject {
         self.listingRepository = listingRepository
     }
     
-    func getAllActiveListings(userId: String?) {
-        if(!listings.isEmpty){
-            return
+    func getAllActiveListings() {
+        isLoading = true // Show loader
+        
+        listingRepository.getAllActiveListings() { [weak self] result in
+            self?.isLoading = false // Hide loader after operation completes
+            switch result {
+            case .success(let listings):
+                DispatchQueue.main.async {
+                    self?.listings = listings
+                }
+            case .failure(let error):
+                print("Failed to fetch listings: \(error)")
+                // Handle error, such as showing an alert to the user
+            }
         }
+    }
+    
+    func getAllActiveListings(userId: String?) {
         isLoading = true // Show loader
         
         listingRepository.getAllActiveListings(userId: userId) { [weak self] result in
@@ -46,7 +61,7 @@ final class ListingViewModel : ObservableObject {
             switch result {
             case .success(let listings):
                 DispatchQueue.main.async {
-                    self?.listings = listings
+                    self?.hostListings = listings
                 }
             case .failure(let error):
                 print("Failed to fetch listings: \(error)")
@@ -81,7 +96,7 @@ final class ListingViewModel : ObservableObject {
         isLoading = true // Show loader
         listingRepository.setListing(bannerImagePath: bannerImagePath, listing: listing) { [weak self] result in
             self?.isLoading = false // Hide loader after operation completes
-            switch result {
+            switch result { 
             case .success(let updatedListing):
                 DispatchQueue.main.async {
                     // Update the existing listing in the list with the updated one

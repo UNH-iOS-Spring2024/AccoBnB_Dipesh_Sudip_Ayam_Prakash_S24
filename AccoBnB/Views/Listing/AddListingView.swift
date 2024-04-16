@@ -20,6 +20,7 @@ struct AddListingView: View {
     //@FocusState private var isAddressSearching: Bool
     @State private var isTextFieldFocused = false
     @State private var showSearchAddressBottomSheet = false
+    @Environment(\.dismiss) var dismiss
     
     init(listing: Listing?) {
         if let listing = listing {
@@ -203,20 +204,23 @@ struct AddListingView: View {
                     }
                     // Conditionally call createListing or updateListing based on the id status
                       let updateMethod = listingDetail.id.isEmpty ? listingViewModel.createListing : listingViewModel.updateListing
-                    updateMethod(selectedPhoto, &listingDetail) { result in
-                          switch result {
-                          case .success(_):
-                              // Reset selected values after successful creation or update
-                              self.listingDetail = Listing()
-                              self.selectedLocation = nil
-                              self.selectedPhoto = nil
-                          case .failure(let error):
-                              let action = listingDetail.id.isEmpty ? "create" : "update"
-                              print("Failed to \(action) listing: \(error)")
-                              // Handle the error, such as showing an alert to the user
-                          }
-                      }
                     
+                    Task{
+                         updateMethod(selectedPhoto, &listingDetail){ result in
+                            switch result {
+                            case .success(_):
+                                // Reset selected values after successful creation or update
+                                self.listingDetail = Listing()
+                                self.selectedLocation = nil
+                                self.selectedPhoto = nil
+                                dismiss()
+                            case .failure(let error):
+                                let action = listingDetail.id.isEmpty ? "create" : "update"
+                                print("Failed to \(action) listing: \(error)")
+                                // Handle the error, such as showing an alert to the user
+                            }
+                        }
+                    }
                 }
             }
             .onAppear{

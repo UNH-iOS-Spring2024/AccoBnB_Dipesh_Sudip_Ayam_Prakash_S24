@@ -34,11 +34,11 @@ struct ListingView: View {
                     }
                     .navigationTitle("Listings")
                     .listStyle(PlainListStyle())
-                    .searchable(text: $listingViewModel.searchText, prompt: "search housing")
+                    .searchable(text: $listingViewModel.searchText, prompt: "Search housing")
                 }
             }
             .onAppear {
-                listingViewModel.getAllActiveListings(userId: nil)
+                listingViewModel.getAllActiveListings()
             }
         }.padding(0)
     }
