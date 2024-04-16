@@ -35,7 +35,7 @@ struct BottomSheetView: View {
                 RatingStarView(rating: $rating)
             }
             
-            TextField("Add your message..", text: $note)
+            TextEditor(text: $note)
                 .textFieldStyle(PlainTextFieldStyle()) // Remove default styling
                 .padding()
                 .frame(minHeight: 120) // Adjust the height

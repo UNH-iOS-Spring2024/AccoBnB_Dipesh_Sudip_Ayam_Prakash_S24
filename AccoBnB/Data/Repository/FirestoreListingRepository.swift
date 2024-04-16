@@ -58,6 +58,7 @@ class FirestoreListingRepository: ListingRepository {
                             switch(result){
                             case .success(let reviews):
                                 listing.reviews = reviews
+                                listing.rating = reviews.count > 0 ? (reviews.map { rev in rev.rating }.reduce(0, +))/Float(reviews.count) : 0.0
                                 listings.append(listing)
                             case .failure(let error):
                                 print("Error in fetching reviews \(error)")
@@ -106,13 +107,12 @@ class FirestoreListingRepository: ListingRepository {
                 switch result{
                 case .success(let listing):
                     if var listing = listing{
-                        
-                            print("listingsLoadedafterSnapshot")
                         // Fetch reviews for current listing:
                         self.getReviewsByListingId(for: listing.id){result in
                             switch(result){
                             case .success(let reviews):
                                 listing.reviews = reviews
+                                listing.rating = reviews.count > 0 ? (reviews.map { rev in rev.rating }.reduce(0, +))/Float(reviews.count) : 0.0
                                 listings.append(listing)
                             case .failure(let error):
                                 print("Error in fetching reviews \(error)")
@@ -134,7 +134,7 @@ class FirestoreListingRepository: ListingRepository {
     private func getReviewsByListingId(for listingId: String, completion: @escaping (Result<[Review], Error>) -> Void){
         db.collection(reviewsCollection)
             .whereField("listingId",isEqualTo: listingId)
-            .addSnapshotListener { snapshot, err in
+            .getDocuments{ snapshot, err in
                 if let error = err{
                     completion(.failure(error))
                     return

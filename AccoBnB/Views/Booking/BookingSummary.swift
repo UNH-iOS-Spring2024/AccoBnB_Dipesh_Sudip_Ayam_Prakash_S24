@@ -17,7 +17,7 @@ struct BookingSummary: View {
     
     @State var isReviewedAlready: Bool = false
     
-     private var formattedBookingDetails: [String:Any] = [:]
+    private var formattedBookingDetails: [String:Any] = [:]
     
     init(bookingDetail: Booking) {
         self._bookingDetail = State(initialValue: bookingDetail)
@@ -29,11 +29,11 @@ struct BookingSummary: View {
             center: center, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)))
         
         // converting Date to String type
-         let date = self.bookingDetail.createdAt ?? Date()
-         let dateFormatter = DateFormatter()
-         dateFormatter.dateFormat = "MM/dd/YYYY HH:MM"
-         let formattedCreatedAt = dateFormatter.string(from: date)
-         self.formattedBookingDetails["createdAt"] = formattedCreatedAt
+        let date = self.bookingDetail.createdAt ?? Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/YYYY HH:MM"
+        let formattedCreatedAt = dateFormatter.string(from: date)
+        self.formattedBookingDetails["createdAt"] = formattedCreatedAt
     }
     var body: some View {
         VStack(alignment: .leading){
@@ -77,16 +77,15 @@ struct BookingSummary: View {
                 self.isBottomSheetViewEnabled = true
             }
             .disabled(isReviewedAlready)
-            
-            if isBottomSheetViewEnabled{
-                BottomSheetView(isPresented: $isBottomSheetViewEnabled, viewTitle: "Write a review", isRatingViewDisabled: false, showAlert: true, alertTitle: "Confirm Review?", alertMessage: "Please click on confirm button to post your review.") { review, rating in
-//                    print("TODO: update review to database \(review) \(rating)")
-                    Task {
-                        try await reviewViewModel.createUserReview(reviewerId: bookingDetail.userId, listingId: bookingDetail.listingId, rating: Float(rating!), comment: review, date: Date())
-                    }
-                    isReviewedAlready = true
+        }
+        .sheet(isPresented: $isBottomSheetViewEnabled) {
+            BottomSheetView(isPresented: $isBottomSheetViewEnabled, viewTitle: "Write a review", isRatingViewDisabled: false, showAlert: true, alertTitle: "Confirm Review?", alertMessage: "Please click on confirm button to post your review.") { review, rating in
+                //                    print("TODO: update review to database \(review) \(rating)")
+                Task {
+                    try await reviewViewModel.createUserReview(reviewerId: bookingDetail.userId, listingId: bookingDetail.listingId, rating: Float(rating!), comment: review, date: Date())
                 }
-            }
+                isReviewedAlready = true
+            }.presentationDetents([.medium, .medium]).presentationDragIndicator(.visible)
         }
         .onAppear{
             print("\n Listing Id: \(bookingDetail.listingId)")

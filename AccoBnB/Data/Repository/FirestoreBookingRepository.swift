@@ -213,7 +213,7 @@ class FirestoreBookingRepository: BookingRepository {
     func getUserBookings(userId: String, completion: @escaping (Result<[Booking], Error>) -> Void) {
         db.collection(bookingsCollection)
             .whereField("userId", isEqualTo: userId)
-            .getDocuments { snapshot, error in
+            .addSnapshotListener { snapshot, error in
                 if let error = error {
                     completion(.failure(error))
                 } else if let snapshot = snapshot {
