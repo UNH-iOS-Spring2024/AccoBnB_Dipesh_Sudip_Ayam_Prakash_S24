@@ -48,7 +48,8 @@ struct ListingView: View {
 struct ListingView_Previews: PreviewProvider {
     static var previews: some View {
         let listingViewModel = ListingViewModel()
-        let authViewModel = AuthViewModel() // Create an instance of AuthViewModel
+        let authViewModel = AuthViewModel()
+        authViewModel.currentUser = User.defaultGuestUser
         let bookingViewModel = BookingViewModel(authViewModel: authViewModel, text:"listingView")
         return ListingView()
             .environmentObject(listingViewModel)

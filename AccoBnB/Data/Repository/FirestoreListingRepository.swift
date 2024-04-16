@@ -50,7 +50,6 @@ class FirestoreListingRepository: ListingRepository {
                 let result = Result{
                     try? document.data(as: Listing.self)
                 }
-                print("Listings",result)
                 
                 switch result{
                 case .success(let listing):

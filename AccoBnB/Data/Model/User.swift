@@ -35,15 +35,34 @@ enum UserRole: String, Codable {
 
 // extension for defining default user
 extension User {
-    static let defaultUser: User = {
+    static let defaultHostUser: User = {
         let defaultAddress = Address(city: "New York", country: "United States", zipCode: "10001", addressLine1: "123 Main Street", addressLine2: "Apt 4B")
         let defaultPreference = UserPreference(darkMode: false, budget: 1000.0)
         return User(
             id: "xap9z81gb2XFsULfi5mAsvWme792",
-            firstName: "test",
+            firstName: "Sudip",
             lastName: "Host",
             phone: "",
-            profileImage: "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg",
+            profileImage: "https://firebasestorage.googleapis.com:443/v0/b/accobnb-891d3.appspot.com/o/profiles%2FFB3F67B5-389D-4E90-8834-326D010E6C90?alt=media&token=24987c44-623f-4282-abf7-518863d0ede4",
+            email: "host@gmail.com",
+            role: .host,
+            fcmIosToken: "",
+            address: defaultAddress,
+            preference: defaultPreference,
+            favourites: []
+        )
+       
+    }()
+    
+    static let defaultGuestUser: User = {
+        let defaultAddress = Address(city: "New York", country: "United States", zipCode: "10001", addressLine1: "123 Main Street", addressLine2: "Apt 4B")
+        let defaultPreference = UserPreference(darkMode: false, budget: 1000.0)
+        return User(
+            id: "jHWZTnWxDWMuhcEvueuBFUXmou63",
+            firstName: "Dipesh",
+            lastName: "Shrestha",
+            phone: "",
+            profileImage: "",
             email: "dipesh@gmail.com",
             role: .host,
             fcmIosToken: "",

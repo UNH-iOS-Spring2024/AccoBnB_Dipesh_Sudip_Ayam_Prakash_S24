@@ -147,9 +147,9 @@ struct MyProfileView: View {
 struct MyProfileView_Previews: PreviewProvider {
     static var previews: some View {
         let userProfileViewModel = UserProfileViewModel()
-        userProfileViewModel.userDetail = User.defaultUser
+        userProfileViewModel.userDetail = User.defaultHostUser
         let authViewModel = AuthViewModel()
-        authViewModel.currentUser = User.defaultUser
+        authViewModel.currentUser = User.defaultHostUser
         return MyProfileView()
             .environmentObject(userProfileViewModel)
             .environmentObject(authViewModel)
