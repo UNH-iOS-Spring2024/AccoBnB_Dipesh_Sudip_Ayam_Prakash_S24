@@ -10,17 +10,25 @@ import MapKit
 import PhotosUI
 
 struct AddListingView: View {
-    @State private var listingDetail: Listing // Remove the @State wrapper
+    @State private var listingDetail: Listing
     @State private var selectedLocation: MKLocalSearchCompletion?
     @State private var selectedPhoto: UIImage?
-    @State private var isShowingImagePicker = false // Control showing the image picker
-    @State private var isShowingCamera = false // Control showing the camera
+    @State private var isShowingImagePicker = false
+    @State private var isShowingCamera = false
     @EnvironmentObject var listingViewModel: ListingViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
-    //@FocusState private var isAddressSearching: Bool
     @State private var isTextFieldFocused = false
     @State private var showSearchAddressBottomSheet = false
     @Environment(\.dismiss) var dismiss
+    @State private var isAlertPresented = false
+    @State private var alertTitle: String?
+    @State private var alertMessage: String?
+
+    private func showAlert(title: String, message: String) {
+        alertTitle = title
+        alertMessage = message
+        isAlertPresented = true
+    }
     
     init(listing: Listing?) {
         if let listing = listing {
@@ -40,15 +48,15 @@ struct AddListingView: View {
                 TextEditor(text: $listingDetail.description)
                     .frame(minHeight: 100)
                     .border(Color.gray.opacity(0.2), width: 1)
-                //image here
                 if let photo = selectedPhoto  {
                     Image(uiImage: photo)
                         .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 300, height: 250)
-                    
+                        .scaledToFit()
+                        .frame(maxWidth: 300, maxHeight: 250)
+                        .clipped()
+                        .padding()
                     Button("Choose Another Photo") {
-                        selectedPhoto = nil // Clear the selected photo
+                        selectedPhoto = nil
                         isShowingImagePicker.toggle()
                     }
                     .padding()
@@ -73,7 +81,6 @@ struct AddListingView: View {
                     })
                 }
                 
-                // image end here
                 
                 Picker("Listing Type", selection: $listingDetail.type) {
                     Text("Rental").tag(ListingType.rental)
@@ -128,8 +135,6 @@ struct AddListingView: View {
                     }
                     
                 }
-                // Add image picker here
-                // Add ammenities
                 Text("Amenities")
                     .font(.title2)
                     .fontWeight(.bold)
@@ -150,7 +155,7 @@ struct AddListingView: View {
                 TextField("Search Address", text: self.$listingDetail.address.addressLine1, onCommit: {
                     self.showSearchAddressBottomSheet = true
                 })
-                .padding(.horizontal, 30) // Adjust padding as necessary
+                .padding(.horizontal, 30)
                 .padding(10)
                 .background(Color(UIColor.systemGray6))
                 .cornerRadius(8)
@@ -162,7 +167,7 @@ struct AddListingView: View {
                             .padding(.trailing, 5)
                         Spacer()
                     }
-                        .padding(.horizontal, 10) // Adjust padding as necessary
+                        .padding(.horizontal, 10)
                 )
                 .padding(.horizontal)
                 
@@ -194,15 +199,13 @@ struct AddListingView: View {
                         .keyboardType(.numberPad)
                 }
                 CustomButtonView(buttonText: listingDetail.id.isEmpty ? "Add" : "Update") {
+                    guard isInputValid() else {
+                        return
+                    }
                     listingDetail.hostId = authViewModel.currentUser?.id ?? ""
                     if let location = selectedLocation {
                         reverseGeocode(location: location)
                     }
-                    guard isInputValid() else {
-                        // Handle invalid input condition
-                        return
-                    }
-                    // Conditionally call createListing or updateListing based on the id status
                       let updateMethod = listingDetail.id.isEmpty ? listingViewModel.createListing : listingViewModel.updateListing
                     
                     Task{
@@ -217,7 +220,6 @@ struct AddListingView: View {
                             case .failure(let error):
                                 let action = listingDetail.id.isEmpty ? "create" : "update"
                                 print("Failed to \(action) listing: \(error)")
-                                // Handle the error, such as showing an alert to the user
                             }
                         }
                     }
@@ -238,74 +240,71 @@ struct AddListingView: View {
             }
             .padding()
         }
+        .alert(isPresented: $isAlertPresented) {
+            if let alertTitle = alertTitle, let alertMessage = alertMessage {
+                return Alert(
+                    title: Text(alertTitle),
+                    message: Text(alertMessage)
+                )
+            } else {
+                // Default alert if no specific title and message are provided
+                return Alert(title: Text("Validation Error"), message: Text("Please fill out all required fields."), dismissButton: .default(Text("OK")))
+            }
+        }
         .navigationTitle(listingDetail.id.isEmpty ? "Add Listing" : "Edit Listing")
     }
     
     private func isInputValid() -> Bool {
-        var isValid = true
-        
         if listingDetail.title.isEmpty {
-            // Show error for title field
-            isValid = false
-            print("Title is required.")
+            showAlert(title: "Title Required", message: "Please enter a title.")
+            return false
         }
         
         if listingDetail.description.isEmpty {
-            // Show error for description field
-            isValid = false
-            print("Description is required.")
+            showAlert(title: "Description Required", message: "Please enter a description.")
+            return false
         }
         
         if listingDetail.type == .rental && listingDetail.availableRooms == 0 {
-            // Show error for available rooms field if listing type is rental
-            isValid = false
-            print("Number of available rooms is required for rental type.")
+            showAlert(title: "Available Rooms Required", message: "Number of available rooms is required for rental type.")
+            return false
         }
         
         if listingDetail.type == .temporary && listingDetail.guestCount == 0 {
-            // Show error for guest count field if listing type is temporary
-            isValid = false
-            print("Guest count is required for temporary type.")
+            showAlert(title: "Guest Count Required", message: "Guest count is required for temporary type.")
+            return false
         }
         
         if listingDetail.type == .rental && listingDetail.monthlyPrice == 0 {
-            // Show error for monthly price field if listing type is rental
-            isValid = false
-            print("Price is required for rental type.")
+            showAlert(title: "Price Required", message: "Price is required for rental type.")
+            return false
         }
         
         if listingDetail.type == .temporary && listingDetail.dailyPrice == 0 {
-            // Show error for daily price field if listing type is temporary
-            isValid = false
-            print("Price is required for temporary type.")
+            showAlert(title: "Price Required", message: "Price is required for temporary type.")
+            return false
         }
         
         if listingDetail.amenities.isEmpty {
-            // Show error for amenities
-            isValid = false
-            print("At least one amenity is required.")
+            showAlert(title: "Amenities Required", message: "At least one amenity is required.")
+            return false
         }
         
         if listingDetail.hostId.isEmpty {
-            // Show error for hostid
-            isValid = false
-            print("Need logged in user to add listing")
+            showAlert(title: "Host ID Required", message: "Need logged in user to add listing.")
+            return false
         }
         
         if listingDetail.address.addressLine1.isEmpty ||
             listingDetail.address.city.isEmpty ||
             listingDetail.address.zipCode.isEmpty {
-            // Show error for address fields
-            isValid = false
-            print("Address, city, and zip code are required.")
+            showAlert(title: "Address Required", message: "Address, city, and zip code are required.")
+            return false
         }
         
-        if !isValid {
-            print("Please fill out the required fields.")
-        }
-        
-        return isValid
+        return true
     }
+
     
     
     private func reverseGeocode(location: MKLocalSearchCompletion) {
@@ -313,7 +312,6 @@ struct AddListingView: View {
         let search = MKLocalSearch(request: searchRequest)
         search.start { response, error in
             guard let placemark = response?.mapItems.first?.placemark else {
-                // Handle error
                 return
             }
             let addressLine1 = "\(placemark.subThoroughfare ?? "") \(placemark.thoroughfare ?? "")"
@@ -330,8 +328,7 @@ struct AddListingView: View {
             )
             listingDetail.address = address
             listingDetail.geoLocation = geoLocoation
-            listingDetail.geoHash = "" // need to find a way to convert getloc to geohash
-            print("Selected Address: ", address)
+            listingDetail.geoHash = ""
         }
     }
     

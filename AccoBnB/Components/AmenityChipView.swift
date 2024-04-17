@@ -9,8 +9,9 @@ import SwiftUI
 struct AmenityChipView: View {
     let amenity: Amenity
     @Binding var selectedAmenities: Set<Amenity>
-
+    
     var body: some View {
+        
         Button(action: {
             if selectedAmenities.contains(amenity) {
                 selectedAmenities.remove(amenity)
@@ -18,12 +19,17 @@ struct AmenityChipView: View {
                 selectedAmenities.insert(amenity)
             }
         }) {
-            Text(amenity.rawValue)
-                .foregroundColor(selectedAmenities.contains(amenity) ? .white : .black)
-                .padding(.vertical, 8)
-                .padding(.horizontal, 16)
-                .background(selectedAmenities.contains(amenity) ? Color.blue : Color.gray.opacity(0.3))
-                .cornerRadius(20)
+            HStack {
+                amenity.icon
+                    .foregroundColor(Color("primaryColor"))
+                    .font(.system(size: 15))
+                Text(amenity.rawValue)
+            }
+            .foregroundColor(selectedAmenities.contains(amenity) ? .white : .black)
+            .padding(.vertical, 8)
+            .padding(.horizontal, 16)
+            .background(selectedAmenities.contains(amenity) ? Color.blue : Color.gray.opacity(0.3))
+            .cornerRadius(20)
         }
     }
 }
