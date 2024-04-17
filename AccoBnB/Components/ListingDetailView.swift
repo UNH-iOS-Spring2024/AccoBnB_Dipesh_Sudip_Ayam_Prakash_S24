@@ -33,24 +33,33 @@ struct ListingDetailView: View {
         self._region = State(initialValue: MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.007, longitudeDelta: 0.007)))
     }
     
-    func formatDate(date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/YY"
-        let formattedDate = dateFormatter.string(from: date)
-        return formattedDate
-    }
-    
     var body: some View {
         ZStack{
             VStack(alignment: .leading){
                 List {
-                    // ".listRowInsets()" will remove the default padding from List{}
                     ListingCardView(listingDetail: listingDetail)
                         .listRowInsets(EdgeInsets())
                     
                     Section("Description"){
                         Text(listingDetail.description)
                             .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    if !listingDetail.amenities.isEmpty {
+                        Section("Amenities") {
+                            LazyVGrid(columns: [GridItem(.flexible(), spacing: 10), GridItem(.flexible(), spacing: 10)], spacing: 10) {
+                                ForEach(Array(listingDetail.amenities), id: \.self) { amenity in
+                                    HStack(alignment: .top) {
+                                        amenity.icon
+                                            .foregroundColor(Color("primaryColor"))
+                                            .font(.system(size: 15))
+                                        Text(amenity.rawValue)
+                                            .foregroundStyle(.gray)
+                                            .bold()
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                    }
+                                }
+                            }
+                        }
                     }
                     
                     Section("Reviews"){
@@ -72,7 +81,6 @@ struct ListingDetailView: View {
                     }
                     
                     Section("Location"){
-                        // interaction mode is used to restrict user interactions
                         Map() {
                             Marker("", coordinate: region.center)
                         }
@@ -90,7 +98,7 @@ struct ListingDetailView: View {
                     
                 }
                 CustomButtonView(buttonText: "Book Now") {
-                    isBookingRequestViewPresented = true // Set the binding variable to true to present BookingRequestView
+                    isBookingRequestViewPresented = true
                 }
                 .disabled(isAlreadyBooked)
                 
@@ -98,7 +106,7 @@ struct ListingDetailView: View {
             .sheet(isPresented: $isBookingRequestViewPresented){
                 BottomSheetView(isPresented: $isBookingRequestViewPresented, viewTitle: "Booking Request", showAlert: true, alertTitle: "Confirm Booking?", alertMessage: "Please click on confirm button to request for booking.") { bookingNote, _ in
                     let totalAmnt: Float = listingDetail.type == .temporary ?
-                        Float(listingDetail.guestCount) * listingDetail.dailyPrice :
+                        (Float(listingDetail.guestCount) * listingDetail.dailyPrice) :
                         Float(listingDetail.monthlyPrice)
                     bookingViewModel.createBooking(userId: authViewModel.currentUser!.id, listingId: listingDetail.id, bookingNote: bookingNote,totalAmnt: totalAmnt) { result in
                         switch result {
@@ -115,30 +123,6 @@ struct ListingDetailView: View {
                 .presentationDetents([.height(400), .medium, .large])
                        .presentationDragIndicator(.automatic)
             }
-            
-//            if isBookingRequestViewPresented {
-//                Color.black.opacity(0.5)
-//                    .onTapGesture {
-//                        isBookingRequestViewPresented = false // Close BookingRequestView on tap outside
-//                    }
-//                VStack {
-//                    Spacer()
-//                    BottomSheetView(isPresented: $isBookingRequestViewPresented, viewTitle: "Booking Request", showAlert: true, alertTitle: "Confirm Booking?", alertMessage: "Please click on confirm button to request for booking.") { bookingNote, _ in
-//                        bookingViewModel.createBooking(userId: authViewModel.currentUser!.id, listingId: listingDetail.id, bookingNote: bookingNote) { result in
-//                            switch result {
-//                            case .success(_):
-//                                isBookingRequestViewPresented = false
-//                                isAlreadyBooked = true
-//                            case .failure(let error):
-//                                print("Failed to create booking: \(error)")
-//                            }
-//                        }
-//                    }
-//                    .background(Color.white)
-//                    .cornerRadius(10)
-//                }
-//                
-//            }
         }
     }
 }

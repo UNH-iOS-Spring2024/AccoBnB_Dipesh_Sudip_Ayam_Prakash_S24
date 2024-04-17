@@ -25,24 +25,26 @@ struct Booking: Codable {
     var totalAmount: Float = 0.0
     var hasReviewed: Bool? = false
     var status: BookingStatus = .pending
-    var createdAt: Date? = nil
+    var createdAt: Date
     var updatedAt: Date? = nil
 }
 
 extension Booking {
     static var defaultBooking: Booking {
         return Booking(
-            id: "N7MzOyfs08aD6BuWmLka",
-            userId: "jHWZTnWxDWMuhcEvueuBFUXmou63",
-            listingId: "1M4QVd7B2lEzz6ivpRtB",
+            id: "Ft0fGb0gKlcPlNKjkPKE",
+            userId: "413mr3E1S3M1Bu5Yc0UeYI7Bx9P2",
+            listingId: "7XzzCJQ76AWvtzLV7e4g",
             listingInfo: Listing.defaultListing,
             userInfo: User.defaultGuestUser,
-            bookingNote: "Default bookingDefault bookingDefault bookingDefault bookingDefault booking",
-            totalAmount: 0.0, // or any default amount you want
-            status: .pending,
-            createdAt: Date(timeIntervalSince1970: 1676902184),
-            updatedAt: Date()
+            bookingNote: "This is a book now",
+            totalAmount: 20.0,
+            status: .approved,
+            createdAt: Date(timeIntervalSince1970: 1676896428),
+            updatedAt: Date(timeIntervalSince1970: 1676896463)
         )
     }
 }
+
+
 

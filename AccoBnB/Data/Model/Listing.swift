@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Address: Codable {
     var city: String = ""
@@ -38,11 +39,11 @@ enum ListingType: String, Codable {
     case rental = "RENTAL"
 }
 
-enum Amenity: String, Codable, CaseIterable  {
+enum Amenity: String, Codable, CaseIterable {
     case wifi = "WIFI"
     case parking = "PARKING"
     case gym = "GYM"
-    case airConditioning = "AIR_CONDITIONING"
+    case airConditioning = "COOLING"
     case heating = "HEATING"
     case tv = "TV"
     case kitchen = "KITCHEN"
@@ -51,6 +52,35 @@ enum Amenity: String, Codable, CaseIterable  {
     case elevator = "ELEVATOR"
     case petFriendly = "PET_FRIENDLY"
     case balcony = "BALCONY"
+    
+    var icon: Image {
+        switch self {
+        case .wifi:
+            return Image(systemName: "wifi")
+        case .parking:
+            return Image(systemName: "car.fill")
+        case .gym:
+            return Image(systemName: "dumbbell.fill")
+        case .airConditioning:
+            return Image(systemName: "air.conditioner.horizontal.fill")
+        case .heating:
+            return Image(systemName: "thermometer.sun.fill")
+        case .tv:
+            return Image(systemName: "tv.fill")
+        case .kitchen:
+            return Image(systemName: "house.fill")
+        case .washer:
+            return Image(systemName: "washer.fill")
+        case .dryer:
+            return Image(systemName: "dryer.fill")
+        case .elevator:
+            return Image(systemName: "door.sliding.right.hand.closed")
+        case .petFriendly:
+            return Image(systemName: "pawprint.fill")
+        case .balcony:
+            return Image(systemName: "sun.and.horizon.fill")
+        }
+    }
 }
 
 struct Listing: Codable {
@@ -101,7 +131,7 @@ extension Listing {
             bannerImage: "https://firebasestorage.googleapis.com/v0/b/accobnb-891d3.appspot.com/o/listings%2F257059ba-64a3-4774-8114-45ceb182bd2a?alt=media&token=6b745036-db1c-4fb1-aa9c-7e3092255720",
             imageGallery: [],
             views: 0,
-            amenities: [],
+            amenities: [.wifi, .parking, .tv],
             rating: 0.0,
             reviews: [AccoBnB.Review(id: "B7sjWb8WgvRkcBvGjn0g", reviewerId: "lVaKNAatVObr6hDVD2R6JpycInf1", listingId: "TKYRfDrqM2Vwg1UKsyZ7", rating: 4.0, comment: "Wow! I had an amazing stay.", date: Date()), AccoBnB.Review(id: "Cxhu6vt0Oe11PuSrimHU", reviewerId: "lVaKNAatVObr6hDVD2R6JpycInf1", listingId: "TKYRfDrqM2Vwg1UKsyZ7", rating: 4.0, comment: "It was good.", date: Date()), AccoBnB.Review(id: "LBVoa7koqkLK5btQ8jd1", reviewerId: "lVaKNAatVObr6hDVD2R6JpycInf1", listingId: "TKYRfDrqM2Vwg1UKsyZ7", rating: 4.0, comment: "This is a place i would like to visit again if time permits.sdjflkjsdlkfjlsdjfljlsdjfjlsjlkfjsdkljfkjsdljlfksjlkjflkjsdljflsjlksjfljdlksjflkjalskdjflkjsdlkfjlksjldfk", date: Date()), AccoBnB.Review(id: "Lhu2l6pxvzAMAWlKwdGv", reviewerId: "lVaKNAatVObr6hDVD2R6JpycInf1", listingId: "TKYRfDrqM2Vwg1UKsyZ7", rating: 5.0, comment: "This is brilliant flat", date: Date())],
             histories: [],
