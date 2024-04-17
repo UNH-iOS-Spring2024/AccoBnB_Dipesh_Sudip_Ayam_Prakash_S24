@@ -22,11 +22,9 @@ struct BookingRequestView: View {
             bookingViewModel.updateBooking(booking: bookingDetail) { result in
                 switch result {
                 case .success:
-                    // Handle success
-                    dismiss() // Dismiss the view
+                    dismiss()
                 case .failure(let error):
                     print("Error updating booking status: \(error)")
-                    // Handle failure
                 }
             }
         }
@@ -36,7 +34,6 @@ struct BookingRequestView: View {
         ScrollView {
             VStack(spacing: 20) {
                 if let bookingDetail = bookingDetail {
-                    // Display the booking details
                     ListingInfoView(listing: bookingDetail.listingInfo)
                     Divider()
                     CustomerInfoView(user: bookingDetail.userInfo)
@@ -44,7 +41,6 @@ struct BookingRequestView: View {
                     BookingDetailsView(booking: bookingDetail)
                     Divider()
                     if bookingDetail.status == .pending {
-                        // Accept and Reject Buttons
                         HStack(spacing: 20) {
                             CustomButtonView(buttonText: "Reject", color: "tertiaryColor") {
                                 updateBookingStatus(to: .rejected)
@@ -68,7 +64,6 @@ struct BookingRequestView: View {
                         }
                     }
                 } else {
-                    // Show loading indicator or placeholder
                     ProgressView("Loading Booking detail...")
                 }
             }
@@ -88,7 +83,6 @@ struct BookingRequestView: View {
     }
 }
 
-// Listing Info
 struct ListingInfoView: View {
     var listing: Listing?
     
@@ -100,7 +94,6 @@ struct ListingInfoView: View {
                 .multilineTextAlignment(.center)
                 .padding(.bottom, 15)
             
-            // Display listing information if available
             if let listing = listing {
                 VStack(spacing: 5) {
                     HStack {
@@ -138,7 +131,6 @@ struct ListingInfoView: View {
 }
 
 
-// Customer Information
 struct CustomerInfoView: View {
     var user: User?
     
@@ -150,7 +142,6 @@ struct CustomerInfoView: View {
                 .multilineTextAlignment(.center)
                 .padding(.bottom, 15)
             
-            // Display user information if available
             if let user = user {
                 VStack(spacing: 5) {
                     HStack{
@@ -200,26 +191,19 @@ struct BookingDetailsView: View {
                 .multilineTextAlignment(.center)
                 .padding(.bottom, 15)
             VStack(spacing: 5) {
-                // Requested Date
                 HStack {
-                    Text("Requested on")
+                    Text("Booked on:")
                         .fontWeight(.bold)
                     Spacer()
-                    if let createdAt = booking.createdAt {
-                        Text(createdAt.formattedDateToString())
-                    } else {
-                        Text("N/A")
-                            .foregroundColor(.gray)
-                    }
+                    Text(booking.createdAt.formattedDateTimeToString())
                 }
             }
             VStack(spacing: 5) {
-                // Amount
                 HStack {
-                    Text("Amount")
+                    Text("Total Amount:")
                         .fontWeight(.bold)
                     Spacer()
-                    Text("$\(booking.totalAmount)")
+                    Text(String(format: "$%.2f", booking.totalAmount))
                 }
             }
         }

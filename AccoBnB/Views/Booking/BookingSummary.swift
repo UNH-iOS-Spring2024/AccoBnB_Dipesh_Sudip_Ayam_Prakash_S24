@@ -17,8 +17,6 @@ struct BookingSummary: View {
     
     @State var isReviewedAlready: Bool = false
     
-    private var formattedBookingDetails: [String:Any] = [:]
-    
     init(bookingDetail: Booking) {
         self._bookingDetail = State(initialValue: bookingDetail)
         
@@ -27,13 +25,6 @@ struct BookingSummary: View {
             longitude: Double(bookingDetail.listingInfo?.geoLocation?.long ?? "0.0")!)
         self._region = State(initialValue: MKCoordinateRegion(
             center: center, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)))
-        
-        // converting Date to String type
-        let date = self.bookingDetail.createdAt ?? Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/YYYY HH:MM"
-        let formattedCreatedAt = dateFormatter.string(from: date)
-        self.formattedBookingDetails["createdAt"] = formattedCreatedAt
     }
     var body: some View {
         VStack(alignment: .leading){
@@ -56,13 +47,14 @@ struct BookingSummary: View {
                             .foregroundStyle(Color.gray)
                             .bold()
                         Spacer()
-                        Text(formattedBookingDetails["createdAt"] as? String ?? "")
+                        Text(bookingDetail.createdAt.formattedDateTimeToString())
+                        
                     }
                     HStack{
                         Text("Total Amount:").foregroundStyle(Color.gray)
                             .bold()
                         Spacer()
-                        Text(bookingDetail.totalAmount as? String ?? "0.0")
+                        Text(String(format: "$%.2f", bookingDetail.totalAmount))
                     }
                     HStack{
                         Text("Booking Note:").foregroundStyle(Color.gray)
@@ -78,21 +70,12 @@ struct BookingSummary: View {
                 }
                 .disabled(isReviewedAlready)
             }
-            .disabled(isReviewedAlready)
         }
         .sheet(isPresented: $isBottomSheetViewEnabled) {
             BottomSheetView(isPresented: $isBottomSheetViewEnabled, viewTitle: "Write a review", isRatingViewDisabled: false, showAlert: true, alertTitle: "Confirm Review?", alertMessage: "Please click on confirm button to post your review.") { review, rating in
                 //                    print("TODO: update review to database \(review) \(rating)")
                 Task {
                     try await reviewViewModel.createUserReview(reviewerId: bookingDetail.userId, listingId: bookingDetail.listingId, rating: Float(rating!), comment: review, date: Date())
-            
-            if isBottomSheetViewEnabled{
-                BottomSheetView(isPresented: $isBottomSheetViewEnabled, viewTitle: "Write a review", isRatingViewDisabled: false, showAlert: true, alertTitle: "Confirm Review?", alertMessage: "Please click on confirm button to post your review.") { review, rating in
-//                    print("TODO: update review to database \(review) \(rating)")
-                    Task {
-                        try await reviewViewModel.createUserReview(reviewerId: bookingDetail.userId, listingId: bookingDetail.listingId, rating: Float(rating!), comment: review, date: Date())
-                    }
-                    isReviewedAlready = true
                 }
                 isReviewedAlready = true
             }.presentationDetents([.medium, .medium]).presentationDragIndicator(.visible)
@@ -116,7 +99,6 @@ struct BookingSummary: View {
 struct BookingSummary_Previews: PreviewProvider {
     static var previews: some View {
         let defaultBooking = Booking.defaultBooking
-        let bookingViewModel = BookingViewModel()
         return BookingSummary(bookingDetail: defaultBooking)
             .environmentObject(ReviewViewModel())
             .environmentObject(AuthViewModel())
